@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>img/Button-Delete-icon.png</file>
+        <file>img/Button-Next-icon.png</file>
+        <file>img/Button-Ok-icon.png</file>
+        <file>img/Button-Previous-icon.png</file>
+        <file>img/Button-Reload-icon (1).png</file>
+        <file>img/Button-Reload-icon.png</file>
+        <file>img/sign-down-icon.png</file>
+        <file>img/sign-left-icon.png</file>
+        <file>img/sign-right-icon.png</file>
+        <file>img/sign-up-icon.png</file>
+        <file>img/1496162808_settings.png</file>
+    </qresource>
+</RCC>
