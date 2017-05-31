@@ -1,0 +1,9 @@
+INCLUDEPATH += $$PWD
+#DEPENDPATH += $$PWD
+CURRENT_DIR = $$PWD
+
+CONFIG += c++11
+
+SOURCES +=	$$CURRENT_DIR/cmyo.cpp 
+
+HEADERS +=	$$CURRENT_DIR/cmyo.h
