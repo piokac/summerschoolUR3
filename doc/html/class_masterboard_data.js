@@ -1,0 +1,26 @@
+var class_masterboard_data =
+[
+    [ "MasterboardData", "class_masterboard_data.html#a31b4441bb5def97bef27e6d7955c417d", null ],
+    [ "~MasterboardData", "class_masterboard_data.html#aa278faa88f8aa0db2bd2017dc8c63e5a", null ],
+    [ "analogInput0", "class_masterboard_data.html#abeac3bf5d2818b895f461166c63410fe", null ],
+    [ "analogInput1", "class_masterboard_data.html#a86d44c582fd6f849bb9b9621998f1bc5", null ],
+    [ "analogInputRange0", "class_masterboard_data.html#aeb9b72c238cfa24190b7112da2e391f7", null ],
+    [ "analogInputRange1", "class_masterboard_data.html#ad7220e54014d293f5a47e51c363e749c", null ],
+    [ "analogOutput0", "class_masterboard_data.html#a626a12ed59ad80fccd5423e076489084", null ],
+    [ "analogOutput1", "class_masterboard_data.html#a9aec95dc1f9c449635a42994ed397ecc", null ],
+    [ "analogOutputDomain0", "class_masterboard_data.html#a473d881a7448a49fdede1d6f043e3ed2", null ],
+    [ "analogOutputDomain1", "class_masterboard_data.html#a5f2f33e9672b2e4b25299905ca2939bf", null ],
+    [ "digitalInputBits", "class_masterboard_data.html#a5b73693acadabf590227e0250a3a14e0", null ],
+    [ "digitalOutputBits", "class_masterboard_data.html#a70afb3c562761ccbd605750a327e1d72", null ],
+    [ "euromap67InterfaceInstalled", "class_masterboard_data.html#ab50cd284b178027f0967d59c9bf767dd", null ],
+    [ "euromapCurrent", "class_masterboard_data.html#a5de33b6bfe501f16b024d1fe73a6068d", null ],
+    [ "euromapInputBits", "class_masterboard_data.html#a1df24342848d98dc73740e66f62eb693", null ],
+    [ "euromapOutputBits", "class_masterboard_data.html#aa84d13c86af4bbc42886c2a8b7ade01f", null ],
+    [ "euromapVoltage", "class_masterboard_data.html#a63a73d1b59592125514ef1a5f699da93", null ],
+    [ "masterBoardTemperature", "class_masterboard_data.html#a36b2450f425d0294e3869f987913e6d8", null ],
+    [ "masterIOCurrent", "class_masterboard_data.html#a9f7c90dc9d171ef40c738687a832d061", null ],
+    [ "masterOnOffState", "class_masterboard_data.html#a178b896a5b3b283c38d765c054451793", null ],
+    [ "robotCurrent", "class_masterboard_data.html#aa9853e881bb963f0973c8e8686ef0b4b", null ],
+    [ "robotVoltage48V", "class_masterboard_data.html#aed24ac1a2cb192d7223ff73e2c1b26b3", null ],
+    [ "safetyMode", "class_masterboard_data.html#adc946659ef329f3cb0cac87881533605", null ]
+];
