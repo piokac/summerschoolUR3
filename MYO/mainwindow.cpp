@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    myo = new cMYO(null, this);
+    ui->gridLayout->addWidget(myo->getWidget());
 }
 
 MainWindow::~MainWindow()

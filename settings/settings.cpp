@@ -86,17 +86,17 @@ void Settings::setBinary(QFile *binary) //zapis parametrow do pliku binarnego
     binary->close();
 }
 
-void Settings::Read(QObject object)
+void Settings::Read(QObject* object)
 {
 
 }
 
-void Settings::Serialize(QObject object)
+void Settings::Serialize(QObject* object)
 {
 
 }
 
-void Settings::Modify(QObject object)
+void Settings::Modify(QObject *object)
 {
 
 }

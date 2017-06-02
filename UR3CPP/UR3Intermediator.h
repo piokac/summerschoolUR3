@@ -7,14 +7,15 @@
 #include "UR3Message.h"
 #include "UR3MessageOut.h"
 #include <string>
+#include <QObject>
 
 using namespace std;
 
-class UR3Intermediator
+class UR3Intermediator: public QObject
 {
 
 public:
-
+    Q_OBJECT
     bool Connect();
 
     vector<int> ReadDataFlow();
@@ -27,7 +28,8 @@ public:
     UR3Message DecipherMessage(const vector<int>& DataFlow);
 
     volatile vector<int> DataFlow;
-
+signals:
+    void newTCP(QVector<double> pose);
 
 
 

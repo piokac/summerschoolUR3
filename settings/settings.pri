@@ -4,11 +4,10 @@ CURRENT_DIR = $$PWD
 
 CONFIG += c++11
 
-SOURCES +=$$CURRENT_DIR/settings.cpp
+SOURCES +=$$CURRENT_DIR/settings.cpp \
 $$CURRENT_DIR/settingswindow.cpp
 
-HEADERS +=$$CURRENT_DIR/settings.h
+HEADERS +=$$CURRENT_DIR/settings.h \
 $$CURRENT_DIR/settingswindow.h
 
-FORMS +=$$CURRENT_DIR/settings.ui
-$$CURRENT_DIR/settingswindow.ui
+FORMS += $$CURRENT_DIR/settingswindow.ui

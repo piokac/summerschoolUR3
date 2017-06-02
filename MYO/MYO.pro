@@ -25,9 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    cmyo.cpp
+    cmyo.cpp \
+    myoform.cpp
 
 HEADERS  += mainwindow.h \
-    cmyo.h
+    cmyo.h \
+    myoform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    myoform.ui

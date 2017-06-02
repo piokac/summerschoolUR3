@@ -21,13 +21,16 @@ class Settings : public QObject
 public:
     explicit Settings(QObject *parent = 0);
     ~Settings();
-
+    /**
+     * @brief getBinary
+     * @return
+     */
     QFile* getBinary(); //getter wskaznika do pliku binarnego
     void setBinary(QFile* binary); //funkcja zapisujaca parametry do pliku binarnego
 
-    void Read(QObject object);
-    void Serialize(QObject object);
-    void Modify(QObject object);
+    void Read(QObject* object);
+    void Serialize(QObject* object);
+    void Modify(QObject* object);
 
 signals:
 
