@@ -25,7 +25,12 @@ protected:
 
 public:
     void pobierz_punkt(); ///ma pobrac punkt i dodac go do vector<punkt> punkty
-    virtual QVector<punkt> transformuj() = 0;
+    virtual QVector<punktTCP> transformuj(QVector<punkt> wektor) = 0;
+    /**
+     * @brief transformuj() zwraca wektor punktow TCP, a oczekuje wektora punktow, poniewaz 3 ostatnie argumenty
+     * punktTCP nie ulegaly zmianie - katy ustawienia. ma to skutek taki, ze ostatnia czesc manipulatora
+     * za kazdym razem bd ustawiona pod tym samym kontem.
+     */
     virtual void kalibracja() = 0;
 
 public slots:
