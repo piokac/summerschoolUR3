@@ -3,100 +3,111 @@
 #include <QSettings>
 #include <QFile>
 
-Settings::Settings(QObject *parent) : QObject(parent)
+Settings::Settings(const QString file, QObject *parent):QObject(parent),
+    m_currentObject(NULL), m_window(new SettingsWindow),
+    m_filename(file), m_settings(new QSettings(file, QSettings::IniFormat))
 {
-    Parameters = new UR3Parameters; //przydzielenie pamieci dla parametrow
-    Properties = new QSettings("properties.ini", QSettings::IniFormat); //przydzielenie pamieci dla wlasciwosci (zapis do pliku properties.ini)
+    connect(m_window, SIGNAL(settingsAccepted()), this, SLOT(saveSettings())); //sygnal o zaakaceptowaniu okna ustawien = zapisanie ustawien
 
-    //PARAMETRY TESTOWE (TYMCZASOWE)
-    Parameters->zmiennaBool = true;
-    Parameters->zmiennaChar = 'a';
-    Parameters->zmiennaInt = 1;
-    Parameters->zmiennaFloat = 3.14159265359F;
-    for (int i = 0; i<5;i++)
+    /*if ((!QFile(file).exists()) || QFile(file).size()==0) //tworzenie pliku z wartosciami domyslnymi (gdy plik ustawien nie istnieje)
     {
-        Parameters->piecIntow[i] = i+1;
-    }
-    QString slowo("test123");
-    if (slowo.size()>=10)
-    {
-        slowo.resize(9);
-        slowo[9] = '\0';
-    }
-    else slowo.append('\0');
-    qstrcpy(Parameters->slowo, slowo.toLatin1().data());
+        m_settings->beginGroup("cGamepad");
+        m_settings->endGroup();
 
-    propertiesBinary = new QFile("parameters.bin");
-    setBinary(propertiesBinary);
+        m_settings->beginGroup("cMYO");
+        m_settings->endGroup();
 
-    //WLASCIWOSCI
-    if ((!QFile("properties.ini").exists()) || QFile("properties.ini").size()==0) //jesli plik konfiguracyjny nie istnieje to zostaje utworzony i uzupelniony wartosciami domyslnymi
-    {
-        //WLASCIWOSCI TESTOWE (TYMCZASOWE)
-        Properties->beginGroup("ur3cpp");
-        Properties->setValue("ipaddress", "192.168.100.100");
-        Properties->endGroup();
+        m_settings->beginGroup("polyline2ur3");
+        m_settings->endGroup();
 
-        Properties->beginGroup("kalibracja");
-        Properties->setValue("parametrXYZ", 123);
-        Properties->endGroup();
+        m_settings->beginGroup("UR3CPP");
+        m_settings->endGroup();
 
-        Properties->beginGroup("gamepad");
-        Properties->setValue("padPodlaczony", true);
-        Properties->endGroup();
+        m_settings->beginGroup("kalibracja");
+        m_settings->endGroup();
 
-        Properties->beginGroup("myo");
-        Properties->setValue("myoTest", false);
-        Properties->endGroup();
+        m_settings->beginGroup("text2keyboard");
+        m_settings->endGroup();
 
-        Properties->beginGroup("polyline2ur");
-        Properties->setValue("lines", 5);
-        Properties->endGroup();
+        m_settings->beginGroup("controlpanel");
+        m_settings->endGroup();
 
-        Properties->beginGroup("text2keyboard");
-        Properties->setValue("text", "test123");
-        Properties->endGroup();
-
-        Properties->beginGroup("controlpanel");
-        Properties->setValue("panelIsOpened", true);
-        Properties->endGroup();
-
-        Properties->beginGroup("wizualizacja");
-        Properties->setValue("isMoving", false);
-        Properties->endGroup();
-    }
+        m_settings->beginGroup("wizualizacja");
+        m_settings->endGroup();
+    }*/
 }
 
 Settings::~Settings()
 {
-    delete Parameters;
-    delete Properties;
-    delete propertiesBinary;
+    delete m_settings;
+    delete m_window;
 }
 
-QFile *Settings::getBinary()
+QByteArray Settings::restoreBinary(QObject *object)
 {
-    return propertiesBinary;
+    return 0;
 }
 
-void Settings::setBinary(QFile *binary) //zapis parametrow do pliku binarnego
+bool Settings::serializeBinary(QObject *object, QByteArray data)
 {
-    binary->open(QIODevice::WriteOnly);
-    binary->write(reinterpret_cast<char*>(Parameters), sizeof(UR3Parameters));
-    binary->close();
+    return false;
 }
 
-void Settings::Read(QObject* object)
+void Settings::read(QObject *object) //zapisuje ustawienia do modulu
 {
-
+    const QMetaObject *meta_object = object->metaObject();
+    int ilosc_property = meta_object->propertyCount();
+    QString className(meta_object->className()); //nazwa klasy
+    for (int i = 0; i<ilosc_property; i++)
+    {
+        QMetaProperty metaProperty = meta_object->property(i);
+        if (metaProperty.isWritable() && metaProperty.isUser()) //property zostaje zmienione jesli jest do zapisu
+        {
+            QString propertyName = metaProperty.name(); //nazwa property
+            QVariant value = m_settings->value(className + "/" + propertyName); //wartosc parametru
+            object->setProperty(propertyName.toLatin1().data(), m_settings->value(className + "/" + propertyName)); //zapisanie ustawien do obiektu
+        }
+    }
 }
 
-void Settings::Serialize(QObject* object)
+void Settings::serialize(QObject *object) //zapisuje ustawienia modulu do pliku
 {
-
+    const QMetaObject *meta_object = object->metaObject();
+    int ilosc_property = meta_object->propertyCount();
+    QString className(meta_object->className()); //nazwa klasy
+    for (int i = 0; i<ilosc_property; i++)
+    {
+        QMetaProperty metaProperty = meta_object->property(i);
+        if(metaProperty.isUser())
+        {
+            QString propertyName = metaProperty.name(); //nazwa property
+            QVariant value = metaProperty.read(object); //wartosc parametru
+            m_settings->setValue(className + "/" + propertyName, value); //zapisanie ustawien do pliku
+        }
+    }
 }
 
-void Settings::Modify(QObject *object)
+void Settings::modify(QObject *object) //modyfikuje ustawienia modułu
 {
+    //pobranie informacji z okna ustawien, zapisanie je do QSettings
+    read(object); //przekazanie ustawień do modułu
+}
 
+SettingsWindow *Settings::getWindow()
+{
+    m_window->setWindow(m_currentObject);
+    return m_window;
+}
+
+void Settings::saveSettings()
+{
+    this->modify(m_currentObject);
+}
+
+void Settings::moduleChanged(QObject *object)
+{
+    if (m_currentObject != object)
+    {
+        m_currentObject = object;
+    }
 }

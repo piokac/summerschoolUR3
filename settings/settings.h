@@ -4,43 +4,74 @@
 #include <QObject>
 #include <QSettings>
 #include <QFile>
-
-struct UR3Parameters //struktura zawierajaca paramtery
-{
-    char zmiennaChar;
-    bool zmiennaBool;
-    char slowo[10];
-    int zmiennaInt;
-    float zmiennaFloat;
-    int piecIntow[5];
-};
+#include <settingswindow.h>
+#include <QMetaObject>
+#include <QMetaProperty>
 
 class Settings : public QObject
 {
     Q_OBJECT
 public:
-    explicit Settings(QObject *parent = 0);
-    ~Settings();
     /**
-     * @brief getBinary
-     * @return
+     * @brief Settings  Konstruktor domyślny klasy Settings.
+     * @param file      Nazwa pliku zawierającego ustawienia.
+     * @param parent    Parent klasy Settings.
      */
-    QFile* getBinary(); //getter wskaznika do pliku binarnego
-    void setBinary(QFile* binary); //funkcja zapisujaca parametry do pliku binarnego
+    explicit Settings(const QString file, QObject *parent = 0);
+    ~Settings();
 
-    void Read(QObject* object);
-    void Serialize(QObject* object);
-    void Modify(QObject* object);
+    /**
+     * @brief restoreBinary Metoda zwracająca ustawienia danego modułu.
+     * @param object        Moduł, którego ustawienia są zwracane.
+     * @return              Ustawienia modułu w postaci ciągu bajtów.
+     */
+    QByteArray restoreBinary(QObject *object);
+    /**
+     * @brief serializeBinary   Metoda zapisująca ustawienia danego modułu do pliku binarnego.
+     * @param object            Moduł, którego ustawienia są zapisywane.
+     * @param data              Ustawienia modułu w postaci ciągu bajtów.
+     * @return                  Informacja czy zapis przebiegł pomyślnie.
+     */
+    bool serializeBinary(QObject *object, QByteArray data);
+    /**
+     * @brief read      Metoda odczytująca ustawienia danego modułu.
+     * @param object    Moduł, do którego zapisywane są ustawienia.
+     */
+    void read(QObject *object);
+    /**
+     * @brief serialize Metoda zapisująca ustawienia danego modułu do pliku.
+     * @param object    Moduł, którego ustawienia są zapisywane.
+     */
+    void serialize(QObject *object);
+    /**
+     * @brief modify    Metoda modyfikująca ustawienia danego modułu.
+     * @param object    Moduł, którego ustawienia są modyfikowane.
+     */
+    void modify(QObject *object);
+    /**
+     * @brief getWindow Getter okna ustawień.
+     * @return          Wskaźnik na okno ustawień.
+     */
+    SettingsWindow *getWindow();
 
 signals:
 
 public slots:
+    /**
+     * @brief saveSettings Slot zapisujący ustawienia po zatwierdzeniu okna dialogowego.
+     */
+    void saveSettings();
+    /**
+     * @brief moduleChanged Slot zapisujący informację jaki moduł jest aktualnie obsługiwany.
+     * @param object
+     */
+    void moduleChanged(QObject *object);
 
 private:
-    UR3Parameters *Parameters; //wskaznik do parametrow
-    QSettings *Properties; //wskaznik do wlasciwosci
-    QFile* propertiesBinary; //wskaznik do pliku
-
+    QObject *m_currentObject;///<Wskaźnik na aktualny moduł.
+    SettingsWindow *m_window;///<Wskaźnik na okno ustawień.
+    QSettings *m_settings;///<Wskaźnik na zmienną przechowującą ustawienia wszystkich modułów.
+    QString m_filename;///<Nazwa pliku zawierającego ustawienia.
 };
 
 #endif // SETTINGS_H
