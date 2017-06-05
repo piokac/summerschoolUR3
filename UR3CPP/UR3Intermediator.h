@@ -8,6 +8,7 @@
 #include "UR3MessageOut.h"
 #include <string>
 #include <QObject>
+#include <QTcpSocket>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
     void MoveP(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double blendRadius);
     void MoveL(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double time, double blendRadius);
 
-
+    UR3Intermediator();
     UR3Message GetActualUR3State();
 
 signals:
@@ -36,7 +37,7 @@ private:
     QString IpAddress;
     UR3Message* ActualRobotInfo;
 
-    volatile QByteArray _DataFlow;
+    QByteArray _DataFlow;
     QTcpSocket* _socket;
     bool _connected;
 

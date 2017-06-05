@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->ur3 = new UR3Intermediator();
 }
 
 MainWindow::~MainWindow()

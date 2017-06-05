@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "UR3Intermediator.h"
+
 #include <QMainWindow>
 
 namespace Ui {
@@ -17,6 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    UR3Intermediator* ur3;
 };
 
 #endif // MAINWINDOW_H
