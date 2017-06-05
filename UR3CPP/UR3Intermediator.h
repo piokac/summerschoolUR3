@@ -8,7 +8,6 @@
 #include "UR3MessageOut.h"
 #include <string>
 #include <QObject>
-#include <QTcpSocket>
 
 using namespace std;
 

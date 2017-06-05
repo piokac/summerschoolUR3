@@ -316,7 +316,7 @@ private:
 
 class CartesianInfoData // value 4
 {
-private:
+public:
     double x,y,z;
     double rx, ry, rz;
 

@@ -12,11 +12,12 @@ UR3Message::~UR3Message()
 
 CartesianInfoData UR3Message::getCartesianInfoData() const
 {
-    return cartesianInfoData;
+    //return cartesianInfoData;
 }
 
 void UR3Message::setCartesianInfoData(const QByteArray &DataFlow)
 {
+    //memcpy(this->cartesianInfoData->x,DataFlow,sizeof(this->cartesianInfoData->x));
 
 }
 
