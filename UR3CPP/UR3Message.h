@@ -5,6 +5,7 @@
 #pragma once
 #include <vector>
 #include <inttypes.h>
+#include <QVector>
 
 
 enum RobotMode {
@@ -99,7 +100,7 @@ enum RobotMessageType {
 
 class RobotModeData //value 0
 {
-public:
+private:
     uint64_t timestamp;
 
     bool isRobotConnected;
@@ -116,28 +117,71 @@ public:
     double speedFraction;
     double speedScaling;
 
+public:
     RobotModeData();
     ~RobotModeData();
+
+    uint64_t getTimestamp() const;
+    void setTimestamp(const uint64_t &value);
+    bool getIsRobotConnected() const;
+    void setIsRobotConnected(bool value);
+    bool getIsRealRobotEnabled() const;
+    void setIsRealRobotEnabled(bool value);
+    bool getIsRobotPowerOn() const;
+    void setIsRobotPowerOn(bool value);
+    bool getIsEmergencyStopped() const;
+    void setIsEmergencyStopped(bool value);
+    bool getIsProtectiveStopped() const;
+    void setIsProtectiveStopped(bool value);
+    bool getIsProgramRunning() const;
+    void setIsProgramRunning(bool value);
+    bool getIsProgramPaused() const;
+    void setIsProgramPaused(bool value);
+    RobotMode getRobotMode() const;
+    void setRobotMode(const RobotMode &value);
+    ControlMode getControlMode() const;
+    void setControlMode(const ControlMode &value);
+    double getSpeedFraction() const;
+    void setSpeedFraction(double value);
+    double getSpeedScaling() const;
+    void setSpeedScaling(double value);
 };
 
 class JointData // value 1
 {
-    public:
-    std::vector<double> actualJointPosition;
-    std::vector<double> targetJointPosition;
-    std::vector<double> actualJointSpeed;
-    std::vector<float> actualJointCurrent;
-    std::vector<float> actualJointVoltage;
-    std::vector<float> actualMotorTemprature;
+private:
+    QVector<double> actualJointPosition;
+    QVector<double> targetJointPosition;
+    QVector<double> actualJointSpeed;
+    QVector<float> actualJointCurrent;
+    QVector<float> actualJointVoltage;
+    QVector<float> actualMotorTemprature;
 
     JointMode jointMode;
 
+public:
+    JointData();
     ~JointData();
+
+    QVector<double> getActualJointPosition() const;
+    void setActualJointPosition(const QVector<double> &value);
+    QVector<double> getTargetJointPosition() const;
+    void setTargetJointPosition(const QVector<double> &value);
+    QVector<double> getActualJointSpeed() const;
+    void setActualJointSpeed(const QVector<double> &value);
+    QVector<float> getActualJointCurrent() const;
+    void setActualJointCurrent(const QVector<float> &value);
+    QVector<float> getActualJointVoltage() const;
+    void setActualJointVoltage(const QVector<float> &value);
+    QVector<float> getActualMotorTemprature() const;
+    void setActualMotorTemprature(const QVector<float> &value);
+    JointMode getJointMode() const;
+    void setJointMode(const JointMode &value);
 };
 
 class ToolData //value 2
 {
-    public:
+private:
     char analogInputRange2;
     char analogInputRange3;
 
@@ -151,15 +195,100 @@ class ToolData //value 2
     unsigned char toolOutputVoltage;
 
     ToolMode toolMode;
-
+public:
     ToolData();
     ~ToolData();
 
+    char getAnalogInputRange2() const;
+    void setAnalogInputRange2(char value);
+    char getAnalogInputRange3() const;
+    void setAnalogInputRange3(char value);
+    double getAnalogInput2() const;
+    void setAnalogInput2(double value);
+    double getAnalogInput3() const;
+    void setAnalogInput3(double value);
+    float getToolVoltage48V() const;
+    void setToolVoltage48V(float value);
+    float getToolCurrent() const;
+    void setToolCurrent(float value);
+    float getToolTemperature() const;
+    void setToolTemperature(float value);
+    unsigned char getToolOutputVoltage() const;
+    void setToolOutputVoltage(unsigned char value);
+    ToolMode getToolMode() const;
+    void setToolMode(const ToolMode &value);
 };
 
 class MasterboardData //value 3
 {
-    public:
+public:
+    MasterboardData();
+    ~MasterboardData();
+
+    int getDigitalInputBits() const;
+    void setDigitalInputBits(int value);
+
+    int getDigitalOutputBits() const;
+    void setDigitalOutputBits(int value);
+
+    char getAnalogInputRange0() const;
+    void setAnalogInputRange0(char value);
+
+    char getAnalogInputRange1() const;
+    void setAnalogInputRange1(char value);
+
+    double getAnalogInput0() const;
+    void setAnalogInput0(double value);
+
+    double getAnalogInput1() const;
+    void setAnalogInput1(double value);
+
+    char getAnalogOutputDomain0() const;
+    void setAnalogOutputDomain0(char value);
+
+    char getAnalogOutputDomain1() const;
+    void setAnalogOutputDomain1(char value);
+
+    double getAnalogOutput0() const;
+    void setAnalogOutput0(double value);
+
+    double getAnalogOutput1() const;
+    void setAnalogOutput1(double value);
+
+    float getMasterBoardTemperature() const;
+    void setMasterBoardTemperature(float value);
+
+    float getRobotVoltage48V() const;
+    void setRobotVoltage48V(float value);
+
+    float getRobotCurrent() const;
+    void setRobotCurrent(float value);
+
+    float getMasterIOCurrent() const;
+    void setMasterIOCurrent(float value);
+
+    SafetyMode getSafetyMode() const;
+    void setSafetyMode(const SafetyMode &value);
+
+    unsigned char getMasterOnOffState() const;
+    void setMasterOnOffState(unsigned char value);
+
+    char getEuromap67InterfaceInstalled() const;
+    void setEuromap67InterfaceInstalled(char value);
+
+    int getEuromapInputBits() const;
+    void setEuromapInputBits(int value);
+
+    int getEuromapOutputBits() const;
+    void setEuromapOutputBits(int value);
+
+    float getEuromapVoltage() const;
+    void setEuromapVoltage(float value);
+
+    float getEuromapCurrent() const;
+    void setEuromapCurrent(float value);
+
+private:
     int digitalInputBits;
     int digitalOutputBits;
     char analogInputRange0;
@@ -182,23 +311,35 @@ class MasterboardData //value 3
     float euromapVoltage;
     float euromapCurrent;
 
-    MasterboardData();
-    ~MasterboardData();
+
 };
 
 class CartesianInfoData // value 4
 {
-    public:
+private:
     double x,y,z;
     double rx, ry, rz;
 
+public:
     CartesianInfoData();
     ~CartesianInfoData();
+    double getX() const;
+    void setX(double value);
+    double getY() const;
+    void setY(double value);
+    double getZ() const;
+    void setZ(double value);
+    double getRx() const;
+    void setRx(double value);
+    double getRy() const;
+    void setRy(double value);
+    double getRz() const;
+    void setRz(double value);
 };
 
 class ConfigurationData //value 6
 {
-    public:
+private:
     double jointMinLimit;
     double jointMaxLimit;
     double jointMaxSpeed;
@@ -217,27 +358,77 @@ class ConfigurationData //value 6
     int robotType;
     int robotSubType;
 
+public:
     ConfigurationData();
     ~ConfigurationData();
 
+    double getJointMinLimit() const;
+    void setJointMinLimit(double value);
+    double getJointMaxLimit() const;
+    void setJointMaxLimit(double value);
+    double getJointMaxSpeed() const;
+    void setJointMaxSpeed(double value);
+    double getJointMaxAcceleration() const;
+    void setJointMaxAcceleration(double value);
+    double getVJointDefault() const;
+    void setVJointDefault(double value);
+    double getAJointDefault() const;
+    void setAJointDefault(double value);
+    double getVToolDefault() const;
+    void setVToolDefault(double value);
+    double getAToolDefault() const;
+    void setAToolDefault(double value);
+    double getEqRadius() const;
+    void setEqRadius(double value);
+    double getDHa() const;
+    void setDHa(double value);
+    double getDHd() const;
+    void setDHd(double value);
+    double getDHalpha() const;
+    void setDHalpha(double value);
+    double getDHtheta() const;
+    void setDHtheta(double value);
+    int getMasterboardVersion() const;
+    void setMasterboardVersion(int value);
+    int getControllerBoxType() const;
+    void setControllerBoxType(int value);
+    int getRobotType() const;
+    void setRobotType(int value);
+    int getRobotSubType() const;
+    void setRobotSubType(int value);
 };
 
 class UR3Message
 {
-public:
+private:
 
     //To Do: Zamienic na doxygena
 
     CartesianInfoData cartesianInfoData;        //Polozenie koncowki TCP
     MasterboardData masterboardData;            //Informacje o ukladzie
     ConfigurationData configurationData;        //Informacje o konfiguracji robota, jego typie, maksymalnym zasiegu
-    std::vector<JointData> jointsData;          //Informacje o wezlach robota, ich polozenie, kierunek, predkosc
+    QVector<JointData> jointsData;              //Informacje o wezlach robota, ich polozenie, kierunek, predkosc
     ToolData toolData;                          //???
     RobotModeData robotModeData;                //Podstawowe informacje o robocie
 
+public:
 
     UR3Message();
     ~UR3Message();
+
+    CartesianInfoData getCartesianInfoData() const;
+    void setCartesianInfoData(const QByteArray& DataFlow);
+    MasterboardData getMasterboardData() const;
+    void setMasterboardData(const QByteArray& DataFlow);
+    ConfigurationData getConfigurationData() const;
+    void setConfigurationData(const QByteArray& DataFlow);
+    QVector<JointData> getJointsData() const;
+    void setJointsData(const QByteArray& DataFlow);
+    ToolData getToolData() const;
+    void setToolData(const QByteArray& DataFlow);
+    RobotModeData getRobotModeData() const;
+    void setRobotModeData(const QByteArray& DataFlow);
+
 };
 
 
