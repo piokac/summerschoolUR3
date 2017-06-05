@@ -13,28 +13,44 @@ using namespace std;
 
 class UR3Intermediator: public QObject
 {
+    Q_OBJECT
 
 public:
-    Q_OBJECT
-    bool Connect();
 
-    vector<int> ReadDataFlow();
+    void MoveJ(QVector<double> JointPosition,double JointAcceleration, double JointSpeed, double Time, double BlendRadius);
+    void MoveP(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double blendRadius);
+    void MoveL(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double time, double blendRadius);
 
-    bool SendData(string ParsedToStringMethod);
-    string ParseOutput(UR3MessageOut MessageToSend);
 
-    void LogData(string data);
-    void ViewData();
-    UR3Message DecipherMessage(const vector<int>& DataFlow);
+    UR3Message GetActualUR3State();
 
-    volatile vector<int> DataFlow;
 signals:
+
     void newTCP(QVector<double> pose);
 
+private:
+
+    //Fields
+
+    int Port;
+    QString IpAddress;
+    UR3Message* ActualRobotInfo;
+
+    volatile QByteArray _DataFlow;
+    QTcpSocket* _socket;
+    bool _connected;
+
+    //Methods
+
+    UR3Message GetRobotMessage(const QByteArray& DataFlow);
+    QByteArray ReadDataFlow();
+    bool ConnectToRobot();
 
 
+public slots:
 
-
+    void OnTcpChanged();
+    void OnSocketNewBytesWritten();
 };
 
 

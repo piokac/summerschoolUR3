@@ -12,6 +12,9 @@ using namespace std;
  */
 class UR3MessageOut
 {
+
+    //Nie wydaje sie w obecnym stanie czy jest potrzebna, do ustalenia.
+
 public:
 
     vector<double> JointsPositions;

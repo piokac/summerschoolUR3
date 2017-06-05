@@ -226,9 +226,14 @@ class UR3Message
 {
 public:
 
-    int MessageSize;
-    std::vector<JointData> jointsData;
+    //To Do: Zamienic na doxygena
 
+    CartesianInfoData cartesianInfoData;        //Polozenie koncowki TCP
+    MasterboardData masterboardData;            //Informacje o ukladzie
+    ConfigurationData configurationData;        //Informacje o konfiguracji robota, jego typie, maksymalnym zasiegu
+    std::vector<JointData> jointsData;          //Informacje o wezlach robota, ich polozenie, kierunek, predkosc
+    ToolData toolData;                          //???
+    RobotModeData robotModeData;                //Podstawowe informacje o robocie
 
 
     UR3Message();
