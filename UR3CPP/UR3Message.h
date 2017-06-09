@@ -6,6 +6,8 @@
 #include <vector>
 #include <inttypes.h>
 #include <QVector>
+#include <stdlib.h>
+#include <string.h>
 
 
 enum RobotMode {
@@ -316,7 +318,7 @@ private:
 
 class CartesianInfoData // value 4
 {
-public:
+private:
     double x,y,z;
     double rx, ry, rz;
 
@@ -400,7 +402,7 @@ public:
 
 class UR3Message
 {
-private:
+public:
 
     //To Do: Zamienic na doxygena
 
@@ -417,7 +419,7 @@ public:
     ~UR3Message();
 
     CartesianInfoData getCartesianInfoData() const;
-    void setCartesianInfoData(const QByteArray& DataFlow);
+    void setCartesianInfoData(QByteArray &DataFlow);
     MasterboardData getMasterboardData() const;
     void setMasterboardData(const QByteArray& DataFlow);
     ConfigurationData getConfigurationData() const;

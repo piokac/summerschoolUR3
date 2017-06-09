@@ -12,12 +12,36 @@ UR3Message::~UR3Message()
 
 CartesianInfoData UR3Message::getCartesianInfoData() const
 {
-    //return cartesianInfoData;
+    return cartesianInfoData;
 }
 
-void UR3Message::setCartesianInfoData(const QByteArray &DataFlow)
+void UR3Message::setCartesianInfoData(QByteArray &DataFlow)
 {
-    //memcpy(this->cartesianInfoData->x,DataFlow,sizeof(this->cartesianInfoData->x));
+    int offset = 0;
+    char *data = DataFlow.data();
+    double tmp;
+
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setX(tmp);
+    offset+=sizeof(tmp);
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setY(tmp);
+    offset+=sizeof(tmp);
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setZ(tmp);
+    offset+=sizeof(tmp);
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setRx(tmp);
+    offset+=sizeof(tmp);
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setRy(tmp);
+    offset+=sizeof(tmp);
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setRz(tmp);
+    offset+=sizeof(tmp);
+
+
+
 
 }
 
