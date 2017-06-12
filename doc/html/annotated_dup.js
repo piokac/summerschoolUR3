@@ -5,8 +5,6 @@ var annotated_dup =
     [ "cKalibracja1D", "classc_kalibracja1_d.html", "classc_kalibracja1_d" ],
     [ "cKalibracja2D", "classc_kalibracja2_d.html", "classc_kalibracja2_d" ],
     [ "cKalibracja3d", "classc_kalibracja3d.html", "classc_kalibracja3d" ],
-    [ "cKalibruj1D", "classc_kalibruj1_d.html", "classc_kalibruj1_d" ],
-    [ "cKalibruj3D", "classc_kalibruj3_d.html", "classc_kalibruj3_d" ],
     [ "cMYO", "classc_m_y_o.html", "classc_m_y_o" ],
     [ "ConfigurationData", "class_configuration_data.html", "class_configuration_data" ],
     [ "controlpanel", "classcontrolpanel.html", "classcontrolpanel" ],
@@ -15,6 +13,7 @@ var annotated_dup =
     [ "kalibracja", "classkalibracja.html", "classkalibracja" ],
     [ "MainWindow", "class_main_window.html", "class_main_window" ],
     [ "MasterboardData", "class_masterboard_data.html", "class_masterboard_data" ],
+    [ "MYOForm", "class_m_y_o_form.html", "class_m_y_o_form" ],
     [ "Polyline2UR3", "class_polyline2_u_r3.html", "class_polyline2_u_r3" ],
     [ "punkt", "structpunkt.html", "structpunkt" ],
     [ "punkt2D", "structpunkt2_d.html", "structpunkt2_d" ],
@@ -27,6 +26,5 @@ var annotated_dup =
     [ "UR3Intermediator", "class_u_r3_intermediator.html", "class_u_r3_intermediator" ],
     [ "UR3MainWindow", "class_u_r3_main_window.html", "class_u_r3_main_window" ],
     [ "UR3Message", "class_u_r3_message.html", "class_u_r3_message" ],
-    [ "UR3MessageOut", "class_u_r3_message_out.html", "class_u_r3_message_out" ],
-    [ "UR3Parameters", "struct_u_r3_parameters.html", "struct_u_r3_parameters" ]
+    [ "UR3MessageOut", "class_u_r3_message_out.html", "class_u_r3_message_out" ]
 ];

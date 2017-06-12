@@ -1,11 +1,11 @@
 var class_u_r3_intermediator =
 [
-    [ "Connect", "class_u_r3_intermediator.html#a01f41b8a6653841a1d3da1c4d0c68193", null ],
-    [ "DecipherMessage", "class_u_r3_intermediator.html#aec6ded99f4e9687016e9388952b32a4e", null ],
-    [ "LogData", "class_u_r3_intermediator.html#ab9f55def3b06f84caeeb0e1358c34047", null ],
-    [ "ParseOutput", "class_u_r3_intermediator.html#a14c076ad4e4568c289175f11d007c72d", null ],
-    [ "ReadDataFlow", "class_u_r3_intermediator.html#a5fd130f6e0da62600065b27545adc8e9", null ],
-    [ "SendData", "class_u_r3_intermediator.html#a0e86ef68d7f2eae8817fd0768d4a83de", null ],
-    [ "ViewData", "class_u_r3_intermediator.html#afde26dfdee553e619f4637df298e286d", null ],
-    [ "DataFlow", "class_u_r3_intermediator.html#a27abfec1da638093399c9bc2ee002a16", null ]
+    [ "UR3Intermediator", "class_u_r3_intermediator.html#ae8b44f4ac9b5bc3c1c6c6cb9908cdc76", null ],
+    [ "GetActualUR3State", "class_u_r3_intermediator.html#a28704bd3002c9618cb70d944b1dbdc3a", null ],
+    [ "MoveJ", "class_u_r3_intermediator.html#a0adecd36d4933a43a2809c9fc530ef2d", null ],
+    [ "MoveL", "class_u_r3_intermediator.html#a148ca9b7e40ce9b7d9c8f4cd2e14be16", null ],
+    [ "MoveP", "class_u_r3_intermediator.html#aa53b4ea278831dc3151af57fc458b146", null ],
+    [ "newTCP", "class_u_r3_intermediator.html#a672fa39b1c2c9c8cbfae506f0af0fc8e", null ],
+    [ "OnSocketNewBytesWritten", "class_u_r3_intermediator.html#a8189197f28ec1867c2352debe8526d9a", null ],
+    [ "OnTcpChanged", "class_u_r3_intermediator.html#a91e77162d34a2023cba3099c8e7bc471", null ]
 ];

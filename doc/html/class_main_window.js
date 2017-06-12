@@ -11,5 +11,21 @@ var class_main_window =
     [ "MainWindow", "class_main_window.html#a8b244be8b7b7db1b08de2a2acb9409db", null ],
     [ "~MainWindow", "class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7", null ],
     [ "MainWindow", "class_main_window.html#a8b244be8b7b7db1b08de2a2acb9409db", null ],
-    [ "~MainWindow", "class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7", null ]
+    [ "~MainWindow", "class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7", null ],
+    [ "MainWindow", "class_main_window.html#a8b244be8b7b7db1b08de2a2acb9409db", null ],
+    [ "~MainWindow", "class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7", null ],
+    [ "currentModuleChanged", "class_main_window.html#a90ae236f12485ad38dec316e8a6a4c6d", null ],
+    [ "getCurrentModule", "class_main_window.html#a5a6cc431c9511b7b9203386d9a178c50", null ],
+    [ "getIP", "class_main_window.html#ae03101646a6113948f7bbf1db2f9dc85", null ],
+    [ "getZmiennaBool", "class_main_window.html#af9f8d7ccabecee8a71691d7741810470", null ],
+    [ "getZmiennaDouble", "class_main_window.html#a5ee222d8f514ba58cf012dc29a247e5f", null ],
+    [ "getZmiennaInt", "class_main_window.html#af6774379492d1fc74107b796e3c78ebb", null ],
+    [ "setIP", "class_main_window.html#adaf66e4590384ac804f26167b6bec1af", null ],
+    [ "setZmiennaBool", "class_main_window.html#a2deced4cca8539dac711fe12c7713d92", null ],
+    [ "setZmiennaDouble", "class_main_window.html#a00dcb19f4b51d0a477d54eee86ede2c6", null ],
+    [ "setZmiennaInt", "class_main_window.html#a4eb8a8044268b2ea531e3ca2d0a99535", null ],
+    [ "adresIP", "class_main_window.html#ad295c670eabc6cedea6f34cf12ed84e0", null ],
+    [ "liczbaDouble", "class_main_window.html#afb24f320f143bc1d81b12473fb78536e", null ],
+    [ "liczbaInt", "class_main_window.html#ad81fbc2605cea31bcc4435a036484d4d", null ],
+    [ "stanBool", "class_main_window.html#a5e4352a00fa628ce4fde188c1a1e4b14", null ]
 ];

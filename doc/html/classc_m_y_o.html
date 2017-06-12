@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('classc_m_y_o.html','');});
 <a href="#pub-slots">Public Slots</a> &#124;
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="classc_m_y_o-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">cMYO Class Reference</div>  </div>
@@ -127,9 +128,12 @@ Collaboration diagram for cMYO:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
-<tr class="memitem:a138c0fa82bd7354e54b63e5b32e19e4d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a138c0fa82bd7354e54b63e5b32e19e4d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>polacz_z_myo</b> (QString IP, int port)</td></tr>
-<tr class="separator:a138c0fa82bd7354e54b63e5b32e19e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d807f1c3adae8ba9fe1a4d954da232"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43d807f1c3adae8ba9fe1a4d954da232"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b> (QString IP, int port)</td></tr>
+<tr class="separator:a43d807f1c3adae8ba9fe1a4d954da232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69c32beb815b5d51b3fdcaff5428afef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69c32beb815b5d51b3fdcaff5428afef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>polacz_z_myo</b> ()</td></tr>
+<tr class="separator:a69c32beb815b5d51b3fdcaff5428afef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
@@ -142,15 +146,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>rotacja</b> (double k
 <tr class="memitem:a6e8e01b145b226e18b2534f22196bf21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e8e01b145b226e18b2534f22196bf21"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>koncowka</b> (bool zacisniete)</td></tr>
 <tr class="separator:a6e8e01b145b226e18b2534f22196bf21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cf3576200613e56ea8db96a7fa82712"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9cf3576200613e56ea8db96a7fa82712"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nowyGest</b> (QString)</td></tr>
+<tr class="separator:a9cf3576200613e56ea8db96a7fa82712"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab428e5209674d589df45d0e2ea25f5b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab428e5209674d589df45d0e2ea25f5b0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>cMYO</b> (QObject *parent=0)</td></tr>
-<tr class="separator:ab428e5209674d589df45d0e2ea25f5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af37e2d3ea616f457bd30420dcb35c707"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af37e2d3ea616f457bd30420dcb35c707"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>cMYO</b> (<a class="el" href="class_u_r3_intermediator.html">UR3Intermediator</a> *robot, QObject *parent=0)</td></tr>
+<tr class="separator:af37e2d3ea616f457bd30420dcb35c707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0afdb82611d1f9148c8ff7efd663a2e3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0afdb82611d1f9148c8ff7efd663a2e3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sprawdz_ruch</b> ()</td></tr>
 <tr class="separator:a0afdb82611d1f9148c8ff7efd663a2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a395d7fd2267167e588e73d61fd6900fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a395d7fd2267167e588e73d61fd6900fd"></a>
+QWidget *&#160;</td><td class="memItemRight" valign="bottom"><b>getWidget</b> ()</td></tr>
+<tr class="separator:a395d7fd2267167e588e73d61fd6900fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72e89d9afab35adaed9c947fecbd6328"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a72e89d9afab35adaed9c947fecbd6328"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>getIP</b> () const </td></tr>
+<tr class="separator:a72e89d9afab35adaed9c947fecbd6328"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9c0ae9d3187b9ea3e505d4c44d93fce"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9c0ae9d3187b9ea3e505d4c44d93fce"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setIP</b> (const QString &amp;IP)</td></tr>
+<tr class="separator:aa9c0ae9d3187b9ea3e505d4c44d93fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:af855e68fb1036cc3b7cb8f6e2722fd22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af855e68fb1036cc3b7cb8f6e2722fd22"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>adresIP</b></td></tr>
+<tr class="separator:af855e68fb1036cc3b7cb8f6e2722fd22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/piotr/workspace/UR3/MYO/<a class="el" href="cmyo_8h_source.html">cmyo.h</a></li>

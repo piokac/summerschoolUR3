@@ -106,39 +106,61 @@ $(document).ready(function(){initNavTree('class_joint_data.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_joint_data-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">JointData Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ab3bd9c4d976b50265688e2d23fa5978d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3bd9c4d976b50265688e2d23fa5978d"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actualJointPosition</b></td></tr>
-<tr class="separator:ab3bd9c4d976b50265688e2d23fa5978d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc738ecaa667482a105dd9f0b0ab0d3b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc738ecaa667482a105dd9f0b0ab0d3b"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>targetJointPosition</b></td></tr>
-<tr class="separator:abc738ecaa667482a105dd9f0b0ab0d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2139f4eb4f1a8bc34b41ad4588bf1b5d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2139f4eb4f1a8bc34b41ad4588bf1b5d"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actualJointSpeed</b></td></tr>
-<tr class="separator:a2139f4eb4f1a8bc34b41ad4588bf1b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59ea16a0425028d04a3d57de343768e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59ea16a0425028d04a3d57de343768e4"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actualJointCurrent</b></td></tr>
-<tr class="separator:a59ea16a0425028d04a3d57de343768e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ec080c0b83d2abeae558e5d46099b17"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ec080c0b83d2abeae558e5d46099b17"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actualJointVoltage</b></td></tr>
-<tr class="separator:a8ec080c0b83d2abeae558e5d46099b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9670df332895d53e12e8fb83c8ec4063"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9670df332895d53e12e8fb83c8ec4063"></a>
-std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>actualMotorTemprature</b></td></tr>
-<tr class="separator:a9670df332895d53e12e8fb83c8ec4063"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad62a17608754446e72f7e58437578bc0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad62a17608754446e72f7e58437578bc0"></a>
-JointMode&#160;</td><td class="memItemRight" valign="bottom"><b>jointMode</b></td></tr>
-<tr class="separator:ad62a17608754446e72f7e58437578bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8c3b3af15baafdf3dd0bfe3a0476cd1c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c3b3af15baafdf3dd0bfe3a0476cd1c"></a>
+QVector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getActualJointPosition</b> () const </td></tr>
+<tr class="separator:a8c3b3af15baafdf3dd0bfe3a0476cd1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48915721dc03284678bfaf37ef1520bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48915721dc03284678bfaf37ef1520bc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setActualJointPosition</b> (const QVector&lt; double &gt; &amp;value)</td></tr>
+<tr class="separator:a48915721dc03284678bfaf37ef1520bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeb91260ce51adcde6fb124999719610"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afeb91260ce51adcde6fb124999719610"></a>
+QVector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getTargetJointPosition</b> () const </td></tr>
+<tr class="separator:afeb91260ce51adcde6fb124999719610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcedf5efd6151c9bf798ca5ef39762a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adcedf5efd6151c9bf798ca5ef39762a6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTargetJointPosition</b> (const QVector&lt; double &gt; &amp;value)</td></tr>
+<tr class="separator:adcedf5efd6151c9bf798ca5ef39762a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af163d81d0611b7ecacf26d3e650e74e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af163d81d0611b7ecacf26d3e650e74e7"></a>
+QVector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getActualJointSpeed</b> () const </td></tr>
+<tr class="separator:af163d81d0611b7ecacf26d3e650e74e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1515358729a22bfe2daaa480b5954f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1515358729a22bfe2daaa480b5954f1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setActualJointSpeed</b> (const QVector&lt; double &gt; &amp;value)</td></tr>
+<tr class="separator:ad1515358729a22bfe2daaa480b5954f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a459d8e43c750f6f7055c317aebf60ade"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a459d8e43c750f6f7055c317aebf60ade"></a>
+QVector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getActualJointCurrent</b> () const </td></tr>
+<tr class="separator:a459d8e43c750f6f7055c317aebf60ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ba51fec477fc87d3654eff2545c0967"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ba51fec477fc87d3654eff2545c0967"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setActualJointCurrent</b> (const QVector&lt; float &gt; &amp;value)</td></tr>
+<tr class="separator:a0ba51fec477fc87d3654eff2545c0967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747f8c579143b2b6e0a4bf60686f3b21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a747f8c579143b2b6e0a4bf60686f3b21"></a>
+QVector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getActualJointVoltage</b> () const </td></tr>
+<tr class="separator:a747f8c579143b2b6e0a4bf60686f3b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca853d41948baede1173500f418283e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca853d41948baede1173500f418283e6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setActualJointVoltage</b> (const QVector&lt; float &gt; &amp;value)</td></tr>
+<tr class="separator:aca853d41948baede1173500f418283e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48f01090f6af0a2273407b92fa53a908"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48f01090f6af0a2273407b92fa53a908"></a>
+QVector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getActualMotorTemprature</b> () const </td></tr>
+<tr class="separator:a48f01090f6af0a2273407b92fa53a908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c6b4292939009d8a9a935ecd77088f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2c6b4292939009d8a9a935ecd77088f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setActualMotorTemprature</b> (const QVector&lt; float &gt; &amp;value)</td></tr>
+<tr class="separator:ae2c6b4292939009d8a9a935ecd77088f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810b05cea34b07df9527a0ea75b05b61"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a810b05cea34b07df9527a0ea75b05b61"></a>
+JointMode&#160;</td><td class="memItemRight" valign="bottom"><b>getJointMode</b> () const </td></tr>
+<tr class="separator:a810b05cea34b07df9527a0ea75b05b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeab232f373a68cdc401cffc7da932f44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeab232f373a68cdc401cffc7da932f44"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setJointMode</b> (const JointMode &amp;value)</td></tr>
+<tr class="separator:aeab232f373a68cdc401cffc7da932f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/piotr/workspace/UR3/UR3CPP/<a class="el" href="_u_r3_message_8h_source.html">UR3Message.h</a></li>
+<li>/home/piotr/workspace/UR3/UR3CPP/UR3Message.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

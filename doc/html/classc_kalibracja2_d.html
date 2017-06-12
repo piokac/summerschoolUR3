@@ -132,17 +132,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a808049dfb52ee94ed476e93c1c03df52"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a808049dfb52ee94ed476e93c1c03df52"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>kalibruj</b> ()</td></tr>
 <tr class="separator:a808049dfb52ee94ed476e93c1c03df52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47618d4927c510ac713f9f1be1508f8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47618d4927c510ac713f9f1be1508f8b"></a>
-QVector&lt; <a class="el" href="structpunkt_t_c_p.html">punktTCP</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_kalibracja2_d.html#a47618d4927c510ac713f9f1be1508f8b">transformuj</a> (QVector&lt; <a class="el" href="structpunkt_t_c_p.html">punktTCP</a> &gt; wektor)</td></tr>
-<tr class="memdesc:a47618d4927c510ac713f9f1be1508f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">kalibruje punkty <br /></td></tr>
-<tr class="separator:a47618d4927c510ac713f9f1be1508f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b7f58f81de95d681128d8b273060a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37b7f58f81de95d681128d8b273060a6"></a>
+QVector&lt; <a class="el" href="structpunkt_t_c_p.html">punktTCP</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_kalibracja2_d.html#a37b7f58f81de95d681128d8b273060a6">transformuj</a> (QVector&lt; <a class="el" href="structpunkt.html">punkt</a> &gt; wektor)</td></tr>
+<tr class="memdesc:a37b7f58f81de95d681128d8b273060a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">kalibruje punkty <br /></td></tr>
+<tr class="separator:a37b7f58f81de95d681128d8b273060a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17a310f50a81ec33f2038a87ceb18f5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_kalibracja2_d.html#a17a310f50a81ec33f2038a87ceb18f5a">~kalibracja2D</a> ()</td></tr>
 <tr class="separator:a17a310f50a81ec33f2038a87ceb18f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a21788c9f9cf9596a5302c78a47f13528"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21788c9f9cf9596a5302c78a47f13528"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>kalibruj</b> (QVector&lt; <a class="el" href="structpunkt.html">punkt</a> &gt; pkt)</td></tr>
+<tr class="memitem:a21788c9f9cf9596a5302c78a47f13528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classc_kalibracja2_d.html#a21788c9f9cf9596a5302c78a47f13528">kalibruj</a> (QVector&lt; <a class="el" href="structpunkt.html">punkt</a> &gt; pkt)</td></tr>
 <tr class="separator:a21788c9f9cf9596a5302c78a47f13528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -159,6 +158,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>kalibruj</b> (QVector
       </table>
 </div><div class="memdoc">
 <p>transformuj dla ulatwienia zwraca caly wektor punktow juz przetworzonych zamiast pojedynczego punktu zwraca on pierwsze 3 punkty przetworzone - x,y,z oraz katy takie same, jakie dostal/ </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a21788c9f9cf9596a5302c78a47f13528"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cKalibracja2D::kalibruj </td>
+          <td>(</td>
+          <td class="paramtype">QVector&lt; <a class="el" href="structpunkt.html">punkt</a> &gt;&#160;</td>
+          <td class="paramname"><em>pkt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Klasa ma za zadanie kalibrowac punkty znajdujace sie w jednej lini. Przydatne do kalibracji np. klawiatury. ustawiamy wtedy punkt poczatkowy np. klawisz "q" a puzniej punkt koncowy np. klawisz "p". Wtedy dla kozystajacego z modulu kalibracji klawisz "q" bedzie mial wartosc &lt;0,0&gt; natomiast "p" bedzie mial wartosc &lt;1,0&gt; poniewaz poruszac bedziemy sie w skali od 0 do 1. druga wspolrzedna oznacza wysokosc. T.j. jesli wartosc bedzie wynosila 0, oznacza, ze klawisz bedzie wcisniety, natomiast wartosc 1 bd oznaczala podniesiony manipulator, wykorzystywany np podczas zmiany klawisza. </p>
 
 </div>
 </div>

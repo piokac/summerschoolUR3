@@ -1,10 +1,13 @@
 var class_settings =
 [
-    [ "Settings", "class_settings.html#af88ba9c76af5ca1795aeda2b9937215e", null ],
+    [ "Settings", "class_settings.html#aa90e6b3a48bf0ed942ede9c41b8c4b51", null ],
     [ "~Settings", "class_settings.html#a4a65be5921dfc9fddc476e5320541d89", null ],
-    [ "getBinary", "class_settings.html#a56fb18566987713590a289452d3a298b", null ],
-    [ "Modify", "class_settings.html#aa92bdf9e2643f30ff6e2c59fd186d453", null ],
-    [ "Read", "class_settings.html#a3ea79f4bae57c0bf43e2283ff590ae53", null ],
-    [ "Serialize", "class_settings.html#a08dc7c86115de0083d5fe5e5466d3e21", null ],
-    [ "setBinary", "class_settings.html#afa522d212f4358848d6b21e2a12fcca2", null ]
+    [ "getWindow", "class_settings.html#a77dfdf7a8e7a008d67c7981797290a8b", null ],
+    [ "modify", "class_settings.html#a840359be7bb76ea49909f5aebbb2864e", null ],
+    [ "moduleChanged", "class_settings.html#afeeb163bb1a19c62d665a7c4518ec677", null ],
+    [ "read", "class_settings.html#ade2b279447167c16c6544fd3469e3972", null ],
+    [ "restoreBinary", "class_settings.html#a6db597bfbda1b4b0c87618b56839f771", null ],
+    [ "saveSettings", "class_settings.html#a4c5d90390125e939d5e6299340e586a1", null ],
+    [ "serialize", "class_settings.html#aeee0543dd39c86c3fe5c5e28061b8f64", null ],
+    [ "serializeBinary", "class_settings.html#a1d82e40652004d9f5cbc2a683bb20c6c", null ]
 ];

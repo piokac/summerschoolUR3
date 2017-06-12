@@ -8,11 +8,7 @@ var hierarchy =
     [ "JointData", "class_joint_data.html", null ],
     [ "kalibracja", "classkalibracja.html", [
       [ "cKalibracja1D", "classc_kalibracja1_d.html", null ],
-      [ "cKalibracja3d", "classc_kalibracja3d.html", null ],
-      [ "cKalibruj3D", "classc_kalibruj3_d.html", null ]
-    ] ],
-    [ "kalibruj", null, [
-      [ "cKalibruj1D", "classc_kalibruj1_d.html", null ]
+      [ "cKalibracja3d", "classc_kalibracja3d.html", null ]
     ] ],
     [ "MasterboardData", "class_masterboard_data.html", null ],
     [ "punkt", "structpunkt.html", null ],
@@ -35,20 +31,21 @@ var hierarchy =
       [ "MainWindow", "class_main_window.html", null ],
       [ "MainWindow", "class_main_window.html", null ],
       [ "MainWindow", "class_main_window.html", null ],
+      [ "MainWindow", "class_main_window.html", null ],
       [ "UR3MainWindow", "class_u_r3_main_window.html", null ]
     ] ],
     [ "QObject", null, [
       [ "cMYO", "classc_m_y_o.html", null ],
       [ "Polyline2UR3", "class_polyline2_u_r3.html", null ],
-      [ "Settings", "class_settings.html", null ]
+      [ "Settings", "class_settings.html", null ],
+      [ "UR3Intermediator", "class_u_r3_intermediator.html", null ]
     ] ],
     [ "QWidget", null, [
-      [ "controlpanel", "classcontrolpanel.html", null ]
+      [ "controlpanel", "classcontrolpanel.html", null ],
+      [ "MYOForm", "class_m_y_o_form.html", null ]
     ] ],
     [ "RobotModeData", "class_robot_mode_data.html", null ],
     [ "ToolData", "class_tool_data.html", null ],
-    [ "UR3Intermediator", "class_u_r3_intermediator.html", null ],
     [ "UR3Message", "class_u_r3_message.html", null ],
-    [ "UR3MessageOut", "class_u_r3_message_out.html", null ],
-    [ "UR3Parameters", "struct_u_r3_parameters.html", null ]
+    [ "UR3MessageOut", "class_u_r3_message_out.html", null ]
 ];
