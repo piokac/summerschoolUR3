@@ -25,6 +25,7 @@ public:
     UR3Intermediator();
     UR3Message GetActualUR3State();
 
+
 signals:
 
     void newTCP(QVector<double> pose);
@@ -43,7 +44,7 @@ private:
 
     //Methods
 
-    UR3Message GetRobotMessage(const QByteArray& DataFlow);
+    void GetRobotMessage(QByteArray &DataFlow);
     QByteArray ReadDataFlow();
     bool ConnectToRobot();
 

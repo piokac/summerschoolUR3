@@ -2,12 +2,20 @@
 
 #include <QHostAddress>
 
-
 UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.146.128")
 {
     this->_socket = new QTcpSocket();
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
     ConnectToRobot();
+
+}
+
+void UR3Intermediator::GetRobotMessage( QByteArray &DataFlow)
+{
+    char * buffer = DataFlow.data();
+    unsigned int offset = 0;
+    int size;
+
 
 }
 
