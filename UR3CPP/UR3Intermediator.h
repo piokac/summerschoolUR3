@@ -37,14 +37,15 @@ private:
     int Port;
     QString IpAddress;
     UR3Message* ActualRobotInfo;
-
+    char * data; //tutaj bedziemy przechowywac dataflow
     QByteArray _DataFlow;
     QTcpSocket* _socket;
     bool _connected;
 
     //Methods
 
-    void GetRobotMessage(QByteArray &DataFlow);
+    void GetRobotData();
+    void GetRobotMessage(char * data, unsigned int &offset);
     QByteArray ReadDataFlow();
     bool ConnectToRobot();
 

@@ -10,12 +10,41 @@ UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("19
 
 }
 
-void UR3Intermediator::GetRobotMessage( QByteArray &DataFlow)
+void UR3Intermediator::GetRobotData()
 {
-    char * buffer = DataFlow.data();
+    int size = 0;
     unsigned int offset = 0;
-    int size;
+    memcpy(&size, &data[offset], sizeof(size));
+    offset += sizeof(size);
+    while(offset<size){
+        unsigned char messageType;
+        memcpy(&messageType,&data[offset],sizeof(messageType));
+        offset+=sizeof(messageType);
 
+        switch(messageType){
+        case ROBOT_MESSAGE:
+            break;
+        case ROBOT_STATE:
+        {
+            break;
+        }
+
+        case PROGRAM_STATE_MESSAGE:
+            break;
+        default:
+            break;
+        }
+
+    }
+
+
+
+}
+
+void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset)
+{
+    int sizeOfPackage;
+    memcpy(&sizeOfPackage, &data[offset], sizeof(sizeOfPackage));
 
 }
 
