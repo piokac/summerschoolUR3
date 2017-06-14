@@ -419,17 +419,17 @@ public:
     ~UR3Message();
 
     CartesianInfoData getCartesianInfoData() const;
-    void setCartesianInfoData(char *data, int offset);
+    void setCartesianInfoData(char *data, int &offset);
     MasterboardData getMasterboardData() const;
-    void setMasterboardData(char *data, int offset);
+    void setMasterboardData(char *data, int &offset);
     ConfigurationData getConfigurationData() const;
-    void setConfigurationData(char *data, int offset);
+    void setConfigurationData(char *data, int &offset);
     QVector<JointData> getJointsData() const;
-    void setJointsData(char *data, int offset);
+    void setJointsData(char *data, int &offset);
     ToolData getToolData() const;
-    void setToolData(char *data, int offset);
+    void setToolData(char *data, int &offset);
     RobotModeData getRobotModeData() const;
-    void setRobotModeData(char *data, int offset);
+    void setRobotModeData(char *data, int &offset);
 
 };
 
