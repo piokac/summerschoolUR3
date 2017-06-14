@@ -37,7 +37,7 @@ private:
     int Port;
     QString IpAddress;
     UR3Message* ActualRobotInfo;
-    char * data; //tutaj bedziemy przechowywac dataflow
+    char * _data; //tutaj bedziemy przechowywac dataflow
     QByteArray _DataFlow;
     QTcpSocket* _socket;
     bool _connected;
