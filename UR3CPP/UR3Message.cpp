@@ -15,7 +15,7 @@ CartesianInfoData UR3Message::getCartesianInfoData() const
     return cartesianInfoData;
 }
 
-void UR3Message::setCartesianInfoData(char *data, int &offset)
+void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
 {
     double tmp;
 
@@ -48,7 +48,7 @@ MasterboardData UR3Message::getMasterboardData() const
     return masterboardData;
 }
 
-void UR3Message::setMasterboardData(char *data, int &offset)
+void UR3Message::setMasterboardData(char *data, int offset)
 {
 
 }
@@ -59,7 +59,7 @@ ConfigurationData UR3Message::getConfigurationData() const
     return configurationData;
 }
 
-void UR3Message::setConfigurationData(char *data, int &offset)
+void UR3Message::setConfigurationData(char *data, unsigned int offset)
 {
 
 }
@@ -70,7 +70,7 @@ QVector<JointData> UR3Message::getJointsData() const
     return jointsData;
 }
 
-void UR3Message::setJointsData(char *data, int &offset)
+void UR3Message::setJointsData(char *data, int offset)
 {
 
 }
@@ -80,7 +80,7 @@ ToolData UR3Message::getToolData() const
     return toolData;
 }
 
-void UR3Message::setToolData(char *data, int &offset)
+void UR3Message::setToolData(char *data, int offset)
 {
 
 }
@@ -89,6 +89,11 @@ void UR3Message::setToolData(char *data, int &offset)
 RobotModeData UR3Message::getRobotModeData() const
 {
     return robotModeData;
+}
+
+void UR3Message::setRobotModeData(char *data, int offset)
+{
+
 }
 
 

@@ -45,7 +45,7 @@ private:
     //Methods
 
     void GetRobotData();
-    void GetRobotMessage(char * data, unsigned int &offset);
+    void GetRobotMessage(char * data, unsigned int &offset, int size);
     QByteArray ReadDataFlow();
     bool ConnectToRobot();
 

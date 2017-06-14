@@ -32,6 +32,7 @@ void UR3Intermediator::GetRobotData()
         {
             case ROBOT_MESSAGE:
             {
+                GetRobotMessage(_data, offset, size);
                 break;
             }
             case ROBOT_STATE:
@@ -53,10 +54,44 @@ void UR3Intermediator::GetRobotData()
 
 }
 
-void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset)
+void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int size)
 {
-    int sizeOfPackage;
-    memcpy(&sizeOfPackage, &data[offset], sizeof(sizeOfPackage));
+    while(size>offset){
+        int sizeOfPackage;
+        memcpy(&sizeOfPackage, &data[offset], sizeof(sizeOfPackage));
+        offset+=sizeof(sizeOfPackage);
+
+        unsigned char packageType;
+        memcpy(&packageType, &data[offset], sizeof(packageType));
+        offset+=sizeof(packageType);
+
+            switch(packageType){
+            case ROBOT_MODE_DATA:
+                break;
+                case JOINT_DATA:
+                break;
+                case TOOL_DATA:
+                break;
+                case MASTERBOARD_DATA:
+                break;
+                case CARTESIAN_INFO:
+                this->ActualRobotInfo->setCartesianInfoData(_data,offset);
+                break;
+                case KINEMATICS_INFO:
+                break;
+                case CONFIGURATION_DATA:
+                break;
+                case FORCE_MODE_DATA:
+                break;
+                case ADDITIONAL_INFO:
+                break;
+                case CALIBRATION_DATA:
+                break;
+                case SAFETY_DATA:
+                break;
+            }
+        offset +=sizeOfPackage - 5; //-5 poniewaz wczesniej przesunalem o sizeofpackage i packagetype
+    }
 
 }
 
