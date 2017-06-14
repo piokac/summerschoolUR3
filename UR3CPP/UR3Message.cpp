@@ -1,4 +1,7 @@
 #include "UR3Message.h"
+#include <QtGlobal>
+#include <QtCore>
+#include <QtEndian>
 
 UR3Message::UR3Message()
 {
@@ -15,27 +18,40 @@ CartesianInfoData UR3Message::getCartesianInfoData() const
     return cartesianInfoData;
 }
 
+static double bytesSwap(double v)
+{
+    union {
+        uint64_t i;
+        double d;
+    } conv;
+    conv.d = v;
+    conv.i = _byteswap_uint64(conv.i);
+    return conv.d;
+
+}
+
 void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
 {
     double tmp;
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setX(tmp);
+
+    this->cartesianInfoData.setX(bytesSwap(tmp));
     offset+=sizeof(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setY(tmp);
+    this->cartesianInfoData.setY(bytesSwap(tmp));
     offset+=sizeof(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setZ(tmp);
+    this->cartesianInfoData.setZ(bytesSwap(tmp));
     offset+=sizeof(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRx(tmp);
+    this->cartesianInfoData.setRx(bytesSwap(tmp));
     offset+=sizeof(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRy(tmp);
+    this->cartesianInfoData.setRy(bytesSwap(tmp));
     offset+=sizeof(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRz(tmp);
+    this->cartesianInfoData.setRz(bytesSwap(tmp));
     offset+=sizeof(tmp);
 
 

@@ -9,6 +9,7 @@
 #include <string>
 #include <QObject>
 #include <QTcpSocket>
+#include <QMutex>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ private:
 
     int Port;
     QString IpAddress;
-    UR3Message* ActualRobotInfo;
+    UR3Message ActualRobotInfo;
     char * _data; //tutaj bedziemy przechowywac dataflow
     QByteArray _DataFlow;
     QTcpSocket* _socket;
@@ -48,12 +49,16 @@ private:
     void GetRobotMessage(char * data, unsigned int &offset, int size);
     QByteArray ReadDataFlow();
     bool ConnectToRobot();
+private slots:
+    void disconnected();
 
 
 public slots:
 
     void OnTcpChanged();
     void OnSocketNewBytesWritten();
+private:
+    QMutex mutex;
 };
 
 
