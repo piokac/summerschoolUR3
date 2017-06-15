@@ -152,12 +152,12 @@ public:
 class JointData // value 1
 {
 private:
-    QVector<double> actualJointPosition;
-    QVector<double> targetJointPosition;
-    QVector<double> actualJointSpeed;
-    QVector<float> actualJointCurrent;
-    QVector<float> actualJointVoltage;
-    QVector<float> actualMotorTemprature;
+    double actualJointPosition;
+    double targetJointPosition;
+    double actualJointSpeed;
+    float actualJointCurrent;
+    float actualJointVoltage;
+    float actualMotorTemprature;
 
     JointMode jointMode;
 
@@ -165,18 +165,18 @@ public:
     JointData();
     ~JointData();
 
-    QVector<double> getActualJointPosition() const;
-    void setActualJointPosition(const QVector<double> &value);
-    QVector<double> getTargetJointPosition() const;
-    void setTargetJointPosition(const QVector<double> &value);
-    QVector<double> getActualJointSpeed() const;
-    void setActualJointSpeed(const QVector<double> &value);
-    QVector<float> getActualJointCurrent() const;
-    void setActualJointCurrent(const QVector<float> &value);
-    QVector<float> getActualJointVoltage() const;
-    void setActualJointVoltage(const QVector<float> &value);
-    QVector<float> getActualMotorTemprature() const;
-    void setActualMotorTemprature(const QVector<float> &value);
+    double getActualJointPosition() const;
+    void setActualJointPosition(double value);
+    double getTargetJointPosition() const;
+    void setTargetJointPosition(double value);
+    double getActualJointSpeed() const;
+    void setActualJointSpeed(double value);
+    float getActualJointCurrent() const;
+    void setActualJointCurrent(float value);
+    float getActualJointVoltage() const;
+    void setActualJointVoltage(float value);
+    float getActualMotorTemprature() const;
+    void setActualMotorTemprature(float value);
     JointMode getJointMode() const;
     void setJointMode(const JointMode &value);
 };

@@ -25,10 +25,10 @@ static double bytesSwap(double v)
 }
 
 
-UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.146.128")
+UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.149.128")
 {
     this->_socket = new QTcpSocket();
-    qDebug()<<"UR3Intermediator::UR3Intermediator()";
+   // qDebug()<<"UR3Intermediator::UR3Intermediator()";
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
     connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     ConnectToRobot();
@@ -86,6 +86,7 @@ void UR3Intermediator::GetRobotData()
         }
         _DataFlow = _DataFlow.mid(size);
         mutex.unlock();
+
     }
 
 }
@@ -105,8 +106,10 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
 
         switch(packageType){
         case ROBOT_MODE_DATA:
+            this->ActualRobotInfo.setRobotModeData(_data, offset);
             break;
         case JOINT_DATA:
+            this->ActualRobotInfo.setJointsData(_data, offset);
             break;
         case TOOL_DATA:
             break;

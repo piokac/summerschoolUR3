@@ -2,10 +2,11 @@
 #include <QtGlobal>
 #include <QtCore>
 #include <QtEndian>
+#include <stdlib.h>
 
 UR3Message::UR3Message()
 {
-
+    jointsData.resize(6);
 }
 
 UR3Message::~UR3Message()
@@ -29,6 +30,22 @@ static double bytesSwap(double v)
     return conv.d;
 
 }
+
+float floatSwap( const float inFloat )
+{
+   float retVal;
+   char *floatToConvert = ( char* ) & inFloat;
+   char *returnFloat = ( char* ) & retVal;
+
+   // swap the bytes into a temporary buffer
+   returnFloat[0] = floatToConvert[3];
+   returnFloat[1] = floatToConvert[2];
+   returnFloat[2] = floatToConvert[1];
+   returnFloat[3] = floatToConvert[0];
+
+   return retVal;
+}
+
 
 void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
 {
@@ -89,6 +106,43 @@ QVector<JointData> UR3Message::getJointsData() const
 void UR3Message::setJointsData(char *data, int offset)
 {
 
+
+    for(int i = 0; i<6; i++){
+
+        double doubleTemp;
+        float floatTemp;
+        unsigned char ucharTemp;
+
+        memcpy(&doubleTemp, &data[offset], sizeof(doubleTemp));
+        this->jointsData[i].setActualJointPosition(bytesSwap(doubleTemp));
+        offset+=sizeof(doubleTemp);
+
+        memcpy(&doubleTemp, &data[offset], sizeof(doubleTemp));
+        this->jointsData[i].setTargetJointPosition(bytesSwap(doubleTemp));
+        offset+=sizeof(doubleTemp);
+
+        memcpy(&doubleTemp, &data[offset], sizeof(doubleTemp));
+        this->jointsData[i].setActualJointSpeed(bytesSwap(doubleTemp));
+        offset+=sizeof(doubleTemp);
+
+        memcpy(&floatTemp, &data[offset], sizeof(floatTemp));
+        this->jointsData[i].setActualJointCurrent(floatSwap(floatTemp));
+        offset+=sizeof(floatTemp);
+
+        memcpy(&floatTemp, &data[offset], sizeof(floatTemp));
+        this->jointsData[i].setActualJointVoltage(floatSwap(floatTemp));
+        offset+=sizeof(floatTemp);
+
+        memcpy(&floatTemp, &data[offset], sizeof(floatTemp));
+        this->jointsData[i].setActualMotorTemprature(floatSwap(floatTemp));
+        offset+=sizeof(floatTemp);
+
+        offset+=sizeof(floatTemp); //offset+ poniewaz nie uzywamy T micro
+
+        memcpy(&ucharTemp, &data[offset], sizeof(ucharTemp));
+        this->jointsData[i].setJointMode((JointMode)ucharTemp);
+        offset+=sizeof(ucharTemp);
+    }
 }
 
 ToolData UR3Message::getToolData() const
@@ -109,6 +163,59 @@ RobotModeData UR3Message::getRobotModeData() const
 
 void UR3Message::setRobotModeData(char *data, int offset)
 {
+    uint64_t timestamp;
+    unsigned char ucharTemp;
+    bool boolTemp;
+    double doubleTemp;
+
+    memcpy(&timestamp, &data[offset], sizeof(timestamp));
+    this->robotModeData.setTimestamp(_byteswap_uint64(timestamp));
+    offset+=sizeof(timestamp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsRobotConnected(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsRealRobotEnabled(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsRobotPowerOn(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsEmergencyStopped(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsProtectiveStopped(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsProgramRunning(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&boolTemp,&data[offset], sizeof(boolTemp));
+    this->robotModeData.setIsProgramPaused(boolTemp);
+    offset+=sizeof(boolTemp);
+
+    memcpy(&ucharTemp,&data[offset], sizeof(ucharTemp));
+    //int robotMode = ucharTemp;
+    this->robotModeData.setRobotMode((RobotMode)ucharTemp);
+    offset+=sizeof(ucharTemp);
+
+    memcpy(&ucharTemp,&data[offset], sizeof(ucharTemp));
+    this->robotModeData.setControlMode((ControlMode)ucharTemp);
+    offset+=sizeof(ucharTemp);
+
+    memcpy(&doubleTemp,&data[offset], sizeof(doubleTemp));
+    this->robotModeData.setSpeedFraction(bytesSwap(doubleTemp));
+    offset+=sizeof(doubleTemp);
+
+    memcpy(&doubleTemp,&data[offset], sizeof(doubleTemp));
+    this->robotModeData.setSpeedScaling(bytesSwap(doubleTemp));
+    offset+=sizeof(doubleTemp);
 
 }
 
@@ -243,52 +350,64 @@ void RobotModeData::setTimestamp(const uint64_t &value)
     timestamp = value;
 }
 
-QVector<double> JointData::getTargetJointPosition() const
+
+
+double JointData::getActualJointPosition() const
+{
+    return actualJointPosition;
+}
+
+void JointData::setActualJointPosition(double value)
+{
+    actualJointPosition = value;
+}
+
+double JointData::getTargetJointPosition() const
 {
     return targetJointPosition;
 }
 
-void JointData::setTargetJointPosition(const QVector<double> &value)
+void JointData::setTargetJointPosition(double value)
 {
     targetJointPosition = value;
 }
 
-QVector<double> JointData::getActualJointSpeed() const
+double JointData::getActualJointSpeed() const
 {
     return actualJointSpeed;
 }
 
-void JointData::setActualJointSpeed(const QVector<double> &value)
+void JointData::setActualJointSpeed(double value)
 {
     actualJointSpeed = value;
 }
 
-QVector<float> JointData::getActualJointCurrent() const
+float JointData::getActualJointCurrent() const
 {
     return actualJointCurrent;
 }
 
-void JointData::setActualJointCurrent(const QVector<float> &value)
+void JointData::setActualJointCurrent(float value)
 {
     actualJointCurrent = value;
 }
 
-QVector<float> JointData::getActualJointVoltage() const
+float JointData::getActualJointVoltage() const
 {
     return actualJointVoltage;
 }
 
-void JointData::setActualJointVoltage(const QVector<float> &value)
+void JointData::setActualJointVoltage(float value)
 {
     actualJointVoltage = value;
 }
 
-QVector<float> JointData::getActualMotorTemprature() const
+float JointData::getActualMotorTemprature() const
 {
     return actualMotorTemprature;
 }
 
-void JointData::setActualMotorTemprature(const QVector<float> &value)
+void JointData::setActualMotorTemprature(float value)
 {
     actualMotorTemprature = value;
 }
@@ -313,15 +432,7 @@ JointData::~JointData()
 
 }
 
-QVector<double> JointData::getActualJointPosition() const
-{
-    return actualJointPosition;
-}
 
-void JointData::setActualJointPosition(const QVector<double> &value)
-{
-    actualJointPosition = value;
-}
 
 char ToolData::getAnalogInputRange3() const
 {
