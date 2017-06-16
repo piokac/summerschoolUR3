@@ -100,10 +100,11 @@ enum RobotMessageType {
         ROBOT_MESSAGE_RUNTIME_EXCEPTION = 10
 };
 
+//!  Klasa przechowujaca RobotModeData
 class RobotModeData //value 0
 {
 private:
-    uint64_t timestamp;
+    uint64_t timestamp;             /*!< uint64_t czas */
 
     bool isRobotConnected;
     bool isRealRobotEnabled;
@@ -149,6 +150,8 @@ public:
     void setSpeedScaling(double value);
 };
 
+//!  Klasa przechowujaca dane pojedynczego jointa
+
 class JointData // value 1
 {
 private:
@@ -180,6 +183,8 @@ public:
     JointMode getJointMode() const;
     void setJointMode(const JointMode &value);
 };
+
+//!  Klasa przechowujaca dane narzedzia
 
 class ToolData //value 2
 {
@@ -220,6 +225,8 @@ public:
     ToolMode getToolMode() const;
     void setToolMode(const ToolMode &value);
 };
+
+//!  Klasa przechowujaca MasterboardData
 
 class MasterboardData //value 3
 {
@@ -316,6 +323,8 @@ private:
 
 };
 
+//!  Klasa przechowujaca informacje o polozeniu koncowki
+
 class CartesianInfoData // value 4
 {
 private:
@@ -338,6 +347,8 @@ public:
     double getRz() const;
     void setRz(double value);
 };
+
+//!  Klasa przechowujaca cfg
 
 class ConfigurationData //value 6
 {
@@ -400,25 +411,42 @@ public:
     void setRobotSubType(int value);
 };
 
+/*!
+  Klasa przechowywujaca dane ze strumienia robota
+*/
+
 class UR3Message
 {
 public:
 
-    //To Do: Zamienic na doxygena
-
-    CartesianInfoData cartesianInfoData;        //Polozenie koncowki TCP
-    MasterboardData masterboardData;            //Informacje o ukladzie
-    ConfigurationData configurationData;        //Informacje o konfiguracji robota, jego typie, maksymalnym zasiegu
-    QVector<JointData> jointsData;              //Informacje o wezlach robota, ich polozenie, kierunek, predkosc
-    ToolData toolData;                          //???
-    RobotModeData robotModeData;                //Podstawowe informacje o robocie
+    CartesianInfoData cartesianInfoData;        /*!< Polozenie koncowki TCP, x,y,z typu double dla BASE w metrach, RX,RY,RZ typu double - Rotation Vector w radianach */
+    MasterboardData masterboardData;            /*!< Informacje o ukladzie */
+    ConfigurationData configurationData;        /*!< Informacje o konfiguracji robota, jego typie, maksymalnym zasiegu */
+    QVector<JointData> jointsData;              /*!< Wektor 6 elementowy, dla kazdego z jointow, 0 - base, 1 - Shoulder, itd..., przechowuje predkosc,
+                                                    aktualna i docelowa pozycje typu double w radianach, natezenie i napiecie pradu - float, temp silnika w stopniach - float oraz Joint Mode */
+    ToolData toolData;                          /*!< */
+    RobotModeData robotModeData;                /*!< Timestamp, czy robot jest podlaczony, aktualny RobotMode */
 
 public:
 
+    /*!
+      Konstruktor klasy, nadajacy wektorowi jointsData size = 6.
+    */
     UR3Message();
     ~UR3Message();
 
+    /*!
+      Getter:
+      \return CartesianInfoData
+    */
+
     CartesianInfoData getCartesianInfoData() const;
+
+    /*!
+      Setter:
+      \param data wskaznik na tablice z danymi od UR3.
+      \param offset uint aktualne miejsce w data.
+    */
     void setCartesianInfoData(char *data, unsigned int offset);
     MasterboardData getMasterboardData() const;
     void setMasterboardData(char *data, int offset);

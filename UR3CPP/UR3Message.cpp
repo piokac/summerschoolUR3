@@ -52,21 +52,25 @@ void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
     double tmp;
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-
     this->cartesianInfoData.setX(bytesSwap(tmp));
     offset+=sizeof(tmp);
+
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->cartesianInfoData.setY(bytesSwap(tmp));
     offset+=sizeof(tmp);
+
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->cartesianInfoData.setZ(bytesSwap(tmp));
     offset+=sizeof(tmp);
+
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->cartesianInfoData.setRx(bytesSwap(tmp));
     offset+=sizeof(tmp);
+
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->cartesianInfoData.setRy(bytesSwap(tmp));
     offset+=sizeof(tmp);
+
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->cartesianInfoData.setRz(bytesSwap(tmp));
     offset+=sizeof(tmp);
