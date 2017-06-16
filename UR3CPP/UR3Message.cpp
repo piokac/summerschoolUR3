@@ -31,6 +31,27 @@ static double bytesSwap(double v)
 
 }
 
+double doubleSwap( const double inDouble )
+{
+   double retVal;
+   char *doubleToConvert = ( char* ) & inDouble;
+   char *returnDouble = ( char* ) & retVal;
+
+   // swap the bytes into a temporary buffer
+   returnDouble[0] = doubleToConvert[7];
+   returnDouble[1] = doubleToConvert[6];
+   returnDouble[2] = doubleToConvert[5];
+   returnDouble[3] = doubleToConvert[4];
+
+   returnDouble[4] = doubleToConvert[3];
+   returnDouble[5] = doubleToConvert[2];
+   returnDouble[6] = doubleToConvert[1];
+   returnDouble[7] = doubleToConvert[0];
+
+
+   return retVal;
+}
+
 float floatSwap( const float inFloat )
 {
    float retVal;
@@ -52,32 +73,52 @@ void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
     double tmp;
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setX(bytesSwap(tmp));
+    this->cartesianInfoData.setX(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setY(bytesSwap(tmp));
+    this->cartesianInfoData.setY(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setZ(bytesSwap(tmp));
+    this->cartesianInfoData.setZ(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRx(bytesSwap(tmp));
+    this->cartesianInfoData.setRx(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRy(bytesSwap(tmp));
+    this->cartesianInfoData.setRy(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRz(bytesSwap(tmp));
+    this->cartesianInfoData.setRz(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setTcpOffsetX(doubleSwap(tmp));
+    offset+=sizeof(tmp);
 
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setTcpOffsetY(doubleSwap(tmp));
+    offset+=sizeof(tmp);
 
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setTcpOffsetZ(doubleSwap(tmp));
+    offset+=sizeof(tmp);
 
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setTcpOffsetRX(doubleSwap(tmp));
+    offset+=sizeof(tmp);
+
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setTcpOffsetRY(doubleSwap(tmp));
+    offset+=sizeof(tmp);
+
+    memcpy(&tmp,&data[offset], sizeof(tmp));
+    this->cartesianInfoData.setTcpOffsetRZ(doubleSwap(tmp));
+    offset+=sizeof(tmp);
 }
 
 MasterboardData UR3Message::getMasterboardData() const
@@ -87,6 +128,76 @@ MasterboardData UR3Message::getMasterboardData() const
 
 void UR3Message::setMasterboardData(char *data, int offset)
 {
+    int intTemp;
+    char charTemp;
+    double doubleTemp;
+    float floatTemp;
+    unsigned char ucharTemp;
+
+    memcpy(&intTemp,&data[offset], sizeof(intTemp));
+    this->masterboardData.setDigitalInputBits(_byteswap_ulong(intTemp));
+    offset+=sizeof(intTemp);
+
+    memcpy(&intTemp,&data[offset], sizeof(intTemp));
+    this->masterboardData.setDigitalOutputBits(_byteswap_ulong(intTemp));
+    offset+=sizeof(intTemp);
+
+    memcpy(&charTemp,&data[offset], sizeof(charTemp));
+    this->masterboardData.setAnalogInputRange0(charTemp);
+    offset+=sizeof(charTemp);
+
+    memcpy(&charTemp,&data[offset], sizeof(charTemp));
+    this->masterboardData.setAnalogInputRange1(charTemp);
+    offset+=sizeof(charTemp);
+
+    memcpy(&doubleTemp,&data[offset], sizeof(doubleTemp));
+    this->masterboardData.setAnalogInput0(doubleSwap(doubleTemp));
+    offset+=sizeof(doubleTemp);
+
+    memcpy(&doubleTemp,&data[offset], sizeof(doubleTemp));
+    this->masterboardData.setAnalogInput1(doubleSwap(doubleTemp));
+    offset+=sizeof(doubleTemp);
+
+    memcpy(&charTemp,&data[offset], sizeof(charTemp));
+    this->masterboardData.setAnalogOutputDomain0(charTemp);
+    offset+=sizeof(charTemp);
+
+    memcpy(&charTemp,&data[offset], sizeof(charTemp));
+    this->masterboardData.setAnalogOutputDomain1(charTemp);
+    offset+=sizeof(charTemp);
+
+    memcpy(&doubleTemp,&data[offset], sizeof(doubleTemp));
+    this->masterboardData.setAnalogOutput0(doubleSwap(doubleTemp));
+    offset+=sizeof(doubleTemp);
+
+    memcpy(&doubleTemp,&data[offset], sizeof(doubleTemp));
+    this->masterboardData.setAnalogOutput1(doubleSwap(doubleTemp));
+    offset+=sizeof(doubleTemp);
+
+    memcpy(&floatTemp,&data[offset], sizeof(floatTemp));
+    this->masterboardData.setMasterBoardTemperature(floatSwap(floatTemp));
+    offset+=sizeof(floatTemp);
+
+    memcpy(&floatTemp,&data[offset], sizeof(floatTemp));
+    this->masterboardData.setRobotVoltage48V(floatSwap(floatTemp));
+    offset+=sizeof(floatTemp);
+
+    memcpy(&floatTemp,&data[offset], sizeof(floatTemp));
+    this->masterboardData.setRobotCurrent(floatSwap(floatTemp));
+    offset+=sizeof(floatTemp);
+
+    memcpy(&floatTemp,&data[offset], sizeof(floatTemp));
+    this->masterboardData.setMasterIOCurrent(floatSwap(floatTemp));
+    offset+=sizeof(floatTemp);
+
+    memcpy(&ucharTemp,&data[offset], sizeof(ucharTemp));
+    this->masterboardData.setSafetyMode((SafetyMode)ucharTemp);
+    offset+=sizeof(charTemp);
+
+    memcpy(&ucharTemp,&data[offset], sizeof(ucharTemp));
+    this->masterboardData.setInReducedMode(ucharTemp);
+    offset+=sizeof(ucharTemp);
+
 
 }
 
@@ -740,16 +851,6 @@ void MasterboardData::setSafetyMode(const SafetyMode &value)
     safetyMode = value;
 }
 
-unsigned char MasterboardData::getMasterOnOffState() const
-{
-    return masterOnOffState;
-}
-
-void MasterboardData::setMasterOnOffState(unsigned char value)
-{
-    masterOnOffState = value;
-}
-
 char MasterboardData::getEuromap67InterfaceInstalled() const
 {
     return euromap67InterfaceInstalled;
@@ -800,6 +901,16 @@ void MasterboardData::setEuromapCurrent(float value)
     euromapCurrent = value;
 }
 
+unsigned char MasterboardData::getInReducedMode() const
+{
+    return InReducedMode;
+}
+
+void MasterboardData::setInReducedMode(unsigned char value)
+{
+    InReducedMode = value;
+}
+
 double CartesianInfoData::getY() const
 {
     return y;
@@ -848,6 +959,66 @@ double CartesianInfoData::getRz() const
 void CartesianInfoData::setRz(double value)
 {
     rz = value;
+}
+
+double CartesianInfoData::getTcpOffsetX() const
+{
+    return tcpOffsetX;
+}
+
+void CartesianInfoData::setTcpOffsetX(double value)
+{
+    tcpOffsetX = value;
+}
+
+double CartesianInfoData::getTcpOffsetY() const
+{
+    return tcpOffsetY;
+}
+
+void CartesianInfoData::setTcpOffsetY(double value)
+{
+    tcpOffsetY = value;
+}
+
+double CartesianInfoData::getTcpOffsetZ() const
+{
+    return tcpOffsetZ;
+}
+
+void CartesianInfoData::setTcpOffsetZ(double value)
+{
+    tcpOffsetZ = value;
+}
+
+double CartesianInfoData::getTcpOffsetRZ() const
+{
+    return tcpOffsetRZ;
+}
+
+void CartesianInfoData::setTcpOffsetRZ(double value)
+{
+    tcpOffsetRZ = value;
+}
+
+double CartesianInfoData::getTcpOffsetRY() const
+{
+    return tcpOffsetRY;
+}
+
+void CartesianInfoData::setTcpOffsetRY(double value)
+{
+    tcpOffsetRY = value;
+}
+
+double CartesianInfoData::getTcpOffsetRX() const
+{
+    return tcpOffsetRX;
+}
+
+void CartesianInfoData::setTcpOffsetRX(double value)
+{
+    tcpOffsetRX = value;
 }
 
 CartesianInfoData::CartesianInfoData()

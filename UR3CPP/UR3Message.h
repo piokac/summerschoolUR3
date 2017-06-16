@@ -279,9 +279,6 @@ public:
     SafetyMode getSafetyMode() const;
     void setSafetyMode(const SafetyMode &value);
 
-    unsigned char getMasterOnOffState() const;
-    void setMasterOnOffState(unsigned char value);
-
     char getEuromap67InterfaceInstalled() const;
     void setEuromap67InterfaceInstalled(char value);
 
@@ -296,6 +293,9 @@ public:
 
     float getEuromapCurrent() const;
     void setEuromapCurrent(float value);
+
+    unsigned char getInReducedMode() const;
+    void setInReducedMode(unsigned char value);
 
 private:
     int digitalInputBits;
@@ -313,7 +313,7 @@ private:
     float robotCurrent;
     float masterIOCurrent;
     SafetyMode safetyMode;
-    unsigned char masterOnOffState;
+    unsigned char InReducedMode;
     char euromap67InterfaceInstalled;
     int euromapInputBits;
     int euromapOutputBits;
@@ -330,6 +330,8 @@ class CartesianInfoData // value 4
 private:
     double x,y,z;
     double rx, ry, rz;
+    double tcpOffsetX, tcpOffsetY, tcpOffsetZ;
+    double tcpOffsetRX, tcpOffsetRY, tcpOffsetRZ;
 
 public:
     CartesianInfoData();
@@ -346,6 +348,18 @@ public:
     void setRy(double value);
     double getRz() const;
     void setRz(double value);
+    double getTcpOffsetX() const;
+    void setTcpOffsetX(double value);
+    double getTcpOffsetY() const;
+    void setTcpOffsetY(double value);
+    double getTcpOffsetZ() const;
+    void setTcpOffsetZ(double value);
+    double getTcpOffsetRZ() const;
+    void setTcpOffsetRZ(double value);
+    double getTcpOffsetRY() const;
+    void setTcpOffsetRY(double value);
+    double getTcpOffsetRX() const;
+    void setTcpOffsetRX(double value);
 };
 
 //!  Klasa przechowujaca cfg
