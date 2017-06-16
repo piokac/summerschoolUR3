@@ -156,6 +156,48 @@ ToolData UR3Message::getToolData() const
 
 void UR3Message::setToolData(char *data, int offset)
 {
+    char charTemp;
+    double doubleTemp;
+    float floatTemp;
+    unsigned char ucharTemp;
+
+    memcpy(&charTemp,&data[offset],sizeof charTemp);
+    this->toolData.setAnalogInputRange2(charTemp);
+    offset+=sizeof charTemp;
+
+    memcpy(&charTemp,&data[offset],sizeof charTemp);
+    this->toolData.setAnalogInputRange3(charTemp);
+    offset+= sizeof charTemp;
+
+    memcpy(&doubleTemp,&data[offset],sizeof doubleTemp);
+    this->toolData.setAnalogInput2(bytesSwap(doubleTemp));
+    offset+=sizeof doubleTemp;
+
+    memcpy(&doubleTemp,&data[offset],sizeof doubleTemp);
+    this->toolData.setAnalogInput3(bytesSwap(doubleTemp));
+    offset+=sizeof doubleTemp;
+
+    memcpy(&floatTemp,&data[offset],sizeof floatTemp);
+    this->toolData.setToolVoltage48V(floatSwap(floatTemp));
+    offset+=sizeof floatTemp;
+
+    memcpy(&ucharTemp,&data[offset],sizeof ucharTemp);
+    this->toolData.setToolOutputVoltage(ucharTemp);
+    offset+=sizeof ucharTemp;
+
+
+    memcpy(&floatTemp,&data[offset],sizeof floatTemp);
+    this->toolData.setToolCurrent(floatSwap(floatTemp));
+    offset+=sizeof floatTemp;
+
+
+    memcpy(&floatTemp,&data[offset],sizeof floatTemp);
+    this->toolData.setToolTemperature(floatSwap(floatTemp));
+    offset+=sizeof floatTemp;
+
+    memcpy(&ucharTemp,&data[offset],sizeof ucharTemp);
+    this->toolData.setToolMode((ToolMode)ucharTemp);
+    offset+=sizeof ucharTemp;
 
 }
 

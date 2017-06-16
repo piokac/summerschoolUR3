@@ -184,7 +184,7 @@ public:
     void setJointMode(const JointMode &value);
 };
 
-//!  Klasa przechowujaca dane narzedzia
+//!  Klasa przechowujaca dane narzedzia końcowki
 
 class ToolData //value 2
 {
