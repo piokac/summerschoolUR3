@@ -19,12 +19,13 @@ class UR3Intermediator: public QObject
 
 public:
 
-    void MoveJ(QVector<double> JointPosition,double JointAcceleration, double JointSpeed, double Time, double BlendRadius);
+    void MoveJ(QVector<double> JointPosition, double JointAcceleration= 1.0, double JointSpeed = 0.1);
     void MoveP(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double blendRadius);
     void MoveL(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double time, double blendRadius);
 
     UR3Intermediator();
     UR3Message GetActualUR3State();
+
 
 
 signals:
@@ -35,6 +36,8 @@ private:
 
     //Fields
 
+    bool _running;
+    QVector<double> _moveJTargetPos;
     int Port;
     QString IpAddress;
     UR3Message ActualRobotInfo;
@@ -44,6 +47,7 @@ private:
     bool _connected;
 
     //Methods
+    void CheckIfStillMovejRunning();
 
     void GetRobotData();
     void GetRobotMessage(char * data, unsigned int &offset, int size);

@@ -4,6 +4,7 @@
 #include <QtEndian>
 #include <QHostAddress>
 #include <QDebug>
+#include "UR3Message.h"
 char *strdup (const char *s)
 {
     char* d = (char*)malloc(strlen (s) + 1);   // Space for length plus nul
@@ -23,9 +24,37 @@ static double bytesSwap(double v)
     return conv.d;
 
 }
+static double RoundDouble(double val,int prec)
+{
+    auto precision = pow(10,prec);
+    return round(val * precision) / precision;
+}
 
+void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAcceleration, double JointSpeed)
+{
+    if(_connected && !_running)
+    {
+        //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
 
-UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.149.128")
+        QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
+
+        QString command = "movej([" +
+                QString::number(JointPosition[0]) + ", " +
+                QString::number(JointPosition[1]) + ", " +
+                QString::number(JointPosition[2]) + ", " +
+                QString::number(JointPosition[3]) + ", " +
+                QString::number(JointPosition[4]) + ", " +
+                QString::number(JointPosition[5]) + "], " +
+                "a=" + QString::number(JointAcceleration)+ ", " +
+                "v=" + QString::number(JointSpeed)+ ")\n";
+
+        _socket->write(command.toLatin1().data());
+        _socket->waitForBytesWritten();
+        _running = true;
+    }
+}
+
+UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.146.128")
 {
     this->_socket = new QTcpSocket();
    // qDebug()<<"UR3Intermediator::UR3Intermediator()";
@@ -85,11 +114,33 @@ void UR3Intermediator::GetRobotData()
 
         }
         _DataFlow = _DataFlow.mid(size);
+        MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
         mutex.unlock();
     }
 
 }
+void UR3Intermediator::CheckIfStillMovejRunning()
+{
 
+    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
+    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
+    double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
+    double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
+    double fourthJointPos = RoundDouble(jointsData[3].getActualJointPosition(),4);
+    double fifthJointPos = RoundDouble(jointsData[4].getActualJointPosition(),4);
+    double sixthJointPos = RoundDouble(jointsData[5].getActualJointPosition(),4);
+    QVector<double> current = QVector<double>
+    ({firstJointPos,secondJointPos,thirdJointPos,fourthJointPos,fifthJointPos,sixthJointPos});
+    QVector<double> target = QVector<double>
+            ({RoundDouble(jointsData[0].getTargetJointPosition(),4),RoundDouble(jointsData[1].getTargetJointPosition(),4),
+             RoundDouble(jointsData[2].getTargetJointPosition(),4),RoundDouble(jointsData[3].getTargetJointPosition(),4),
+             RoundDouble(jointsData[4].getTargetJointPosition(),4),RoundDouble(jointsData[5].getTargetJointPosition(),4)});
+    if(current == target)
+    {
+        _running = false;
+    }
+
+}
 void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int size)
 {
     while(size>offset){
@@ -109,6 +160,10 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             break;
         case JOINT_DATA:
             this->ActualRobotInfo.setJointsData(_data, offset);
+            if(_running)
+            {
+                CheckIfStillMovejRunning();
+            }
             break;
         case TOOL_DATA:
             this->ActualRobotInfo.setToolData(_data,offset);
@@ -141,10 +196,6 @@ QByteArray UR3Intermediator::ReadDataFlow()
 {
     if(_connected)
     {
-
-        // if(_socket->waitForReadyRead())
-        {
-            // this->_socket->waitForReadyRead();
             if(mutex.tryLock())
             {
                 _DataFlow.push_back( this->_socket->readAll());
@@ -152,12 +203,8 @@ QByteArray UR3Intermediator::ReadDataFlow()
                 mutex.unlock();
             }
 
-            //            const char* xd = (const char*)data.data(); // dlaczego pokazuje sie puste
-            //            _data = _DataFlow.data();
-
         }
     }
-}
 
 bool UR3Intermediator::ConnectToRobot()
 {
@@ -168,6 +215,7 @@ bool UR3Intermediator::ConnectToRobot()
         if(_socket->waitForConnected())
         {
             _connected = true;
+            return true;
         }
         else
         {
@@ -175,6 +223,7 @@ bool UR3Intermediator::ConnectToRobot()
             return false;
         }
     }
+    return true;
 
 
 }
