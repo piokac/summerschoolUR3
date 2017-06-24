@@ -6,83 +6,297 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>578</width>
+    <height>516</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>X</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEditX"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Y</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEditY"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Z</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>RX</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEditRX"/>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>RY</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEditRY"/>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>RZ</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEditRZ"/>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEditZ"/>
-    </item>
-   </layout>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>370</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wrist 3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>190</y>
+      <width>13</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RZ</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditX">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>50</y>
+      <width>108</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditElbow">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>178</y>
+      <width>302</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditWrist2">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>306</y>
+      <width>302</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>106</y>
+      <width>13</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Z</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditBase">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>50</y>
+      <width>302</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>242</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wrist 1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>50</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Base</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditY">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>78</y>
+      <width>108</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>78</y>
+      <width>13</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Y</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditWrist3">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>370</y>
+      <width>302</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditRX">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>134</y>
+      <width>108</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditZ">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>106</y>
+      <width>108</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>114</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Shoulder</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditRZ">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>190</y>
+      <width>108</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditWrist1">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>242</y>
+      <width>302</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>134</y>
+      <width>13</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RX</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>306</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wrist 2</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditShoulder">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>114</y>
+      <width>302</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditRY">
+    <property name="geometry">
+     <rect>
+      <x>69</x>
+      <y>162</y>
+      <width>108</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>162</y>
+      <width>13</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>RY</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>222</x>
+      <y>178</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Elbow</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>50</y>
+      <width>13</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>X</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>578</width>
      <height>20</height>
     </rect>
    </property>

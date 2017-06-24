@@ -20,6 +20,10 @@ public:
 private:
     Ui::MainWindow *ui;
     UR3Intermediator* ur3;
+public slots:
+    void OnNewJointPos(QVector<double> pose);
+    //void OnNewTCP(QVector<double> tcp);
+
 };
 
 #endif // MAINWINDOW_H

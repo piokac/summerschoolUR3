@@ -54,14 +54,35 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
     }
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.146.128")
+UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.149.128")
 {
     this->_socket = new QTcpSocket();
-   // qDebug()<<"UR3Intermediator::UR3Intermediator()";
+    this->_lastJointPos.fill(.0);
+    //this->_lastPolozenie.fill(.0);
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
     connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     ConnectToRobot();
 
+}
+
+int UR3Intermediator::getPort() const
+{
+    return Port;
+}
+
+void UR3Intermediator::setPort(int value)
+{
+    Port = value;
+}
+
+QString UR3Intermediator::getIpAddress() const
+{
+    return IpAddress;
+}
+
+void UR3Intermediator::setIpAddress(const QString &value)
+{
+    IpAddress = value;
 }
 
 void UR3Intermediator::GetRobotData()
@@ -83,7 +104,6 @@ void UR3Intermediator::GetRobotData()
         while(offset<size)
         {
             unsigned char Type;
-            //if(_DataFlow.size()>=offset+sizeof(Type))
             memcpy(&Type,&_data[offset],sizeof(Type));
             offset+=sizeof(Type);
             int messageType = Type;
@@ -98,12 +118,10 @@ void UR3Intermediator::GetRobotData()
             {
                 qDebug()<<"ROBOT_STATE";
                 GetRobotMessage(_data, offset, size);
-               // offset += xxB;
                 break;
             }
             case PROGRAM_STATE_MESSAGE:
             {
-                //offset += xxB;
                 break;
             }
 
@@ -114,7 +132,7 @@ void UR3Intermediator::GetRobotData()
 
         }
         _DataFlow = _DataFlow.mid(size);
-        MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
+       // MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
         mutex.unlock();
     }
 
@@ -141,6 +159,49 @@ void UR3Intermediator::CheckIfStillMovejRunning()
     }
 
 }
+
+void UR3Intermediator::CheckJointsPosChanged()
+{
+    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
+    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
+    double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
+    double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
+    double fourthJointPos = RoundDouble(jointsData[3].getActualJointPosition(),4);
+    double fifthJointPos = RoundDouble(jointsData[4].getActualJointPosition(),4);
+    double sixthJointPos = RoundDouble(jointsData[5].getActualJointPosition(),4);
+    QVector<double> current = QVector<double>
+    ({firstJointPos,secondJointPos,thirdJointPos,fourthJointPos,fifthJointPos,sixthJointPos});
+
+    if(current != _lastJointPos){
+        _lastJointPos = current;
+        emit newJointsPos(current);
+    }
+
+}
+
+/*
+void UR3Intermediator::CheckPolozenieChanged()
+{
+    CartesianInfoData CurrentCartesianInfo = this->ActualRobotInfo.getCartesianInfoData();
+
+    double x = RoundDouble(CurrentCartesianInfo.getX(),4);
+    double y = RoundDouble(CurrentCartesianInfo.getY(),4);
+    double z = RoundDouble(CurrentCartesianInfo.getZ(),4);
+    double rx = RoundDouble(CurrentCartesianInfo.getRx(),4);
+    double ry = RoundDouble(CurrentCartesianInfo.getRy(),4);
+    double rz = RoundDouble(CurrentCartesianInfo.getRz(),4);
+
+    QVector<double> current = QVector<double>({x,y,z,rx,ry,rz});
+
+    if(current !=_lastPolozenie){
+        _lastPolozenie = current;
+        emit newPolozenie(current);
+    }
+
+
+}
+*/
+
 void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int size)
 {
     while(size>offset){
@@ -164,6 +225,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             {
                 CheckIfStillMovejRunning();
             }
+            CheckJointsPosChanged();
             break;
         case TOOL_DATA:
             this->ActualRobotInfo.setToolData(_data,offset);
@@ -173,6 +235,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             break;
         case CARTESIAN_INFO:
             this->ActualRobotInfo.setCartesianInfoData(_data,offset);
+            //CheckTCPChanged();
             break;
         case KINEMATICS_INFO:
             break;
@@ -204,7 +267,7 @@ QByteArray UR3Intermediator::ReadDataFlow()
             }
 
         }
-    }
+}
 
 bool UR3Intermediator::ConnectToRobot()
 {

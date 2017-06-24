@@ -28,9 +28,16 @@ public:
 
 
 
+    int getPort() const;
+    void setPort(int value);
+
+    QString getIpAddress() const;
+    void setIpAddress(const QString &value);
+
 signals:
 
-    void newTCP(QVector<double> pose);
+    void newJointsPos(QVector<double> pose);
+    //void newPolozenie(QVector<double> polozenie);
 
 private:
 
@@ -38,17 +45,25 @@ private:
 
     bool _running;
     QVector<double> _moveJTargetPos;
+    QVector<double> _lastJointPos;
+    QVector<double> _lastPolozenie;
+
+    //Q_PROPERTY(QString Port READ getPort WRITE setPort USER true)
     int Port;
+
+    //Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress USER true)
     QString IpAddress;
+
     UR3Message ActualRobotInfo;
-    char * _data; //tutaj bedziemy przechowywac dataflow
+    char * _data;
     QByteArray _DataFlow;
     QTcpSocket* _socket;
     bool _connected;
 
     //Methods
     void CheckIfStillMovejRunning();
-
+    void CheckJointsPosChanged();
+    //void CheckPolozenieChanged();
     void GetRobotData();
     void GetRobotMessage(char * data, unsigned int &offset, int size);
     QByteArray ReadDataFlow();
