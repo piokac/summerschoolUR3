@@ -57,8 +57,11 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
 UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.149.128")
 {
     this->_socket = new QTcpSocket();
+    this->_lastJointPos.resize(6);
     this->_lastJointPos.fill(.0);
-    //this->_lastPolozenie.fill(.0);
+    this->_lastPolozenie.resize(6);
+    this->_lastPolozenie.fill(.0);
+
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
     connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     ConnectToRobot();
@@ -116,7 +119,7 @@ void UR3Intermediator::GetRobotData()
             }
             case ROBOT_STATE:
             {
-                qDebug()<<"ROBOT_STATE";
+                //qDebug()<<"ROBOT_STATE";
                 GetRobotMessage(_data, offset, size);
                 break;
             }
@@ -133,6 +136,13 @@ void UR3Intermediator::GetRobotData()
         }
         _DataFlow = _DataFlow.mid(size);
        // MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
+        /*qDebug()<<this->ActualRobotInfo.cartesianInfoData.getX();
+                qDebug()<<this->ActualRobotInfo.cartesianInfoData.getY();
+                qDebug()<<this->ActualRobotInfo.cartesianInfoData.getZ();
+
+                qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRx();
+                qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRy();
+                qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRz();*/
         mutex.unlock();
     }
 
@@ -174,12 +184,12 @@ void UR3Intermediator::CheckJointsPosChanged()
 
     if(current != _lastJointPos){
         _lastJointPos = current;
-        emit newJointsPos(current);
+        emit newPoseTCP(current, 'p');
+
     }
 
 }
 
-/*
 void UR3Intermediator::CheckPolozenieChanged()
 {
     CartesianInfoData CurrentCartesianInfo = this->ActualRobotInfo.getCartesianInfoData();
@@ -195,12 +205,11 @@ void UR3Intermediator::CheckPolozenieChanged()
 
     if(current !=_lastPolozenie){
         _lastPolozenie = current;
-        emit newPolozenie(current);
+        emit newPoseTCP(current, 't');
     }
 
 
 }
-*/
 
 void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int size)
 {
@@ -235,7 +244,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             break;
         case CARTESIAN_INFO:
             this->ActualRobotInfo.setCartesianInfoData(_data,offset);
-            //CheckTCPChanged();
+            CheckPolozenieChanged();
             break;
         case KINEMATICS_INFO:
             break;

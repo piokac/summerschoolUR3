@@ -35,9 +35,8 @@ public:
     void setIpAddress(const QString &value);
 
 signals:
-
-    void newJointsPos(QVector<double> pose);
-    //void newPolozenie(QVector<double> polozenie);
+    //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
+    void newPoseTCP(QVector<double> x, char flag);  /*!< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp  */
 
 private:
 
@@ -63,7 +62,7 @@ private:
     //Methods
     void CheckIfStillMovejRunning();
     void CheckJointsPosChanged();
-    //void CheckPolozenieChanged();
+    void CheckPolozenieChanged();
     void GetRobotData();
     void GetRobotMessage(char * data, unsigned int &offset, int size);
     QByteArray ReadDataFlow();

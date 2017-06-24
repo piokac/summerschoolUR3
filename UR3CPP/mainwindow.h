@@ -22,7 +22,7 @@ private:
     UR3Intermediator* ur3;
 public slots:
     void OnNewJointPos(QVector<double> pose);
-    //void OnNewTCP(QVector<double> tcp);
+    void OnNewTCP(QVector<double> data, char c);
 
 };
 
