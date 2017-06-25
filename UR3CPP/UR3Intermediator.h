@@ -47,6 +47,7 @@ private:
 
     bool _running;
     QVector<double> _moveJTargetPos;
+    QVector<double> _moveLTargetPose;
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
 
@@ -64,6 +65,7 @@ private:
 
     //Methods
     void CheckIfStillMovejRunning();
+    void CheckIfStillMoveLRunning();
     void CheckJointsPosChanged();
     void CheckPolozenieChanged();
     void GetRobotData();

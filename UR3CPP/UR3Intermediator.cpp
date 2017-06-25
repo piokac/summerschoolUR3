@@ -32,16 +32,24 @@ static double RoundDouble(double val,int prec)
 
 void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, double JointSpeed)
 {
+    //TODO: nie dziala, zla logika
+
     CartesianInfoData CurrentCartesianInfo = this->ActualRobotInfo.getCartesianInfoData();
     double x = RoundDouble(CurrentCartesianInfo.getX(),4);
     double y = RoundDouble(CurrentCartesianInfo.getY(),4);
     double z = RoundDouble(CurrentCartesianInfo.getZ(),4);
-    QVector<double> cord = QVector<double>({x+(q[0]/1000.0),y+(q[1]/1000.0),z+(q[2]/1000.0),0.0,0.0,0.0});
+    double rx = RoundDouble(CurrentCartesianInfo.getRx(),4);
+    double ry = RoundDouble(CurrentCartesianInfo.getRy(),4);
+    double rz = RoundDouble(CurrentCartesianInfo.getRz(),4);
+
+    QVector<double> cord = QVector<double>({x+(q[0]/1000.0),y+(q[1]/1000.0),z+(q[2]/1000.0),rx,ry,rz});
     MoveL(cord);
 }
 
 void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAcceleration, double JointSpeed)
 {
+    if(_running == true) qDebug()<<"rusza sie";
+    //CheckIfStillMovejRunning();
     if(_connected && _running==false)
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
@@ -61,7 +69,8 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
         _socket->write(command.toLatin1().data());
         _socket->waitForBytesWritten();
         _running = true;
-        qDebug()<<"zrobione";
+        _moveJTargetPos = JointPosition;
+        //qDebug()<<"zaczynam ruch";
     }
 }
 
@@ -70,7 +79,7 @@ void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration
 {
     if(_connected && !_running)
     {
-        //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
+        //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI, PRZETESTOWAC NA PRAWIDLOWYCH PZYCJACH
 
 
         QString command = "movel([" +
@@ -88,6 +97,7 @@ void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration
 
         _socket->write(command.toLatin1().data());
         _socket->waitForBytesWritten();
+        _moveLTargetPose = TargetPose;
         _running = true;
     }
 
@@ -174,7 +184,7 @@ void UR3Intermediator::GetRobotData()
 
         }
         _DataFlow = _DataFlow.mid(size);
-        MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
+        //MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
         /*qDebug()<<this->ActualRobotInfo.cartesianInfoData.getX();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getY();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getZ();
@@ -182,7 +192,7 @@ void UR3Intermediator::GetRobotData()
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRx();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRy();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRz();*/
-        //MoveToPoint(QVector<double>({1.0,1.0,0.0}));
+        //MoveL(QVector<double>({-255.0,-194,630.0,0.5,1.9,-1.9}));
 
         mutex.unlock();
     }
@@ -204,10 +214,31 @@ void UR3Intermediator::CheckIfStillMovejRunning()
             ({RoundDouble(jointsData[0].getTargetJointPosition(),4),RoundDouble(jointsData[1].getTargetJointPosition(),4),
              RoundDouble(jointsData[2].getTargetJointPosition(),4),RoundDouble(jointsData[3].getTargetJointPosition(),4),
              RoundDouble(jointsData[4].getTargetJointPosition(),4),RoundDouble(jointsData[5].getTargetJointPosition(),4)});
-    if(current == target)
+    if(current == _moveJTargetPos)
     {
         _running = false;
+        qDebug()<<"przestal sie ruszac";
     }
+
+}
+
+void UR3Intermediator::CheckIfStillMoveLRunning()
+{
+    CartesianInfoData CurrentCartesianInfo = this->ActualRobotInfo.getCartesianInfoData();
+
+    double x = RoundDouble(CurrentCartesianInfo.getX(),4);
+    double y = RoundDouble(CurrentCartesianInfo.getY(),4);
+    double z = RoundDouble(CurrentCartesianInfo.getZ(),4);
+    double rx = RoundDouble(CurrentCartesianInfo.getRx(),4);
+    double ry = RoundDouble(CurrentCartesianInfo.getRy(),4);
+    double rz = RoundDouble(CurrentCartesianInfo.getRz(),4);
+
+    QVector<double> current = QVector<double>({x,y,z,rx,ry,rz});
+
+    if(current == _moveLTargetPose){
+        _running = false;
+    }
+
 
 }
 
@@ -285,6 +316,10 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             break;
         case CARTESIAN_INFO:
             this->ActualRobotInfo.setCartesianInfoData(_data,offset);
+            if(_running)
+            {
+                CheckIfStillMoveLRunning();
+            }
             CheckPolozenieChanged();
             break;
         case KINEMATICS_INFO:
