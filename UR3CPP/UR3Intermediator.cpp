@@ -30,9 +30,19 @@ static double RoundDouble(double val,int prec)
     return round(val * precision) / precision;
 }
 
+void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, double JointSpeed)
+{
+    CartesianInfoData CurrentCartesianInfo = this->ActualRobotInfo.getCartesianInfoData();
+    double x = RoundDouble(CurrentCartesianInfo.getX(),4);
+    double y = RoundDouble(CurrentCartesianInfo.getY(),4);
+    double z = RoundDouble(CurrentCartesianInfo.getZ(),4);
+    QVector<double> cord = QVector<double>({x+(q[0]/1000.0),y+(q[1]/1000.0),z+(q[2]/1000.0),0.0,0.0,0.0});
+    MoveL(cord);
+}
+
 void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAcceleration, double JointSpeed)
 {
-    if(_connected && !_running)
+    if(_connected && _running==false)
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
 
@@ -51,10 +61,39 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
         _socket->write(command.toLatin1().data());
         _socket->waitForBytesWritten();
         _running = true;
+        qDebug()<<"zrobione";
     }
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false),Port(30002),IpAddress("192.168.149.128")
+
+void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration, double toolSpeed, double time, double blendRadius)
+{
+    if(_connected && !_running)
+    {
+        //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
+
+
+        QString command = "movel([" +
+                QString::number(TargetPose[0]) + ", " +
+                QString::number(TargetPose[1]) + ", " +
+                QString::number(TargetPose[2]) + ", " +
+                QString::number(TargetPose[3]) + ", " +
+                QString::number(TargetPose[4]) + ", " +
+                QString::number(TargetPose[5]) + "], " +
+                "a=" + QString::number(toolAcceleration)+ ", " +
+                "v=" + QString::number(toolSpeed)+ ", " +
+                "t=" + QString::number(time)+", "+
+                "r=" + QString::number(blendRadius)+
+                ")\n";
+
+        _socket->write(command.toLatin1().data());
+        _socket->waitForBytesWritten();
+        _running = true;
+    }
+
+}
+
+UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128")
 {
     this->_socket = new QTcpSocket();
     this->_lastJointPos.resize(6);
@@ -135,7 +174,7 @@ void UR3Intermediator::GetRobotData()
 
         }
         _DataFlow = _DataFlow.mid(size);
-       // MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
+        MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
         /*qDebug()<<this->ActualRobotInfo.cartesianInfoData.getX();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getY();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getZ();
@@ -143,6 +182,8 @@ void UR3Intermediator::GetRobotData()
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRx();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRy();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRz();*/
+        //MoveToPoint(QVector<double>({1.0,1.0,0.0}));
+
         mutex.unlock();
     }
 

@@ -19,9 +19,12 @@ class UR3Intermediator: public QObject
 
 public:
 
+    void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
+
+    void MoveC(QVector<double> position_via, QVector<double> TargetPose, double toolAcceleration = 1.2, double toolSpeed=0.25, double blendRadius = 0);
     void MoveJ(QVector<double> JointPosition, double JointAcceleration= 1.0, double JointSpeed = 0.1);
     void MoveP(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double blendRadius);
-    void MoveL(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double time, double blendRadius);
+    void MoveL(QVector<double> TargetPose,double toolAcceleration=1.2,double toolSpeed=.25,double time=0, double blendRadius=0);
 
     UR3Intermediator();
     UR3Message GetActualUR3State();
@@ -47,7 +50,7 @@ private:
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
 
-    //Q_PROPERTY(QString Port READ getPort WRITE setPort USER true)
+    //Q_PROPERTY(int Port READ getPort WRITE setPort USER true)
     int Port;
 
     //Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress USER true)
