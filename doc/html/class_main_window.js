@@ -20,6 +20,8 @@ var class_main_window =
     [ "getZmiennaBool", "class_main_window.html#af9f8d7ccabecee8a71691d7741810470", null ],
     [ "getZmiennaDouble", "class_main_window.html#a5ee222d8f514ba58cf012dc29a247e5f", null ],
     [ "getZmiennaInt", "class_main_window.html#af6774379492d1fc74107b796e3c78ebb", null ],
+    [ "OnNewJointPos", "class_main_window.html#ae2d14a53706883607b7fcb7c7d7bad49", null ],
+    [ "OnNewTCP", "class_main_window.html#a602c878d70ea028033e5ada40f12fb95", null ],
     [ "setIP", "class_main_window.html#adaf66e4590384ac804f26167b6bec1af", null ],
     [ "setZmiennaBool", "class_main_window.html#a2deced4cca8539dac711fe12c7713d92", null ],
     [ "setZmiennaDouble", "class_main_window.html#a00dcb19f4b51d0a477d54eee86ede2c6", null ],

@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['polyline2ur3',['Polyline2UR3',['../class_polyline2_u_r3.html',1,'']]],
-  ['punkt',['punkt',['../structpunkt.html',1,'']]],
-  ['punkt2d',['punkt2D',['../structpunkt2_d.html',1,'']]],
-  ['punkttcp',['punktTCP',['../structpunkt_t_c_p.html',1,'']]]
+  ['newposetcp',['newPoseTCP',['../class_u_r3_intermediator.html#af33e0c5c4da324c4c62faa4bf2c95880',1,'UR3Intermediator']]]
 ];

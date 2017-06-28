@@ -118,15 +118,11 @@ $(document).ready(function(){initNavTree('class_u_r3_intermediator.html','');});
 Inheritance diagram for UR3Intermediator:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_u_r3_intermediator__inherit__graph.png" border="0" usemap="#_u_r3_intermediator_inherit__map" alt="Inheritance graph"/></div>
-<map name="_u_r3_intermediator_inherit__map" id="_u_r3_intermediator_inherit__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for UR3Intermediator:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_u_r3_intermediator__coll__graph.png" border="0" usemap="#_u_r3_intermediator_coll__map" alt="Collaboration graph"/></div>
-<map name="_u_r3_intermediator_coll__map" id="_u_r3_intermediator_coll__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
@@ -140,25 +136,78 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>OnSocketNewBytesWritt
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
-<tr class="memitem:a672fa39b1c2c9c8cbfae506f0af0fc8e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a672fa39b1c2c9c8cbfae506f0af0fc8e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>newTCP</b> (QVector&lt; double &gt; pose)</td></tr>
-<tr class="separator:a672fa39b1c2c9c8cbfae506f0af0fc8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af33e0c5c4da324c4c62faa4bf2c95880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#af33e0c5c4da324c4c62faa4bf2c95880">newPoseTCP</a> (QVector&lt; double &gt; x, char flag)</td></tr>
+<tr class="separator:af33e0c5c4da324c4c62faa4bf2c95880"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0adecd36d4933a43a2809c9fc530ef2d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0adecd36d4933a43a2809c9fc530ef2d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveJ</b> (QVector&lt; double &gt; JointPosition, double JointAcceleration, double JointSpeed, double Time, double BlendRadius)</td></tr>
-<tr class="separator:a0adecd36d4933a43a2809c9fc530ef2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13433fefadc48bd9344183349a8062e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13433fefadc48bd9344183349a8062e8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveToPoint</b> (QVector&lt; double &gt; q, double JointAcceleration=1.0, double JointSpeed=0.1)</td></tr>
+<tr class="separator:a13433fefadc48bd9344183349a8062e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b9e2fbc97eb5014af60ea92c0bb73cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b9e2fbc97eb5014af60ea92c0bb73cd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveC</b> (QVector&lt; double &gt; position_via, QVector&lt; double &gt; TargetPose, double toolAcceleration=1.2, double toolSpeed=0.25, double blendRadius=0)</td></tr>
+<tr class="separator:a9b9e2fbc97eb5014af60ea92c0bb73cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9be5056c82256814b9f984451e1ffc57"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9be5056c82256814b9f984451e1ffc57"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveJ</b> (QVector&lt; double &gt; JointPosition, double JointAcceleration=1.0, double JointSpeed=0.1)</td></tr>
+<tr class="separator:a9be5056c82256814b9f984451e1ffc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53b4ea278831dc3151af57fc458b146"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa53b4ea278831dc3151af57fc458b146"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveP</b> (QVector&lt; double &gt; TargetPose, double toolAcceleration, double toolSpeed, double blendRadius)</td></tr>
 <tr class="separator:aa53b4ea278831dc3151af57fc458b146"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a148ca9b7e40ce9b7d9c8f4cd2e14be16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a148ca9b7e40ce9b7d9c8f4cd2e14be16"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveL</b> (QVector&lt; double &gt; TargetPose, double toolAcceleration, double toolSpeed, double time, double blendRadius)</td></tr>
-<tr class="separator:a148ca9b7e40ce9b7d9c8f4cd2e14be16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5434b5b00e213a1726d2fb99d1f9436"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5434b5b00e213a1726d2fb99d1f9436"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveL</b> (QVector&lt; double &gt; TargetPose, double toolAcceleration=1.2, double toolSpeed=.25, double time=0, double blendRadius=0)</td></tr>
+<tr class="separator:aa5434b5b00e213a1726d2fb99d1f9436"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28704bd3002c9618cb70d944b1dbdc3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28704bd3002c9618cb70d944b1dbdc3a"></a>
 <a class="el" href="class_u_r3_message.html">UR3Message</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetActualUR3State</b> ()</td></tr>
 <tr class="separator:a28704bd3002c9618cb70d944b1dbdc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db0804cf802eb958a82e07ac1e64b58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8db0804cf802eb958a82e07ac1e64b58"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getPort</b> () const </td></tr>
+<tr class="separator:a8db0804cf802eb958a82e07ac1e64b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29b353e3139f66f448351ce71a81a06e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29b353e3139f66f448351ce71a81a06e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPort</b> (int value)</td></tr>
+<tr class="separator:a29b353e3139f66f448351ce71a81a06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8579d52bee67aaead2e7d4e5224ac38c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8579d52bee67aaead2e7d4e5224ac38c"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>getIpAddress</b> () const </td></tr>
+<tr class="separator:a8579d52bee67aaead2e7d4e5224ac38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12ee3275bfb4e8ba37032642e428f725"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a12ee3275bfb4e8ba37032642e428f725"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setIpAddress</b> (const QString &amp;value)</td></tr>
+<tr class="separator:a12ee3275bfb4e8ba37032642e428f725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="af33e0c5c4da324c4c62faa4bf2c95880"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UR3Intermediator::newPoseTCP </td>
+          <td>(</td>
+          <td class="paramtype">QVector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>flag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/piotr/workspace/UR3/UR3CPP/<a class="el" href="_u_r3_intermediator_8h_source.html">UR3Intermediator.h</a></li>
 <li>/home/piotr/workspace/UR3/UR3CPP/UR3Intermediator.cpp</li>
