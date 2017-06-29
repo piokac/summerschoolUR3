@@ -22,12 +22,9 @@ public:
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
 
     void MoveC(QVector<double> position_via, QVector<double> TargetPose, double toolAcceleration = 1.2, double toolSpeed=0.25, double blendRadius = 0);
-    void MoveJ(QVector<double> JointPosition, double JointAcceleration= 1.0, double JointSpeed = 1);
+    void MoveJ(QVector<double> JointPosition, double JointAcceleration= 1.0, double JointSpeed = 0.1);
     void MoveP(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double blendRadius);
-    void MoveL(QVector<double> TargetPose,double toolAcceleration=1.2,double toolSpeed=.25,double time=0, double blendRadius=0);\
-    void SpeedJ(QVector<double> qd, double a=.1, double t=0.4);
-    void SpeedL(QVector<double> qd, double a=.1, double t=0.4);
-    void SamuraiCut();
+    void MoveL(QVector<double> TargetPose,double toolAcceleration=1.2,double toolSpeed=.25,double time=0, double blendRadius=0);
 
     UR3Intermediator();
     UR3Message GetActualUR3State();
@@ -43,7 +40,6 @@ public:
 signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
     void newPoseTCP(QVector<double> x, char flag);  /*!< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp  */
-    //void ProActiveStop(bool);
 
 private:
 
@@ -55,10 +51,10 @@ private:
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
 
-    //Q_PROPERTY(int port READ getPort WRITE setPort USER true)
+    //Q_PROPERTY(int Port READ getPort WRITE setPort USER true)
     int Port;
 
-    //Q_PROPERTY(QString adresIP READ getIpAddress WRITE setIpAddress USER true)
+    //Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress USER true)
     QString IpAddress;
 
     UR3Message ActualRobotInfo;
@@ -78,7 +74,6 @@ private:
     bool ConnectToRobot();
 private slots:
     void disconnected();
-    //void OnProActiveStop(bool);
 
 
 public slots:

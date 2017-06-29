@@ -48,9 +48,8 @@ void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, 
 
 void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAcceleration, double JointSpeed)
 {
-    CheckIfStillMovejRunning();
     if(_running == true) qDebug()<<"rusza sie";
-
+    //CheckIfStillMovejRunning();
     if(_connected && _running==false)
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
@@ -104,45 +103,6 @@ void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration
 
 }
 
-void UR3Intermediator::SpeedJ(QVector<double> qd, double a, double t)
-{
-    QString command = "speedj([" +
-            QString::number(qd[0]) + ", " +
-            QString::number(qd[1]) + ", " +
-            QString::number(qd[2]) + ", " +
-            QString::number(qd[3]) + ", " +
-            QString::number(qd[4]) + ", " +
-            QString::number(qd[5]) + "], " +
-            "a=" + QString::number(a)+ ", " +
-            "t=" + QString::number(t)+ ")\n";
-
-    _socket->write(command.toLatin1().data());
-    _socket->waitForBytesWritten();
-
-}
-
-void UR3Intermediator::SpeedL(QVector<double> qd, double a, double t)
-{QString command = "speedl([" +
-            QString::number(qd[0]) + ", " +
-            QString::number(qd[1]) + ", " +
-            QString::number(qd[2]) + ", " +
-            QString::number(qd[3]) + ", " +
-            QString::number(qd[4]) + ", " +
-            QString::number(qd[5]) + "], " +
-            "a=" + QString::number(a)+ ", " +
-            "t=" + QString::number(t)+ ")\n";
-
-    _socket->write(command.toLatin1().data());
-    _socket->waitForBytesWritten();
-
-}
-
-void UR3Intermediator::SamuraiCut()
-{
-    MoveJ(QVector<double>({.0,-1.5708,.0,-1.5708,.0,.0}));
-    MoveJ(QVector<double>({1.5962,0,.0,-1.5708,.0,.0}));
-}
-
 UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128")
 {
     this->_socket = new QTcpSocket();
@@ -152,7 +112,7 @@ UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(300
     this->_lastPolozenie.fill(.0);
 
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
-    connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));\
+    connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     ConnectToRobot();
 
 }
@@ -224,7 +184,7 @@ void UR3Intermediator::GetRobotData()
 
         }
         _DataFlow = _DataFlow.mid(size);
-        SpeedL(QVector<double>({.01, .01, 0, 0, 0,0}));
+        //MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
         /*qDebug()<<this->ActualRobotInfo.cartesianInfoData.getX();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getY();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getZ();
@@ -233,8 +193,7 @@ void UR3Intermediator::GetRobotData()
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRy();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRz();*/
         //MoveL(QVector<double>({-255.0,-194,630.0,0.5,1.9,-1.9}));
-        //SamuraiCut();
-        //MoveL(QVector<double>({75.0,237,-105,0.663,-1.496,0.852}));
+
         mutex.unlock();
     }
 
@@ -340,18 +299,13 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
         switch(packageType){
         case ROBOT_MODE_DATA:
             this->ActualRobotInfo.setRobotModeData(_data, offset);
-            if(ActualRobotInfo.robotModeData.getIsEmergencyStopped() || ActualRobotInfo.robotModeData.getIsProtectiveStopped()){
-
-                _socket->write(QString("end_force_mode()\n").toLatin1().data());
-                _socket->waitForBytesWritten();
-            }
             break;
         case JOINT_DATA:
             this->ActualRobotInfo.setJointsData(_data, offset);
-            /*if(_running)
+            if(_running)
             {
                 CheckIfStillMovejRunning();
-            }*/
+            }
             CheckJointsPosChanged();
             break;
         case TOOL_DATA:
