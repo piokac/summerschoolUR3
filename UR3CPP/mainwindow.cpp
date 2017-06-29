@@ -6,10 +6,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->ur3 = new UR3Intermediator("192.168.149.128",30002);
+
+    this->ur3 = new UR3Intermediator("192.168.146.128",30002);
+
+    connect(this->ui->actionConnect,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     //connect(this->ur3, SIGNAL(newJointPos(QVector<double>)),this,SLOT(OnNewJointPos(QVector<double>)));
     connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));
     connect(this->ur3,SIGNAL(ConnectionAction(char*,bool)),this,SLOT(ConnectedToInfo(char*,bool)));
+    connect(this->ui->pushButton_Samurai,SIGNAL(clicked(bool)),this,SLOT(OnSamuraiCut()));
+    connect(this->ui->pushButton_MoveJ,SIGNAL(clicked(bool)),this,SLOT(OnMoveJ()));
+    connect(this->ui->pushButton_MoveL,SIGNAL(clicked(bool)),this,SLOT(OnMoveL()));
+    connect(this->ui->pushButton_SpeedJ,SIGNAL(pressed()),this,SLOT(OnSpeedJ()));
+    connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(Home()));
     ur3->ConnectToRobot();
 }
 
@@ -18,9 +26,49 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::OnActionConnection()
+void MainWindow::OnConnectedDialogInfo(QString ip,int port)
+{
+    this->ur3->setIpAddress(ip);
+    this->ur3->setPort(port);
+    this->ur3->ConnectToRobot();
+}
+
+void MainWindow::OnMoveJ()
 {
 
+    this->ur3->MoveJ(QVector<double>(
+    {0.6236825723301582, -1.477339167481995,
+     2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));
+}
+
+void MainWindow::OnSpeedJ()
+{
+    this->ur3->SpeedJ(QVector<double>({0,0,0,0,.1,.1}));
+}
+
+void MainWindow::OnMoveL()
+{
+}
+
+void MainWindow::OnSamuraiCut()
+{
+    for (int var = 0; var < 5; ++var)
+    {
+        this->ur3->SamuraiCut();
+    }
+
+}
+
+void MainWindow::OnActionConnection()
+{
+    this->connectDialog = new ConnectDialog();
+    connect(connectDialog,SIGNAL(ConnectClicked(QString,int)),this,SLOT(OnConnectedDialogInfo(QString,int)));
+    connectDialog->show();
+}
+
+void MainWindow::Home()
+{
+    this->ur3->Home();
 }
 
 void MainWindow::OnNewJointPos(QVector<double> pose)

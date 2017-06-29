@@ -39,14 +39,8 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEditX"/>
-    </item>
     <item row="1" column="3">
      <widget class="QLineEdit" name="lineEditBase"/>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEditY"/>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_8">
@@ -55,6 +49,9 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="lineEditY"/>
+    </item>
     <item row="4" column="0">
      <widget class="QLabel" name="label_10">
       <property name="text">
@@ -62,8 +59,8 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEditZ"/>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="lineEditX"/>
     </item>
     <item row="4" column="1">
      <widget class="QLineEdit" name="lineEditRX"/>
@@ -75,6 +72,9 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="lineEditRZ"/>
+    </item>
     <item row="3" column="0">
      <widget class="QLabel" name="label_9">
       <property name="text">
@@ -82,8 +82,8 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="lineEditRZ"/>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="lineEditZ"/>
     </item>
     <item row="2" column="2">
      <widget class="QLabel" name="label_2">
@@ -102,9 +102,6 @@
     <item row="5" column="1">
      <widget class="QLineEdit" name="lineEditRY"/>
     </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="lineEditShoulder"/>
-    </item>
     <item row="3" column="3">
      <widget class="QLineEdit" name="lineEditElbow"/>
     </item>
@@ -112,6 +109,13 @@
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Wrist 1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Wrist 3</string>
       </property>
      </widget>
     </item>
@@ -125,18 +129,14 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="2">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>Wrist 3</string>
-      </property>
-     </widget>
-    </item>
     <item row="6" column="3">
      <widget class="QLineEdit" name="lineEditWrist3"/>
     </item>
-    <item row="9" column="3">
-     <spacer name="verticalSpacer_2">
+    <item row="5" column="3">
+     <widget class="QLineEdit" name="lineEditWrist2"/>
+    </item>
+    <item row="10" column="1">
+     <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -148,11 +148,8 @@
       </property>
      </spacer>
     </item>
-    <item row="5" column="3">
-     <widget class="QLineEdit" name="lineEditWrist2"/>
-    </item>
-    <item row="9" column="1">
-     <spacer name="verticalSpacer">
+    <item row="10" column="3">
+     <spacer name="verticalSpacer_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -170,14 +167,7 @@
        <bool>false</bool>
       </property>
       <property name="text">
-       <string> </string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="3">
-     <widget class="QPushButton" name="pushButton_MoveP">
-      <property name="text">
-       <string>MoveP</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -185,6 +175,13 @@
      <widget class="QPushButton" name="pushButton_MoveJ">
       <property name="text">
        <string>MoveJ</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QPushButton" name="pushButton_SpeedJ">
+      <property name="text">
+       <string>SpeedJ</string>
       </property>
      </widget>
     </item>
@@ -196,9 +193,19 @@
      </widget>
     </item>
     <item row="8" column="3">
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="pushButton_Samurai">
       <property name="text">
        <string>Samurai Cut</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLineEdit" name="lineEditShoulder"/>
+    </item>
+    <item row="9" column="1">
+     <widget class="QPushButton" name="pushButton_Home">
+      <property name="text">
+       <string>Home</string>
       </property>
      </widget>
     </item>
@@ -217,7 +224,7 @@
     <property name="title">
      <string>Connection</string>
     </property>
-    <addaction name="actionConnection_Info"/>
+    <addaction name="actionConnect"/>
    </widget>
    <addaction name="menuConnection"/>
   </widget>
@@ -236,6 +243,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionConnect">
+   <property name="text">
+    <string>Connect</string>
    </property>
   </action>
  </widget>

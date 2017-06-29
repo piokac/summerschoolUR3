@@ -28,6 +28,7 @@ public:
     void SpeedJ(QVector<double> qd, double a=.1, double t=0.4);
     void SpeedL(QVector<double> qd, double a=.1, double t=0.4);
     void SamuraiCut();
+    void Home();
 
     UR3Intermediator();
     UR3Intermediator(QString ipAddress, int port);

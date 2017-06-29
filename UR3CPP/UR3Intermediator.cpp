@@ -109,8 +109,13 @@ void UR3Intermediator::SpeedL(QVector<double> qd, double a, double t)
 
 void UR3Intermediator::SamuraiCut()
 {
+    MoveJ(QVector<double>({.0,-1.5708,.0,-1.5708,.0,.0}),2.0);
+    MoveJ(QVector<double>({1.5962,0,.0,-1.5708,.0,.0}),2.0);
+}
+
+void UR3Intermediator::Home()
+{
     MoveJ(QVector<double>({.0,-1.5708,.0,-1.5708,.0,.0}));
-    MoveJ(QVector<double>({1.5962,0,.0,-1.5708,.0,.0}));
 }
 
 
@@ -244,7 +249,7 @@ void UR3Intermediator::GetRobotData()
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRy();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRz();*/
         //MoveL(QVector<double>({-255.0,-194,630.0,0.5,1.9,-1.9}));
-        SpeedL(QVector<double>({2, 2, 0, 0, 0,0}));
+
 
         mutex.unlock();
     }

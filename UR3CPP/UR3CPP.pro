@@ -16,11 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     UR3MessageOut.cpp \
     UR3Intermediator.cpp \
-    UR3Message.cpp
+    UR3Message.cpp \
+    connectdialog.cpp
 
 HEADERS  += mainwindow.h \
     UR3MessageOut.h \
     UR3Intermediator.h \
-    UR3Message.h
+    UR3Message.h \
+    connectdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    connectdialog.ui
