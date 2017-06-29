@@ -18,11 +18,15 @@ public:
     ~MainWindow();
 
 private:
+
     Ui::MainWindow *ui;
     UR3Intermediator* ur3;
+
 public slots:
+    void OnActionConnection();
     void OnNewJointPos(QVector<double> pose);
     void OnNewTCP(QVector<double> data, char c);
+    void ConnectedToInfo(char* Ip, bool Achieved);
 
 };
 
