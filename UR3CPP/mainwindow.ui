@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>302</width>
-    <height>294</height>
+    <width>569</width>
+    <height>399</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,47 +18,44 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="3" column="2">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Elbow</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
      <widget class="QLabel" name="label_7">
       <property name="text">
        <string>X</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEditX"/>
-    </item>
-    <item row="0" column="2">
+    <item row="1" column="2">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Base</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="3">
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="lineEditX"/>
+    </item>
+    <item row="1" column="3">
      <widget class="QLineEdit" name="lineEditBase"/>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="lineEditY"/>
+    </item>
+    <item row="2" column="0">
      <widget class="QLabel" name="label_8">
       <property name="text">
        <string>Y</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEditY"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>Z</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEditZ"/>
-    </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <widget class="QLabel" name="label_10">
       <property name="text">
        <string>RX</string>
@@ -63,19 +63,36 @@
      </widget>
     </item>
     <item row="3" column="1">
+     <widget class="QLineEdit" name="lineEditZ"/>
+    </item>
+    <item row="4" column="1">
      <widget class="QLineEdit" name="lineEditRX"/>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <widget class="QLabel" name="label_12">
       <property name="text">
        <string>RY</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEditRY"/>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>Z</string>
+      </property>
+     </widget>
     </item>
-    <item row="5" column="0">
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="lineEditRZ"/>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Shoulder</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
      <widget class="QLabel" name="label_11">
       <property name="text">
        <string>RZ</string>
@@ -83,72 +100,42 @@
      </widget>
     </item>
     <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEditRZ"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Shoulder</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QLineEdit" name="lineEditShoulder"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Elbow</string>
-      </property>
-     </widget>
+     <widget class="QLineEdit" name="lineEditRY"/>
     </item>
     <item row="2" column="3">
+     <widget class="QLineEdit" name="lineEditShoulder"/>
+    </item>
+    <item row="3" column="3">
      <widget class="QLineEdit" name="lineEditElbow"/>
     </item>
-    <item row="3" column="2">
+    <item row="4" column="2">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Wrist 1</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="3">
+    <item row="4" column="3">
      <widget class="QLineEdit" name="lineEditWrist1"/>
     </item>
-    <item row="4" column="2">
+    <item row="5" column="2">
      <widget class="QLabel" name="label_5">
       <property name="text">
        <string>Wrist 2</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="3">
-     <widget class="QLineEdit" name="lineEditWrist2"/>
-    </item>
-    <item row="5" column="2">
+    <item row="6" column="2">
      <widget class="QLabel" name="label_6">
       <property name="text">
        <string>Wrist 3</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="3">
+    <item row="6" column="3">
      <widget class="QLineEdit" name="lineEditWrist3"/>
     </item>
-    <item row="6" column="1">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="6" column="3">
+    <item row="9" column="3">
      <spacer name="verticalSpacer_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -161,6 +148,60 @@
       </property>
      </spacer>
     </item>
+    <item row="5" column="3">
+     <widget class="QLineEdit" name="lineEditWrist2"/>
+    </item>
+    <item row="9" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="1" colspan="3">
+     <widget class="QLineEdit" name="lineEdit_Connection">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string> </string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QPushButton" name="pushButton_MoveP">
+      <property name="text">
+       <string>MoveP</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QPushButton" name="pushButton_MoveJ">
+      <property name="text">
+       <string>MoveJ</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QPushButton" name="pushButton_MoveL">
+      <property name="text">
+       <string>MoveL</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="3">
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="text">
+       <string>Samurai Cut</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -168,10 +209,17 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>302</width>
-     <height>20</height>
+     <width>569</width>
+     <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuConnection">
+    <property name="title">
+     <string>Connection</string>
+    </property>
+    <addaction name="actionConnection_Info"/>
+   </widget>
+   <addaction name="menuConnection"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -182,6 +230,14 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionConnection_Info">
+   <property name="text">
+    <string>Connection Info</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

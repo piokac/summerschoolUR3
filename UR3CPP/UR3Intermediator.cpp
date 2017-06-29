@@ -103,7 +103,7 @@ void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration
 
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128")
+UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.146.128")
 {
     this->_socket = new QTcpSocket();
     this->_lastJointPos.resize(6);
@@ -113,7 +113,19 @@ UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(300
 
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
     connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
-    ConnectToRobot();
+
+}
+
+UR3Intermediator::UR3Intermediator(QString ipAddress, int port):_connected(false), _running(false),Port(port),IpAddress(ipAddress)
+{
+    this->_socket = new QTcpSocket();
+    this->_lastJointPos.resize(6);
+    this->_lastJointPos.fill(.0);
+    this->_lastPolozenie.resize(6);
+    this->_lastPolozenie.fill(.0);
+
+    connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
+    connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
 
 }
 
@@ -363,15 +375,14 @@ bool UR3Intermediator::ConnectToRobot()
         if(_socket->waitForConnected())
         {
             _connected = true;
-            return true;
         }
         else
         {
             _connected = false;
-            return false;
         }
     }
-    return true;
+    emit ConnectionAction(this->IpAddress.toLatin1().data(),_connected);
+    return _connected;
 
 
 }
