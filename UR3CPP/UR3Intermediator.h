@@ -19,20 +19,61 @@ class UR3Intermediator: public QObject
 
 public:
 
+
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
+
+    /**
+     * @brief ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze
+     * @return
+     */
     bool ConnectToRobot();
+
     void MoveC(QVector<double> position_via, QVector<double> TargetPose, double toolAcceleration = 1.2, double toolSpeed=0.25, double blendRadius = 0);
+    /**
+     * @brief MoveJ
+     * @param JointPosition - docelowa pozycja jointów [rad]
+     * @param JointAcceleration - przyśpieszenie z jakim obracają się jointy, domyślnie 1.0
+     * @param JointSpeed - prędkość obracających się jointów, domyślnie 0.1
+     */
     void MoveJ(QVector<double> JointPosition, double JointAcceleration= 1.0, double JointSpeed = 0.1);
     void MoveP(QVector<double> TargetPose,double toolAcceleration,double toolSpeed,double blendRadius);
+    /**
+     * @brief MoveL
+     * @param TargetPose - docelowa pozycja TCP [rad]
+     * @param toolAcceleration - przyśpieszenie z jakim obracają się jointy, domyślnie 1.2
+     * @param toolSpeed - prędkość obracających się jointów, domyślnie 0.25
+     */
     void MoveL(QVector<double> TargetPose,double toolAcceleration=1.2,double toolSpeed=.25,double time=0, double blendRadius=0);
+    /**
+     * @brief SpeedJ
+     * @param qd - docelowa pozycja jointów [rad]
+     * @param a - przyśpieszenie z jakim obracają się jointy, domyślnie 1.2
+     * @param t - czas
+     */
     void SpeedJ(QVector<double> qd, double a=.1, double t=0.4);
     void SpeedL(QVector<double> qd, double a=.1, double t=0.4);
+    /**
+     * @brief SamuraiCut - funkcja, testowa, imitująca cięcie kataną po skosie
+     */
     void SamuraiCut();
+    /**
+     * @brief Home - ustawia robota do pozycji początkowej
+     */
     void Home();
 
     UR3Intermediator();
+    /**
+     * @brief konstruktor dla klasy
+     * @param ipAddress - Adres ip socketu
+     * @param port - port
+     */
     UR3Intermediator(QString ipAddress, int port);
+    /**
+     * @brief GetActualUR3State
+     * @return zwraca ogól aktualnych informacji o robocie; podstawowe źródło informacji
+     */
     UR3Message GetActualUR3State();
+
 
 
     int getPort() const;
