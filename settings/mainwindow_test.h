@@ -40,6 +40,7 @@ signals:
 
 private slots:
     void showSettings(); //slot wlaczajacy okno ustawien
+    void update();
 
 private:
     Q_PROPERTY(QString adresIP READ getIP WRITE setIP USER true)
@@ -51,6 +52,7 @@ private:
 
     Settings *ustawienia;
 
+    //przykladowe zmienne
     bool zmiennaBool;
     int zmiennaInt;
     double zmiennaDouble;

@@ -3,40 +3,59 @@
 #include <QDebug>
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent), settingsWidget(NULL), m_settings(NULL),
     ui(new Ui::SettingsWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Ustawienia");
 }
 
 SettingsWindow::~SettingsWindow()
 {
     delete ui;
+    delete settingsWidget;
+}
+
+void SettingsWindow::setWindow(QSettings *settings, QString className)
+{
+    if (settingsWidget != NULL)
+    {
+        delete settingsWidget;
+        widgetsList.clear();
+    }
+    settingsWidget = new QWidget(this); //tworzenie widgetu ustawien
+    QGridLayout *grid = new QGridLayout(settingsWidget);
+    settingsWidget->setLayout(grid);
+
+    currentClassName = className;
+    m_settings = settings;
+
+    settings->beginGroup(className);
+    QStringList keys = settings->allKeys();
+    this->setWindowTitle("Ustawienia modułu " + className);
+
+    for(int i = 0; i < keys.size(); i++)
+    {
+        QLabel *label = new QLabel(settingsWidget); //tworzony jest label opisujacy dane ustawienie
+        label->setText(keys[i]);
+        grid->addWidget(label, i, 0);
+        QLineEdit *lineEdit = new QLineEdit(settingsWidget); //tworzony jest lineEdit umozliwiajacy zmiane wartosci ustawienia
+        lineEdit->setText(settings->value(keys[i]).toString());
+        grid->addWidget(lineEdit, i, 1);
+        QPair<QLabel*, QLineEdit*> temp(label, lineEdit);
+        widgetsList.push_back(temp); //zapisanie wskaznikow na widgety stworzone dynamicznie
+    }
+    settings->endGroup();
+    ui->verticalLayout->addWidget(settingsWidget); //dodanie layoutu z widgetami do okna ustawien
 }
 
 void SettingsWindow::on_buttonBox_accepted()
 {
-    emit settingsAccepted();
-}
-
-void SettingsWindow::setWindow(QObject *object)
-{
-    const QMetaObject *meta_object = object->metaObject();
-    int ilosc_property = meta_object->propertyCount();
-    int iloscUser = 0;
-    QString className(meta_object->className()); //nazwa klasy
-
-    for (int i = 0; i<ilosc_property; i++)
+    for (int i = 0; i < widgetsList.size(); i++)
     {
-        QMetaProperty metaProperty = meta_object->property(i);
-        if (metaProperty.isWritable() && metaProperty.isUser()) //property zostaje zmienione jesli jest do zapisu
-        {
-            iloscUser++;
-            //QString propertyName = metaProperty.name(); //nazwa property
-            //QVariant value = metaProperty.read(object); //wartosc parametru
-        }
+        QString key = currentClassName + "/" + widgetsList[i].first->text();
+        QVariant value = widgetsList[i].second->text();
+        m_settings->setValue(key, value);
     }
-    ui->lineEdit_nazwa->setText(meta_object->className());
-    ui->lineEdit_ilosc->setText(QString::number(ilosc_property));
-    ui->lineEdit_iloscUser->setText(QString::number(iloscUser));
+    emit settingsAccepted();
 }

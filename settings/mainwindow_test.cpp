@@ -10,9 +10,15 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),
 
     connect(ui->actionUstawienia, SIGNAL(triggered(bool)), this, SLOT(showSettings())); //sygnal wlaczajacy okno ustawien
     connect(this, SIGNAL(currentModuleChanged(QObject*)), ustawienia, SLOT(moduleChanged(QObject*))); //sygnal przekazujacy informacje o zmianie aktualnego modułu
+    connect(ustawienia, SIGNAL(settingsChanged()), this, SLOT(update())); //sygnał o aktualizacji ustawień
 
     ustawienia->read(this); //odczyt ustawien z pliku
     emit currentModuleChanged(currentModule);//sygnał o zmianie aktualnego modułu (POTRZEBNY W CONTROL PANELU)
+
+    this->ui->label_ip->setText(IP);
+    this->ui->label_bool->setText(QString::number(zmiennaBool));
+    this->ui->label_int->setText(QString::number(zmiennaInt));
+    this->ui->label_double->setText(QString::number(zmiennaDouble));
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +32,14 @@ void MainWindow::showSettings()
 {
     SettingsWindow *ustawieniaOkno = ustawienia->getWindow(); //pobranie wskaznika do okna ustawien
     ustawieniaOkno->exec(); //wyswietlenie modalnego okna dialogowego
+}
+
+void MainWindow::update()
+{
+    this->ui->label_ip->setText(IP);
+    this->ui->label_bool->setText(QString::number(zmiennaBool));
+    this->ui->label_int->setText(QString::number(zmiennaInt));
+    this->ui->label_double->setText(QString::number(zmiennaDouble));
 }
 
 double MainWindow::getZmiennaDouble() const
