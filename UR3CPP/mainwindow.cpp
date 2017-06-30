@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QMainWindow(parent), settings(new Settings("settings.ini", this)),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -19,11 +19,24 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->pushButton_SpeedJ,SIGNAL(pressed()),this,SLOT(OnSpeedJ()));
     connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(Home()));
     ur3->ConnectToRobot();
+    connect(this->ui->actionSettings, SIGNAL(triggered(bool)), this, SLOT(showSettings()));
+
+    settings->read(ur3);
+
 }
 
 MainWindow::~MainWindow()
 {
+    settings->serialize(ur3);
+    delete settings;
     delete ui;
+}
+
+void MainWindow::showSettings()
+{
+    settings->moduleChanged(ur3);
+    SettingsWindow *ustawieniaOkno = settings->getWindow(); //pobranie wskaznika do okna ustawien
+    ustawieniaOkno->exec(); //wyswietlenie modalnego okna dialogowego
 }
 
 void MainWindow::OnConnectedDialogInfo(QString ip,int port)
@@ -61,9 +74,10 @@ void MainWindow::OnSamuraiCut()
 
 void MainWindow::OnActionConnection()
 {
-    this->connectDialog = new ConnectDialog();
-    connect(connectDialog,SIGNAL(ConnectClicked(QString,int)),this,SLOT(OnConnectedDialogInfo(QString,int)));
-    connectDialog->show();
+    this->ur3->ConnectToRobot();
+//    this->connectDialog = new ConnectDialog();
+//    connect(connectDialog,SIGNAL(ConnectClicked(QString,int)),this,SLOT(OnConnectedDialogInfo(QString,int)));
+//    connectDialog->show();
 }
 
 void MainWindow::Home()

@@ -5,6 +5,7 @@
 #include "connectdialog.h"
 
 #include <QMainWindow>
+#include "settings.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,12 +19,16 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+    void moduleChanged(QObject *object);
 
 private:
 
     Ui::MainWindow *ui;
     UR3Intermediator* ur3;
     ConnectDialog* connectDialog;
+
+    Settings *settings;
 
 public slots:
 
@@ -39,6 +44,8 @@ public slots:
     void OnNewJointPos(QVector<double> pose);
     void OnNewTCP(QVector<double> data, char c);
     void ConnectedToInfo(char* Ip, bool Achieved);
+
+    void showSettings();
 
 };
 

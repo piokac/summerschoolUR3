@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = UR3CPP
 TEMPLATE = app
-
+include (../settings/settings.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
