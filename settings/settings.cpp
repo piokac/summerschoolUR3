@@ -8,33 +8,6 @@ Settings::Settings(const QString file, QObject *parent):QObject(parent),
     m_filename(file), m_settings(new QSettings(file, QSettings::IniFormat))
 {
     connect(m_window, SIGNAL(settingsAccepted()), this, SLOT(saveSettings())); //sygnal o zaakaceptowaniu okna ustawien = zapisanie ustawien
-
-    /*if ((!QFile(file).exists()) || QFile(file).size()==0) //tworzenie pliku z wartosciami domyslnymi (gdy plik ustawien nie istnieje)
-    {
-        m_settings->beginGroup("cGamepad");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("cMYO");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("polyline2ur3");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("UR3CPP");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("kalibracja");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("text2keyboard");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("controlpanel");
-        m_settings->endGroup();
-
-        m_settings->beginGroup("wizualizacja");
-        m_settings->endGroup();
-    }*/
 }
 
 Settings::~Settings()
@@ -58,15 +31,29 @@ void Settings::read(QObject *object) //zapisuje ustawienia do modulu
     const QMetaObject *meta_object = object->metaObject();
     int ilosc_property = meta_object->propertyCount();
     QString className(meta_object->className()); //nazwa klasy
+    bool skonfigurowano = true;
     for (int i = 0; i<ilosc_property; i++)
     {
         QMetaProperty metaProperty = meta_object->property(i);
-        if (metaProperty.isWritable() && metaProperty.isUser()) //property zostaje zmienione jesli jest do zapisu
+        if (metaProperty.isUser()) //property zostaje zmienione jesli jest typu user
         {
             QString propertyName = metaProperty.name(); //nazwa property
-            QVariant value = m_settings->value(className + "/" + propertyName); //wartosc parametru
-            object->setProperty(propertyName.toLatin1().data(), m_settings->value(className + "/" + propertyName)); //zapisanie ustawien do obiektu
+            m_settings->beginGroup(className);
+            if (!m_settings->value(propertyName).isNull()) //sprawdzenie czy dany klucz istnieje (wazne przy pierwszym uruchomieniu)
+            {
+                object->setProperty(propertyName.toLatin1().data(), m_settings->value(propertyName)); //zapisanie ustawien do obiektu
+            }
+            else
+            {
+                m_settings->setValue(propertyName, metaProperty.read(object));
+                skonfigurowano = false;
+            }
+            m_settings->endGroup();
         }
+    }
+    if (!skonfigurowano) //wyswietlenie okna informujacego o koniecznosci skonfigurowania danego modulu
+    {
+        QMessageBox::information(0, className, "Moduł " + className + " wymaga konfiguracji."); //okno dialogowe komunikujace o koniecznosci konfiguracji ustawien
     }
 }
 
@@ -89,19 +76,53 @@ void Settings::serialize(QObject *object) //zapisuje ustawienia modulu do pliku
 
 void Settings::modify(QObject *object) //modyfikuje ustawienia modułu
 {
-    //pobranie informacji z okna ustawien, zapisanie je do QSettings
-    read(object); //przekazanie ustawień do modułu
+    const QMetaObject *meta_object = object->metaObject();
+    int ilosc_property = meta_object->propertyCount();
+    QString className(meta_object->className()); //nazwa klasy
+    for (int i = 0; i<ilosc_property; i++)
+    {
+        QMetaProperty metaProperty = meta_object->property(i);
+        if (metaProperty.isUser()) //property zostaje zmienione jesli jest typu user
+        {
+            QString propertyName = metaProperty.name(); //nazwa property
+            QVariant value = m_settings->value(className + "/" + propertyName); //wartosc parametru
+
+            if(QString::compare(QString::fromLatin1(metaProperty.typeName()), "bool") == 0) //konwersja na bool
+            {
+                value = value.toBool();
+            }
+            else if(QString::compare(QString::fromLatin1(metaProperty.typeName()), "int") == 0) //konwersja na int
+            {
+                value = value.toInt();
+            }
+            else if(QString::compare(QString::fromLatin1(metaProperty.typeName()), "float") == 0) //konwersja na float
+            {
+                value = value.toFloat();
+            }
+            else if(QString::compare(QString::fromLatin1(metaProperty.typeName()), "double") == 0) //konwersja na double
+            {
+                value = value.toDouble();
+            }
+            else //konwersja na QString
+            {
+                value = value.toString();
+            }
+            object->setProperty(propertyName.toLatin1().data(), m_settings->value(className + "/" + propertyName)); //zapisanie ustawien do obiektu
+        }
+    }
+    emit settingsChanged(); //emitowanie sygnalu o zmianie ustawien
 }
 
 SettingsWindow *Settings::getWindow()
 {
-    m_window->setWindow(m_currentObject);
+    QString className(m_currentObject->metaObject()->className());
+    m_window->setWindow(m_settings, className);
     return m_window;
 }
 
 void Settings::saveSettings()
 {
-    this->modify(m_currentObject);
+    modify(m_currentObject);
 }
 
 void Settings::moduleChanged(QObject *object)

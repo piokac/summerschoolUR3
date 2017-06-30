@@ -20,7 +20,7 @@ public:
 
 private:
     Ui::UR3MainWindow *ui;
-    Settings* usatawienia;
+    Settings* ustawienia;
     UR3Intermediator* robot;
     cMYO* myo;
 

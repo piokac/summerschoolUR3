@@ -7,7 +7,7 @@ UR3MainWindow::UR3MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //odczyt ustawien
-    //    Settings ustawienia("plik");
+    ustawienia("settings");
     //    robot = new UR3Intermediator();
     //    Settings.read(robot);
 
@@ -18,8 +18,8 @@ UR3MainWindow::UR3MainWindow(QWidget *parent) :
 
 UR3MainWindow::~UR3MainWindow()
 {
-    //    Settings ustawienia("plik");
     //    Settings.serialize(robot);
     //    Settings.serializeBinary(robot,robot->getBinary());
+    delete ustawienia;
     delete ui;
 }
