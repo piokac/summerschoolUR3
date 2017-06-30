@@ -113,6 +113,11 @@ $(document).ready(function(){initNavTree('class_settings_window.html','');});
 <div class="title">SettingsWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Klasa służy do tworzenia okna ustawień, wyświetlania go i przekazywania wartości wprowadzonych przez użytkownika do ustawień.  
+ <a href="class_settings_window.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="settingswindow_8h_source.html">settingswindow.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SettingsWindow:</div>
 <div class="dyncontent">
@@ -128,7 +133,7 @@ Collaboration diagram for SettingsWindow:</div>
 Signals</h2></td></tr>
 <tr class="memitem:a1c32123b2809ac2fe8775010f8d0ed06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c32123b2809ac2fe8775010f8d0ed06"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings_window.html#a1c32123b2809ac2fe8775010f8d0ed06">settingsAccepted</a> ()</td></tr>
-<tr class="memdesc:a1c32123b2809ac2fe8775010f8d0ed06"><td class="mdescLeft">&#160;</td><td class="mdescRight">settingsAccepted Sygnał o zaakceptowaniu zmian w ustawieniach. <br /></td></tr>
+<tr class="memdesc:a1c32123b2809ac2fe8775010f8d0ed06"><td class="mdescLeft">&#160;</td><td class="mdescRight">settingsAccepted - sygnał o zaakceptowaniu zmian w ustawieniach <br /></td></tr>
 <tr class="separator:a1c32123b2809ac2fe8775010f8d0ed06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -136,29 +141,42 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab660e714bf67167a3a9de8d8d1936e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab660e714bf67167a3a9de8d8d1936e4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SettingsWindow</b> (QWidget *parent=0)</td></tr>
 <tr class="separator:aab660e714bf67167a3a9de8d8d1936e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d4e1ee624d96bef2728bacb78679ccf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings_window.html#a2d4e1ee624d96bef2728bacb78679ccf">setWindow</a> (QObject *object)</td></tr>
-<tr class="memdesc:a2d4e1ee624d96bef2728bacb78679ccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">setWindow Metoda tworząca layout okna ustawień.  <a href="#a2d4e1ee624d96bef2728bacb78679ccf">More...</a><br /></td></tr>
-<tr class="separator:a2d4e1ee624d96bef2728bacb78679ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab98dede38f5ab9ab5ae3c95650a45aa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings_window.html#ab98dede38f5ab9ab5ae3c95650a45aa1">setWindow</a> (QSettings *settings, QString className)</td></tr>
+<tr class="memdesc:ab98dede38f5ab9ab5ae3c95650a45aa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">setWindow - metoda tworząca layout okna ustawień  <a href="#ab98dede38f5ab9ab5ae3c95650a45aa1">More...</a><br /></td></tr>
+<tr class="separator:ab98dede38f5ab9ab5ae3c95650a45aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a2d4e1ee624d96bef2728bacb78679ccf"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Klasa służy do tworzenia okna ustawień, wyświetlania go i przekazywania wartości wprowadzonych przez użytkownika do ustawień. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ab98dede38f5ab9ab5ae3c95650a45aa1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void SettingsWindow::setWindow </td>
           <td>(</td>
-          <td class="paramtype">QObject *&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
+          <td class="paramtype">QSettings *&#160;</td>
+          <td class="paramname"><em>settings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>className</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>setWindow Metoda tworząca layout okna ustawień. </p>
+<p>setWindow - metoda tworząca layout okna ustawień </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td>Obiekt, którego ustawienia są wyświetlane. </td></tr>
+    <tr><td class="paramname">settings</td><td>- klasa zawierająca ustawienia modułów </td></tr>
+    <tr><td class="paramname">className</td><td>- nazwa aktualnie obsługiwanej klasy </td></tr>
   </table>
   </dd>
 </dl>
@@ -166,9 +184,9 @@ Public Member Functions</h2></td></tr>
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_settings_window_a2d4e1ee624d96bef2728bacb78679ccf_icgraph.png" border="0" usemap="#class_settings_window_a2d4e1ee624d96bef2728bacb78679ccf_icgraph" alt=""/></div>
-<map name="class_settings_window_a2d4e1ee624d96bef2728bacb78679ccf_icgraph" id="class_settings_window_a2d4e1ee624d96bef2728bacb78679ccf_icgraph">
-<area shape="rect" id="node2" href="class_settings.html#a77dfdf7a8e7a008d67c7981797290a8b" title="getWindow Getter okna ustawień. " alt="" coords="244,5,387,32"/>
+<div class="center"><img src="class_settings_window_ab98dede38f5ab9ab5ae3c95650a45aa1_icgraph.png" border="0" usemap="#class_settings_window_ab98dede38f5ab9ab5ae3c95650a45aa1_icgraph" alt=""/></div>
+<map name="class_settings_window_ab98dede38f5ab9ab5ae3c95650a45aa1_icgraph" id="class_settings_window_ab98dede38f5ab9ab5ae3c95650a45aa1_icgraph">
+<area shape="rect" id="node2" href="class_settings.html#a77dfdf7a8e7a008d67c7981797290a8b" title="getWindow &#45; getter okna ustawień " alt="" coords="244,5,387,32"/>
 </map>
 </div>
 </p>

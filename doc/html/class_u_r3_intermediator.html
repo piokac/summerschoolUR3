@@ -138,26 +138,49 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>OnSocketNewBytesWritt
 Signals</h2></td></tr>
 <tr class="memitem:af33e0c5c4da324c4c62faa4bf2c95880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#af33e0c5c4da324c4c62faa4bf2c95880">newPoseTCP</a> (QVector&lt; double &gt; x, char flag)</td></tr>
 <tr class="separator:af33e0c5c4da324c4c62faa4bf2c95880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a331de6a3729ea4a5e053c1f82d44e03f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a331de6a3729ea4a5e053c1f82d44e03f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionAction</b> (char *Ip, bool Result)</td></tr>
+<tr class="separator:a331de6a3729ea4a5e053c1f82d44e03f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a13433fefadc48bd9344183349a8062e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13433fefadc48bd9344183349a8062e8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveToPoint</b> (QVector&lt; double &gt; q, double JointAcceleration=1.0, double JointSpeed=0.1)</td></tr>
 <tr class="separator:a13433fefadc48bd9344183349a8062e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3aa4668a9db96f9b9ba056b702fa036"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#af3aa4668a9db96f9b9ba056b702fa036">ConnectToRobot</a> ()</td></tr>
+<tr class="memdesc:af3aa4668a9db96f9b9ba056b702fa036"><td class="mdescLeft">&#160;</td><td class="mdescRight">ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze.  <a href="#af3aa4668a9db96f9b9ba056b702fa036">More...</a><br /></td></tr>
+<tr class="separator:af3aa4668a9db96f9b9ba056b702fa036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b9e2fbc97eb5014af60ea92c0bb73cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b9e2fbc97eb5014af60ea92c0bb73cd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveC</b> (QVector&lt; double &gt; position_via, QVector&lt; double &gt; TargetPose, double toolAcceleration=1.2, double toolSpeed=0.25, double blendRadius=0)</td></tr>
 <tr class="separator:a9b9e2fbc97eb5014af60ea92c0bb73cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be5056c82256814b9f984451e1ffc57"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9be5056c82256814b9f984451e1ffc57"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveJ</b> (QVector&lt; double &gt; JointPosition, double JointAcceleration=1.0, double JointSpeed=0.1)</td></tr>
+<tr class="memitem:a9be5056c82256814b9f984451e1ffc57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#a9be5056c82256814b9f984451e1ffc57">MoveJ</a> (QVector&lt; double &gt; JointPosition, double JointAcceleration=1.0, double JointSpeed=0.1)</td></tr>
+<tr class="memdesc:a9be5056c82256814b9f984451e1ffc57"><td class="mdescLeft">&#160;</td><td class="mdescRight">MoveJ.  <a href="#a9be5056c82256814b9f984451e1ffc57">More...</a><br /></td></tr>
 <tr class="separator:a9be5056c82256814b9f984451e1ffc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53b4ea278831dc3151af57fc458b146"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa53b4ea278831dc3151af57fc458b146"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveP</b> (QVector&lt; double &gt; TargetPose, double toolAcceleration, double toolSpeed, double blendRadius)</td></tr>
 <tr class="separator:aa53b4ea278831dc3151af57fc458b146"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5434b5b00e213a1726d2fb99d1f9436"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5434b5b00e213a1726d2fb99d1f9436"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MoveL</b> (QVector&lt; double &gt; TargetPose, double toolAcceleration=1.2, double toolSpeed=.25, double time=0, double blendRadius=0)</td></tr>
+<tr class="memitem:aa5434b5b00e213a1726d2fb99d1f9436"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#aa5434b5b00e213a1726d2fb99d1f9436">MoveL</a> (QVector&lt; double &gt; TargetPose, double toolAcceleration=1.2, double toolSpeed=.25, double time=0, double blendRadius=0)</td></tr>
+<tr class="memdesc:aa5434b5b00e213a1726d2fb99d1f9436"><td class="mdescLeft">&#160;</td><td class="mdescRight">MoveL.  <a href="#aa5434b5b00e213a1726d2fb99d1f9436">More...</a><br /></td></tr>
 <tr class="separator:aa5434b5b00e213a1726d2fb99d1f9436"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28704bd3002c9618cb70d944b1dbdc3a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28704bd3002c9618cb70d944b1dbdc3a"></a>
-<a class="el" href="class_u_r3_message.html">UR3Message</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetActualUR3State</b> ()</td></tr>
+<tr class="memitem:ac2b049fee20e0d9f1e9d8b23daf74c18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#ac2b049fee20e0d9f1e9d8b23daf74c18">SpeedJ</a> (QVector&lt; double &gt; qd, double a=.1, double t=0.4)</td></tr>
+<tr class="memdesc:ac2b049fee20e0d9f1e9d8b23daf74c18"><td class="mdescLeft">&#160;</td><td class="mdescRight">SpeedJ.  <a href="#ac2b049fee20e0d9f1e9d8b23daf74c18">More...</a><br /></td></tr>
+<tr class="separator:ac2b049fee20e0d9f1e9d8b23daf74c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223a18baf01ddf00a0659d2d38fd34aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a223a18baf01ddf00a0659d2d38fd34aa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SpeedL</b> (QVector&lt; double &gt; qd, double a=.1, double t=0.4)</td></tr>
+<tr class="separator:a223a18baf01ddf00a0659d2d38fd34aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a904654b70b6fa385e2f5f66ba5d32510"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a904654b70b6fa385e2f5f66ba5d32510"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#a904654b70b6fa385e2f5f66ba5d32510">SamuraiCut</a> ()</td></tr>
+<tr class="memdesc:a904654b70b6fa385e2f5f66ba5d32510"><td class="mdescLeft">&#160;</td><td class="mdescRight">SamuraiCut - funkcja, testowa, imitująca cięcie kataną po skosie. <br /></td></tr>
+<tr class="separator:a904654b70b6fa385e2f5f66ba5d32510"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3565f1f2d8d404e877a1f45654229f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa3565f1f2d8d404e877a1f45654229f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#aaa3565f1f2d8d404e877a1f45654229f">Home</a> ()</td></tr>
+<tr class="memdesc:aaa3565f1f2d8d404e877a1f45654229f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Home - ustawia robota do pozycji początkowej. <br /></td></tr>
+<tr class="separator:aaa3565f1f2d8d404e877a1f45654229f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1521467f9c60ec5f0e15d09bca2a64c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#a1521467f9c60ec5f0e15d09bca2a64c7">UR3Intermediator</a> (QString ipAddress, int port)</td></tr>
+<tr class="memdesc:a1521467f9c60ec5f0e15d09bca2a64c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">konstruktor dla klasy  <a href="#a1521467f9c60ec5f0e15d09bca2a64c7">More...</a><br /></td></tr>
+<tr class="separator:a1521467f9c60ec5f0e15d09bca2a64c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28704bd3002c9618cb70d944b1dbdc3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_u_r3_message.html">UR3Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_r3_intermediator.html#a28704bd3002c9618cb70d944b1dbdc3a">GetActualUR3State</a> ()</td></tr>
+<tr class="memdesc:a28704bd3002c9618cb70d944b1dbdc3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">GetActualUR3State.  <a href="#a28704bd3002c9618cb70d944b1dbdc3a">More...</a><br /></td></tr>
 <tr class="separator:a28704bd3002c9618cb70d944b1dbdc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8db0804cf802eb958a82e07ac1e64b58"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8db0804cf802eb958a82e07ac1e64b58"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getPort</b> () const </td></tr>
@@ -172,7 +195,197 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><b>getIpAddress</b> (
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setIpAddress</b> (const QString &amp;value)</td></tr>
 <tr class="separator:a12ee3275bfb4e8ba37032642e428f725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a1521467f9c60ec5f0e15d09bca2a64c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UR3Intermediator::UR3Intermediator </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>ipAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>konstruktor dla klasy </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ipAddress</td><td>- Adres ip socketu </td></tr>
+    <tr><td class="paramname">port</td><td>- port </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_u_r3_intermediator_a1521467f9c60ec5f0e15d09bca2a64c7_cgraph.png" border="0" usemap="#class_u_r3_intermediator_a1521467f9c60ec5f0e15d09bca2a64c7_cgraph" alt=""/></div>
+<map name="class_u_r3_intermediator_a1521467f9c60ec5f0e15d09bca2a64c7_cgraph" id="class_u_r3_intermediator_a1521467f9c60ec5f0e15d09bca2a64c7_cgraph">
+<area shape="rect" id="node2" href="class_u_r3_message.html#ab052a27e9b9f9f4399434cfaf42c5192" title="UR3Message::getCartesian\lInfoData" alt="" coords="289,5,473,47"/>
+<area shape="rect" id="node3" href="class_u_r3_message.html#ac77efe7ae7f90c950925e03115b393ff" title="UR3Message::setCartesian\lInfoData" alt="" coords="289,71,473,112"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="af3aa4668a9db96f9b9ba056b702fa036"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool UR3Intermediator::ConnectToRobot </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a28704bd3002c9618cb70d944b1dbdc3a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_u_r3_message.html">UR3Message</a> UR3Intermediator::GetActualUR3State </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>GetActualUR3State. </p>
+<dl class="section return"><dt>Returns</dt><dd>zwraca ogól aktualnych informacji o robocie; podstawowe źródło informacji </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9be5056c82256814b9f984451e1ffc57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UR3Intermediator::MoveJ </td>
+          <td>(</td>
+          <td class="paramtype">QVector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>JointPosition</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>JointAcceleration</em> = <code>1.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>JointSpeed</em> = <code>0.1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MoveJ. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">JointPosition</td><td>- docelowa pozycja jointów [rad] </td></tr>
+    <tr><td class="paramname">JointAcceleration</td><td>- przyśpieszenie z jakim obracają się jointy, domyślnie 1.0 </td></tr>
+    <tr><td class="paramname">JointSpeed</td><td>- prędkość obracających się jointów, domyślnie 0.1 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_u_r3_intermediator_a9be5056c82256814b9f984451e1ffc57_icgraph.png" border="0" usemap="#class_u_r3_intermediator_a9be5056c82256814b9f984451e1ffc57_icgraph" alt=""/></div>
+<map name="class_u_r3_intermediator_a9be5056c82256814b9f984451e1ffc57_icgraph" id="class_u_r3_intermediator_a9be5056c82256814b9f984451e1ffc57_icgraph">
+<area shape="rect" id="node2" href="class_u_r3_intermediator.html#a904654b70b6fa385e2f5f66ba5d32510" title="SamuraiCut &#45; funkcja, testowa, imitująca cięcie kataną po skosie. " alt="" coords="225,5,428,32"/>
+<area shape="rect" id="node3" href="class_u_r3_intermediator.html#aaa3565f1f2d8d404e877a1f45654229f" title="Home &#45; ustawia robota do pozycji początkowej. " alt="" coords="243,56,411,83"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aa5434b5b00e213a1726d2fb99d1f9436"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UR3Intermediator::MoveL </td>
+          <td>(</td>
+          <td class="paramtype">QVector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>TargetPose</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>toolAcceleration</em> = <code>1.2</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>toolSpeed</em> = <code>.25</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>blendRadius</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MoveL. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TargetPose</td><td>- docelowa pozycja TCP [rad] </td></tr>
+    <tr><td class="paramname">toolAcceleration</td><td>- przyśpieszenie z jakim obracają się jointy, domyślnie 1.2 </td></tr>
+    <tr><td class="paramname">toolSpeed</td><td>- prędkość obracających się jointów, domyślnie 0.25 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="af33e0c5c4da324c4c62faa4bf2c95880"></a>
 <div class="memitem">
 <div class="memproto">
@@ -205,6 +418,58 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setIpAddress</b> (con
 </table>
 </div><div class="memdoc">
 <p>Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_u_r3_intermediator_af33e0c5c4da324c4c62faa4bf2c95880_icgraph.png" border="0" usemap="#class_u_r3_intermediator_af33e0c5c4da324c4c62faa4bf2c95880_icgraph" alt=""/></div>
+<map name="class_u_r3_intermediator_af33e0c5c4da324c4c62faa4bf2c95880_icgraph" id="class_u_r3_intermediator_af33e0c5c4da324c4c62faa4bf2c95880_icgraph">
+<area shape="rect" id="node2" href="class_u_r3_intermediator.html#a1521467f9c60ec5f0e15d09bca2a64c7" title="konstruktor dla klasy " alt="" coords="268,5,504,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ac2b049fee20e0d9f1e9d8b23daf74c18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UR3Intermediator::SpeedJ </td>
+          <td>(</td>
+          <td class="paramtype">QVector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>qd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>a</em> = <code>.1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em> = <code>0.4</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SpeedJ. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qd</td><td>- docelowa pozycja jointów [rad] </td></tr>
+    <tr><td class="paramname">a</td><td>- przyśpieszenie z jakim obracają się jointy, domyślnie 1.2 </td></tr>
+    <tr><td class="paramname">t</td><td>- czas </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

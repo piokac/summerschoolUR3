@@ -7,5 +7,6 @@ var searchData=
   ['ckalibracja3d',['cKalibracja3d',['../classc_kalibracja3d.html',1,'']]],
   ['cmyo',['cMYO',['../classc_m_y_o.html',1,'']]],
   ['configurationdata',['ConfigurationData',['../class_configuration_data.html',1,'']]],
+  ['connectdialog',['ConnectDialog',['../class_connect_dialog.html',1,'']]],
   ['controlpanel',['controlpanel',['../classcontrolpanel.html',1,'']]]
 ];

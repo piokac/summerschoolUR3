@@ -7,6 +7,7 @@ var annotated_dup =
     [ "cKalibracja3d", "classc_kalibracja3d.html", "classc_kalibracja3d" ],
     [ "cMYO", "classc_m_y_o.html", "classc_m_y_o" ],
     [ "ConfigurationData", "class_configuration_data.html", "class_configuration_data" ],
+    [ "ConnectDialog", "class_connect_dialog.html", "class_connect_dialog" ],
     [ "controlpanel", "classcontrolpanel.html", "classcontrolpanel" ],
     [ "Dialog", "class_dialog.html", "class_dialog" ],
     [ "JointData", "class_joint_data.html", "class_joint_data" ],

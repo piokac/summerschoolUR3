@@ -42,6 +42,16 @@ void MainWindow::update()
     this->ui->label_double->setText(QString::number(zmiennaDouble));
 }
 
+QString MainWindow::getA1() const
+{
+    return a1;
+}
+
+void MainWindow::setA1(const QString &value)
+{
+    a1 = value;
+}
+
 double MainWindow::getZmiennaDouble() const
 {
     return zmiennaDouble;

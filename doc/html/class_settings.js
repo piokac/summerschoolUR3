@@ -9,5 +9,6 @@ var class_settings =
     [ "restoreBinary", "class_settings.html#a6db597bfbda1b4b0c87618b56839f771", null ],
     [ "saveSettings", "class_settings.html#a4c5d90390125e939d5e6299340e586a1", null ],
     [ "serialize", "class_settings.html#aeee0543dd39c86c3fe5c5e28061b8f64", null ],
-    [ "serializeBinary", "class_settings.html#a1d82e40652004d9f5cbc2a683bb20c6c", null ]
+    [ "serializeBinary", "class_settings.html#a1d82e40652004d9f5cbc2a683bb20c6c", null ],
+    [ "settingsChanged", "class_settings.html#a83aeab1986b6be95e103dc1c28a9033e", null ]
 ];

@@ -35,6 +35,9 @@ public:
     double getZmiennaDouble() const;
     void setZmiennaDouble(double value);
 
+    QString getA1() const;
+    void setA1(const QString &value);
+
 signals:
     void currentModuleChanged(QObject*); //sygnał o zmianie aktualnego modułu (POTRZEBNY W CONTROL PANELU)
 
@@ -47,6 +50,7 @@ private:
     Q_PROPERTY(bool stanBool READ getZmiennaBool WRITE setZmiennaBool USER true)
     Q_PROPERTY(int liczbaInt READ getZmiennaInt WRITE setZmiennaInt USER true)
     Q_PROPERTY(double liczbaDouble READ getZmiennaDouble WRITE setZmiennaDouble USER true)
+    Q_PROPERTY(QString a1 READ getA1 WRITE setA1 USER true)
 
     Ui::MainWindow *ui;
 
@@ -59,6 +63,7 @@ private:
     QString IP;
 
     QObject *currentModule;
+    QString a1;
 };
 
 #endif // MAINWINDOW_H

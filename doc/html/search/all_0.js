@@ -7,5 +7,7 @@ var searchData=
   ['ckalibracja3d',['cKalibracja3d',['../classc_kalibracja3d.html',1,'']]],
   ['cmyo',['cMYO',['../classc_m_y_o.html',1,'']]],
   ['configurationdata',['ConfigurationData',['../class_configuration_data.html',1,'ConfigurationData'],['../class_u_r3_message.html#a71b0d7d1cf65af4012efc5ea839c1c9e',1,'UR3Message::configurationData()']]],
+  ['connectdialog',['ConnectDialog',['../class_connect_dialog.html',1,'']]],
+  ['connecttorobot',['ConnectToRobot',['../class_u_r3_intermediator.html#af3aa4668a9db96f9b9ba056b702fa036',1,'UR3Intermediator']]],
   ['controlpanel',['controlpanel',['../classcontrolpanel.html',1,'']]]
 ];

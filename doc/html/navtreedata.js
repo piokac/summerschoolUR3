@@ -21,7 +21,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_control_panel_2mainwindow_8h_source.html",
-"class_tool_data.html#a404565c85c099ceac6524e521e458131"
+"class_settings_window.html#a1c32123b2809ac2fe8775010f8d0ed06"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['mainwindow',['MainWindow',['../class_main_window.html',1,'']]],
-  ['masterboarddata',['MasterboardData',['../class_masterboard_data.html',1,'MasterboardData'],['../class_u_r3_message.html#abb29dea532aee421dcd64a9bba42d6b3',1,'UR3Message::masterboardData()']]],
-  ['modify',['modify',['../class_settings.html#a840359be7bb76ea49909f5aebbb2864e',1,'Settings']]],
-  ['modulechanged',['moduleChanged',['../class_settings.html#afeeb163bb1a19c62d665a7c4518ec677',1,'Settings']]],
-  ['myoform',['MYOForm',['../class_m_y_o_form.html',1,'']]]
+  ['kalibracja',['kalibracja',['../classkalibracja.html',1,'kalibracja'],['../classkalibracja.html#a8f7da22e1a79c375c13637d5b0f1994f',1,'kalibracja::kalibracja()']]],
+  ['kalibruj',['kalibruj',['../classc_kalibracja1_d.html#a32a6b78e50241e11603967618b0dfaac',1,'cKalibracja1D::kalibruj()'],['../classc_kalibracja2_d.html#a21788c9f9cf9596a5302c78a47f13528',1,'cKalibracja2D::kalibruj()'],['../classc_kalibracja3d.html#a27bf667cdcdfdb5de48ec1cd7eb8fabc',1,'cKalibracja3d::kalibruj()']]]
 ];

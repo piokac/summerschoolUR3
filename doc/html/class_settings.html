@@ -107,12 +107,18 @@ $(document).ready(function(){initNavTree('class_settings.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-slots">Public Slots</a> &#124;
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_settings-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Settings Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Klasa służy do zarządzania ustawieniami poszczególnych modułów.  
+ <a href="class_settings.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="settings_8h_source.html">settings.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Settings:</div>
 <div class="dyncontent">
@@ -128,37 +134,46 @@ Collaboration diagram for Settings:</div>
 Public Slots</h2></td></tr>
 <tr class="memitem:a4c5d90390125e939d5e6299340e586a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c5d90390125e939d5e6299340e586a1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#a4c5d90390125e939d5e6299340e586a1">saveSettings</a> ()</td></tr>
-<tr class="memdesc:a4c5d90390125e939d5e6299340e586a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveSettings Slot zapisujący ustawienia po zatwierdzeniu okna dialogowego. <br /></td></tr>
+<tr class="memdesc:a4c5d90390125e939d5e6299340e586a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">saveSettings - slot zapisujący ustawienia po zatwierdzeniu okna dialogowego <br /></td></tr>
 <tr class="separator:a4c5d90390125e939d5e6299340e586a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afeeb163bb1a19c62d665a7c4518ec677"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#afeeb163bb1a19c62d665a7c4518ec677">moduleChanged</a> (QObject *object)</td></tr>
-<tr class="memdesc:afeeb163bb1a19c62d665a7c4518ec677"><td class="mdescLeft">&#160;</td><td class="mdescRight">moduleChanged Slot zapisujący informację jaki moduł jest aktualnie obsługiwany.  <a href="#afeeb163bb1a19c62d665a7c4518ec677">More...</a><br /></td></tr>
+<tr class="memitem:afeeb163bb1a19c62d665a7c4518ec677"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afeeb163bb1a19c62d665a7c4518ec677"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#afeeb163bb1a19c62d665a7c4518ec677">moduleChanged</a> (QObject *object)</td></tr>
+<tr class="memdesc:afeeb163bb1a19c62d665a7c4518ec677"><td class="mdescLeft">&#160;</td><td class="mdescRight">moduleChanged - slot zapisujący informację o aktualnie obsługiwanym module <br /></td></tr>
 <tr class="separator:afeeb163bb1a19c62d665a7c4518ec677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a83aeab1986b6be95e103dc1c28a9033e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83aeab1986b6be95e103dc1c28a9033e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>settingsChanged</b> ()</td></tr>
+<tr class="separator:a83aeab1986b6be95e103dc1c28a9033e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa90e6b3a48bf0ed942ede9c41b8c4b51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#aa90e6b3a48bf0ed942ede9c41b8c4b51">Settings</a> (const QString file, QObject *parent=0)</td></tr>
-<tr class="memdesc:aa90e6b3a48bf0ed942ede9c41b8c4b51"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_settings.html">Settings</a> Konstruktor domyślny klasy <a class="el" href="class_settings.html">Settings</a>.  <a href="#aa90e6b3a48bf0ed942ede9c41b8c4b51">More...</a><br /></td></tr>
+<tr class="memdesc:aa90e6b3a48bf0ed942ede9c41b8c4b51"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_settings.html" title="Klasa służy do zarządzania ustawieniami poszczególnych modułów. ">Settings</a> - konstruktor domyślny klasy <a class="el" href="class_settings.html" title="Klasa służy do zarządzania ustawieniami poszczególnych modułów. ">Settings</a>.  <a href="#aa90e6b3a48bf0ed942ede9c41b8c4b51">More...</a><br /></td></tr>
 <tr class="separator:aa90e6b3a48bf0ed942ede9c41b8c4b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6db597bfbda1b4b0c87618b56839f771"><td class="memItemLeft" align="right" valign="top">QByteArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#a6db597bfbda1b4b0c87618b56839f771">restoreBinary</a> (QObject *object)</td></tr>
-<tr class="memdesc:a6db597bfbda1b4b0c87618b56839f771"><td class="mdescLeft">&#160;</td><td class="mdescRight">restoreBinary Metoda zwracająca ustawienia danego modułu.  <a href="#a6db597bfbda1b4b0c87618b56839f771">More...</a><br /></td></tr>
+<tr class="memdesc:a6db597bfbda1b4b0c87618b56839f771"><td class="mdescLeft">&#160;</td><td class="mdescRight">restoreBinary - metoda zwracająca ustawienia danego modułu z pliku binarnego  <a href="#a6db597bfbda1b4b0c87618b56839f771">More...</a><br /></td></tr>
 <tr class="separator:a6db597bfbda1b4b0c87618b56839f771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d82e40652004d9f5cbc2a683bb20c6c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#a1d82e40652004d9f5cbc2a683bb20c6c">serializeBinary</a> (QObject *object, QByteArray data)</td></tr>
-<tr class="memdesc:a1d82e40652004d9f5cbc2a683bb20c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">serializeBinary Metoda zapisująca ustawienia danego modułu do pliku binarnego.  <a href="#a1d82e40652004d9f5cbc2a683bb20c6c">More...</a><br /></td></tr>
+<tr class="memdesc:a1d82e40652004d9f5cbc2a683bb20c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">serializeBinary - metoda zapisująca ustawienia danego modułu do pliku binarnego  <a href="#a1d82e40652004d9f5cbc2a683bb20c6c">More...</a><br /></td></tr>
 <tr class="separator:a1d82e40652004d9f5cbc2a683bb20c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade2b279447167c16c6544fd3469e3972"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#ade2b279447167c16c6544fd3469e3972">read</a> (QObject *object)</td></tr>
-<tr class="memdesc:ade2b279447167c16c6544fd3469e3972"><td class="mdescLeft">&#160;</td><td class="mdescRight">read Metoda odczytująca ustawienia danego modułu.  <a href="#ade2b279447167c16c6544fd3469e3972">More...</a><br /></td></tr>
+<tr class="memdesc:ade2b279447167c16c6544fd3469e3972"><td class="mdescLeft">&#160;</td><td class="mdescRight">read - metoda odczytująca ustawienia danego modułu  <a href="#ade2b279447167c16c6544fd3469e3972">More...</a><br /></td></tr>
 <tr class="separator:ade2b279447167c16c6544fd3469e3972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeee0543dd39c86c3fe5c5e28061b8f64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#aeee0543dd39c86c3fe5c5e28061b8f64">serialize</a> (QObject *object)</td></tr>
-<tr class="memdesc:aeee0543dd39c86c3fe5c5e28061b8f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">serialize Metoda zapisująca ustawienia danego modułu do pliku.  <a href="#aeee0543dd39c86c3fe5c5e28061b8f64">More...</a><br /></td></tr>
+<tr class="memdesc:aeee0543dd39c86c3fe5c5e28061b8f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">serialize - metoda zapisująca ustawienia danego modułu do pliku  <a href="#aeee0543dd39c86c3fe5c5e28061b8f64">More...</a><br /></td></tr>
 <tr class="separator:aeee0543dd39c86c3fe5c5e28061b8f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840359be7bb76ea49909f5aebbb2864e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#a840359be7bb76ea49909f5aebbb2864e">modify</a> (QObject *object)</td></tr>
-<tr class="memdesc:a840359be7bb76ea49909f5aebbb2864e"><td class="mdescLeft">&#160;</td><td class="mdescRight">modify Metoda modyfikująca ustawienia danego modułu.  <a href="#a840359be7bb76ea49909f5aebbb2864e">More...</a><br /></td></tr>
+<tr class="memdesc:a840359be7bb76ea49909f5aebbb2864e"><td class="mdescLeft">&#160;</td><td class="mdescRight">modify - metoda modyfikująca ustawienia danego modułu  <a href="#a840359be7bb76ea49909f5aebbb2864e">More...</a><br /></td></tr>
 <tr class="separator:a840359be7bb76ea49909f5aebbb2864e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77dfdf7a8e7a008d67c7981797290a8b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_settings_window.html">SettingsWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_settings.html#a77dfdf7a8e7a008d67c7981797290a8b">getWindow</a> ()</td></tr>
-<tr class="memdesc:a77dfdf7a8e7a008d67c7981797290a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">getWindow Getter okna ustawień.  <a href="#a77dfdf7a8e7a008d67c7981797290a8b">More...</a><br /></td></tr>
+<tr class="memdesc:a77dfdf7a8e7a008d67c7981797290a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">getWindow - getter okna ustawień  <a href="#a77dfdf7a8e7a008d67c7981797290a8b">More...</a><br /></td></tr>
 <tr class="separator:a77dfdf7a8e7a008d67c7981797290a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Klasa służy do zarządzania ustawieniami poszczególnych modułów. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa90e6b3a48bf0ed942ede9c41b8c4b51"></a>
 <div class="memitem">
 <div class="memproto">
@@ -191,11 +206,11 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_settings.html">Settings</a> Konstruktor domyślny klasy <a class="el" href="class_settings.html">Settings</a>. </p>
+<p><a class="el" href="class_settings.html" title="Klasa służy do zarządzania ustawieniami poszczególnych modułów. ">Settings</a> - konstruktor domyślny klasy <a class="el" href="class_settings.html" title="Klasa służy do zarządzania ustawieniami poszczególnych modułów. ">Settings</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">file</td><td>Nazwa pliku zawierającego ustawienia. </td></tr>
-    <tr><td class="paramname">parent</td><td>Parent klasy <a class="el" href="class_settings.html">Settings</a>. </td></tr>
+    <tr><td class="paramname">file</td><td>- nazwa pliku zawierającego ustawienia </td></tr>
+    <tr><td class="paramname">parent</td><td>- parent klasy <a class="el" href="class_settings.html" title="Klasa służy do zarządzania ustawieniami poszczególnych modułów. ">Settings</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -205,9 +220,8 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_settings_aa90e6b3a48bf0ed942ede9c41b8c4b51_cgraph.png" border="0" usemap="#class_settings_aa90e6b3a48bf0ed942ede9c41b8c4b51_cgraph" alt=""/></div>
 <map name="class_settings_aa90e6b3a48bf0ed942ede9c41b8c4b51_cgraph" id="class_settings_aa90e6b3a48bf0ed942ede9c41b8c4b51_cgraph">
-<area shape="rect" id="node2" href="class_settings.html#a4c5d90390125e939d5e6299340e586a1" title="saveSettings Slot zapisujący ustawienia po zatwierdzeniu okna dialogowego. " alt="" coords="180,5,335,32"/>
-<area shape="rect" id="node3" href="class_settings.html#a840359be7bb76ea49909f5aebbb2864e" title="modify Metoda modyfikująca ustawienia danego modułu. " alt="" coords="383,5,500,32"/>
-<area shape="rect" id="node4" href="class_settings.html#ade2b279447167c16c6544fd3469e3972" title="read Metoda odczytująca ustawienia danego modułu. " alt="" coords="548,5,651,32"/>
+<area shape="rect" id="node2" href="class_settings.html#a4c5d90390125e939d5e6299340e586a1" title="saveSettings &#45; slot zapisujący ustawienia po zatwierdzeniu okna dialogowego " alt="" coords="180,5,335,32"/>
+<area shape="rect" id="node3" href="class_settings.html#a840359be7bb76ea49909f5aebbb2864e" title="modify &#45; metoda modyfikująca ustawienia danego modułu " alt="" coords="383,5,500,32"/>
 </map>
 </div>
 </p>
@@ -228,15 +242,15 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>getWindow Getter okna ustawień. </p>
-<dl class="section return"><dt>Returns</dt><dd>Wskaźnik na okno ustawień. </dd></dl>
+<p>getWindow - getter okna ustawień </p>
+<dl class="section return"><dt>Returns</dt><dd>- wskaźnik na okno ustawień </dd></dl>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_settings_a77dfdf7a8e7a008d67c7981797290a8b_cgraph.png" border="0" usemap="#class_settings_a77dfdf7a8e7a008d67c7981797290a8b_cgraph" alt=""/></div>
 <map name="class_settings_a77dfdf7a8e7a008d67c7981797290a8b_cgraph" id="class_settings_a77dfdf7a8e7a008d67c7981797290a8b_cgraph">
-<area shape="rect" id="node2" href="class_settings_window.html#a2d4e1ee624d96bef2728bacb78679ccf" title="setWindow Metoda tworząca layout okna ustawień. " alt="" coords="196,5,387,32"/>
+<area shape="rect" id="node2" href="class_settings_window.html#ab98dede38f5ab9ab5ae3c95650a45aa1" title="setWindow &#45; metoda tworząca layout okna ustawień " alt="" coords="196,5,387,32"/>
 </map>
 </div>
 </p>
@@ -257,66 +271,24 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>modify Metoda modyfikująca ustawienia danego modułu. </p>
+<p>modify - metoda modyfikująca ustawienia danego modułu </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td>Moduł, którego ustawienia są modyfikowane. </td></tr>
+    <tr><td class="paramname">object</td><td>- moduł, którego ustawienia są modyfikowane </td></tr>
   </table>
   </dd>
 </dl>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_settings_a840359be7bb76ea49909f5aebbb2864e_cgraph.png" border="0" usemap="#class_settings_a840359be7bb76ea49909f5aebbb2864e_cgraph" alt=""/></div>
-<map name="class_settings_a840359be7bb76ea49909f5aebbb2864e_cgraph" id="class_settings_a840359be7bb76ea49909f5aebbb2864e_cgraph">
-<area shape="rect" id="node2" href="class_settings.html#ade2b279447167c16c6544fd3469e3972" title="read Metoda odczytująca ustawienia danego modułu. " alt="" coords="171,5,273,32"/>
-</map>
-</div>
-</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_settings_a840359be7bb76ea49909f5aebbb2864e_icgraph.png" border="0" usemap="#class_settings_a840359be7bb76ea49909f5aebbb2864e_icgraph" alt=""/></div>
 <map name="class_settings_a840359be7bb76ea49909f5aebbb2864e_icgraph" id="class_settings_a840359be7bb76ea49909f5aebbb2864e_icgraph">
-<area shape="rect" id="node2" href="class_settings.html#a4c5d90390125e939d5e6299340e586a1" title="saveSettings Slot zapisujący ustawienia po zatwierdzeniu okna dialogowego. " alt="" coords="171,5,325,32"/>
-<area shape="rect" id="node3" href="class_settings.html#aa90e6b3a48bf0ed942ede9c41b8c4b51" title="Settings Konstruktor domyślny klasy Settings. " alt="" coords="373,5,500,32"/>
+<area shape="rect" id="node2" href="class_settings.html#a4c5d90390125e939d5e6299340e586a1" title="saveSettings &#45; slot zapisujący ustawienia po zatwierdzeniu okna dialogowego " alt="" coords="171,5,325,32"/>
+<area shape="rect" id="node3" href="class_settings.html#aa90e6b3a48bf0ed942ede9c41b8c4b51" title="Settings &#45; konstruktor domyślny klasy Settings. " alt="" coords="373,5,500,32"/>
 </map>
 </div>
 </p>
-
-</div>
-</div>
-<a class="anchor" id="afeeb163bb1a19c62d665a7c4518ec677"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Settings::moduleChanged </td>
-          <td>(</td>
-          <td class="paramtype">QObject *&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>moduleChanged Slot zapisujący informację jaki moduł jest aktualnie obsługiwany. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -334,25 +306,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>read Metoda odczytująca ustawienia danego modułu. </p>
+<p>read - metoda odczytująca ustawienia danego modułu </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td>Moduł, do którego zapisywane są ustawienia. </td></tr>
+    <tr><td class="paramname">object</td><td>- moduł, do którego zapisywane są ustawienia </td></tr>
   </table>
   </dd>
 </dl>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_settings_ade2b279447167c16c6544fd3469e3972_icgraph.png" border="0" usemap="#class_settings_ade2b279447167c16c6544fd3469e3972_icgraph" alt=""/></div>
-<map name="class_settings_ade2b279447167c16c6544fd3469e3972_icgraph" id="class_settings_ade2b279447167c16c6544fd3469e3972_icgraph">
-<area shape="rect" id="node2" href="class_settings.html#a840359be7bb76ea49909f5aebbb2864e" title="modify Metoda modyfikująca ustawienia danego modułu. " alt="" coords="156,5,273,32"/>
-<area shape="rect" id="node3" href="class_settings.html#a4c5d90390125e939d5e6299340e586a1" title="saveSettings Slot zapisujący ustawienia po zatwierdzeniu okna dialogowego. " alt="" coords="321,5,476,32"/>
-<area shape="rect" id="node4" href="class_settings.html#aa90e6b3a48bf0ed942ede9c41b8c4b51" title="Settings Konstruktor domyślny klasy Settings. " alt="" coords="524,5,651,32"/>
-</map>
-</div>
-</p>
 
 </div>
 </div>
@@ -370,14 +330,14 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>restoreBinary Metoda zwracająca ustawienia danego modułu. </p>
+<p>restoreBinary - metoda zwracająca ustawienia danego modułu z pliku binarnego </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td>Moduł, którego ustawienia są zwracane. </td></tr>
+    <tr><td class="paramname">object</td><td>- moduł, którego ustawienia są zwracane </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Ustawienia modułu w postaci ciągu bajtów. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>- ustawienia modułu w postaci ciągu bajtów </dd></dl>
 
 </div>
 </div>
@@ -395,10 +355,10 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>serialize Metoda zapisująca ustawienia danego modułu do pliku. </p>
+<p>serialize - metoda zapisująca ustawienia danego modułu do pliku </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td>Moduł, którego ustawienia są zapisywane. </td></tr>
+    <tr><td class="paramname">object</td><td>- moduł, którego ustawienia są zapisywane </td></tr>
   </table>
   </dd>
 </dl>
@@ -429,15 +389,15 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>serializeBinary Metoda zapisująca ustawienia danego modułu do pliku binarnego. </p>
+<p>serializeBinary - metoda zapisująca ustawienia danego modułu do pliku binarnego </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">object</td><td>Moduł, którego ustawienia są zapisywane. </td></tr>
-    <tr><td class="paramname">data</td><td>Ustawienia modułu w postaci ciągu bajtów. </td></tr>
+    <tr><td class="paramname">object</td><td>- moduł, którego ustawienia są zapisywane </td></tr>
+    <tr><td class="paramname">data</td><td>- ustawienia modułu w postaci ciągu bajtów </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Informacja czy zapis przebiegł pomyślnie. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>- informacja czy zapis przebiegł pomyślnie </dd></dl>
 
 </div>
 </div>

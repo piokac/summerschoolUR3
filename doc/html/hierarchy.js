@@ -15,6 +15,7 @@ var hierarchy =
     [ "punkt2D", "structpunkt2_d.html", null ],
     [ "punktTCP", "structpunkt_t_c_p.html", null ],
     [ "QDialog", null, [
+      [ "ConnectDialog", "class_connect_dialog.html", null ],
       [ "Dialog", "class_dialog.html", null ],
       [ "SettingsWindow", "class_settings_window.html", null ]
     ] ],
