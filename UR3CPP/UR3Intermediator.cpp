@@ -48,7 +48,7 @@ void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, 
 
 void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAcceleration, double JointSpeed)
 {
-    if(_running == true) qDebug()<<"rusza sie";
+   // if(_running == true) qDebug()<<"rusza sie";
     CheckIfStillMovejRunning();
     if(_connected && _running==false)
     {
@@ -241,8 +241,8 @@ void UR3Intermediator::GetRobotData()
         }
         _DataFlow = _DataFlow.mid(size);
         //MoveJ(QVector<double>({-0.5, -1.26, 1.21, -1.12, -1.76, 1.09}));
-        /*qDebug()<<this->ActualRobotInfo.cartesianInfoData.getX();
-                qDebug()<<this->ActualRobotInfo.cartesianInfoData.getY();
+        qDebug()<<this->ActualRobotInfo.robotModeData.getIsProgramRunning()<<" joint state:"<<this->ActualRobotInfo.jointsData[0].getJointMode();
+                /*qDebug()<<this->ActualRobotInfo.cartesianInfoData.getY();
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getZ();
 
                 qDebug()<<this->ActualRobotInfo.cartesianInfoData.getRx();
@@ -258,25 +258,25 @@ void UR3Intermediator::GetRobotData()
 void UR3Intermediator::CheckIfStillMovejRunning()
 {
 
-    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
-    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
-    double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
-    double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
-    double fourthJointPos = RoundDouble(jointsData[3].getActualJointPosition(),4);
-    double fifthJointPos = RoundDouble(jointsData[4].getActualJointPosition(),4);
-    double sixthJointPos = RoundDouble(jointsData[5].getActualJointPosition(),4);
-    QVector<double> current = QVector<double>
-    ({firstJointPos,secondJointPos,thirdJointPos,fourthJointPos,fifthJointPos,sixthJointPos});
-    QVector<double> target = QVector<double>
-            ({RoundDouble(jointsData[0].getTargetJointPosition(),4),RoundDouble(jointsData[1].getTargetJointPosition(),4),
-             RoundDouble(jointsData[2].getTargetJointPosition(),4),RoundDouble(jointsData[3].getTargetJointPosition(),4),
-             RoundDouble(jointsData[4].getTargetJointPosition(),4),RoundDouble(jointsData[5].getTargetJointPosition(),4)});
-    if(current == _moveJTargetPos)
-    {
-        _running = false;
-        qDebug()<<"przestal sie ruszac";
-    }
-
+//    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
+//    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
+//    double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
+//    double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
+//    double fourthJointPos = RoundDouble(jointsData[3].getActualJointPosition(),4);
+//    double fifthJointPos = RoundDouble(jointsData[4].getActualJointPosition(),4);
+//    double sixthJointPos = RoundDouble(jointsData[5].getActualJointPosition(),4);
+//    QVector<double> current = QVector<double>
+//    ({firstJointPos,secondJointPos,thirdJointPos,fourthJointPos,fifthJointPos,sixthJointPos});
+//    QVector<double> target = QVector<double>
+//            ({RoundDouble(jointsData[0].getTargetJointPosition(),4),RoundDouble(jointsData[1].getTargetJointPosition(),4),
+//             RoundDouble(jointsData[2].getTargetJointPosition(),4),RoundDouble(jointsData[3].getTargetJointPosition(),4),
+//             RoundDouble(jointsData[4].getTargetJointPosition(),4),RoundDouble(jointsData[5].getTargetJointPosition(),4)});
+//    if(current == _moveJTargetPos)
+//    {
+//        _running = false;
+//        //qDebug()<<"przestal sie ruszac";
+//    }
+    _running =ActualRobotInfo.robotModeData.getIsProgramRunning();
 }
 
 void UR3Intermediator::CheckIfStillMoveLRunning()
@@ -402,7 +402,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
 
 }
 
-QByteArray UR3Intermediator::ReadDataFlow()
+void UR3Intermediator::ReadDataFlow()
 {
     if(_connected)
     {
