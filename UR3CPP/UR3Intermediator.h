@@ -96,10 +96,10 @@ private:
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
 
-    Q_PROPERTY(int Port READ getPort WRITE setPort USER true)
+    Q_PROPERTY(int PortTCP READ getPort WRITE setPort USER true)
     int Port;
 
-    Q_PROPERTY(QString IpAddress READ getIpAddress WRITE setIpAddress USER true)
+    Q_PROPERTY(QString IUR3_IP READ getIpAddress WRITE setIpAddress USER true)
     QString IpAddress;
 
     UR3Message ActualRobotInfo;
