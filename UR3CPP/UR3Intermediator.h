@@ -109,6 +109,7 @@ private:
     bool _connected;
 
     //Methods
+    void CheckForceChanged();
     void CheckIfStillMovejRunning();
     void CheckIfStillMoveLRunning();
     void CheckJointsPosChanged();

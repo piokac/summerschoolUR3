@@ -4,6 +4,12 @@
 #include <QtEndian>
 #include <stdlib.h>
 
+
+//#define rad2deg(kat_rad) kat_rad/3.14*180
+#define parseDouble(src_class, setter_suffix, type,  data, offset)  {type tmp; memcpy(&tmp,&data[offset], sizeof(tmp)); src_class.set ## setter_suffix(type ## Swap(tmp)); offset+=sizeof(tmp);}
+
+
+
 UR3Message::UR3Message()
 {
     jointsData.resize(6);
@@ -70,54 +76,62 @@ float floatSwap( const float inFloat )
 
 void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
 {
+    //    memcpy(&tmp,&data[offset], sizeof(tmp));
+    //    this->cartesianInfoData.setX(doubleSwap(tmp));
+    //    offset+=sizeof(tmp);
+    //    memcpy(&tmp,&data[offset], sizeof(tmp));
+    //    this->cartesianInfoData.setY(doubleSwap(tmp));
+    //    offset+=sizeof(tmp);
+    parseDouble(this->cartesianInfoData, X, double,  data, offset);
+    parseDouble(this->cartesianInfoData, Y, double,  data, offset);
+    parseDouble(this->cartesianInfoData, Z, double,  data, offset);
+    parseDouble(this->cartesianInfoData, Rx, double,  data, offset);
+    parseDouble(this->cartesianInfoData, Ry, double,  data, offset);
+    parseDouble(this->cartesianInfoData, Rz, double,  data, offset);
+    parseDouble(this->cartesianInfoData, Y, double,  data, offset);
+    parseDouble(this->cartesianInfoData, TcpOffsetX, double,  data, offset);
+    parseDouble(this->cartesianInfoData, TcpOffsetY, double,  data, offset);
+    parseDouble(this->cartesianInfoData, TcpOffsetZ, double,  data, offset);
+    parseDouble(this->cartesianInfoData, TcpOffsetRX, double,  data, offset);
+    parseDouble(this->cartesianInfoData, TcpOffsetRY, double,  data, offset);
+    parseDouble(this->cartesianInfoData, TcpOffsetRZ, double,  data, offset);
+}
+
+ForceModeData UR3Message::getForceModeData() const
+{
+    return forceModeData;
+}
+
+void UR3Message::setForceModeData(char *data, unsigned int offset)
+{
     double tmp;
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setX(doubleSwap(tmp));
+    this->forceModeData.setFX(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setY(doubleSwap(tmp));
+    this->forceModeData.setFY(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setZ(doubleSwap(tmp));
+    this->forceModeData.setFZ(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRx(doubleSwap(tmp));
+    this->forceModeData.setRx(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRy(doubleSwap(tmp));
+    this->forceModeData.setRy(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setRz(doubleSwap(tmp));
+    this->forceModeData.setRz(doubleSwap(tmp));
     offset+=sizeof(tmp);
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setTcpOffsetX(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setTcpOffsetY(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setTcpOffsetZ(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setTcpOffsetRX(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setTcpOffsetRY(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->cartesianInfoData.setTcpOffsetRZ(doubleSwap(tmp));
+    this->forceModeData.setRobotDexterity(doubleSwap(tmp));
     offset+=sizeof(tmp);
 }
 
@@ -198,9 +212,7 @@ void UR3Message::setMasterboardData(char *data, int offset)
     this->masterboardData.setInReducedMode(ucharTemp);
     offset+=sizeof(ucharTemp);
 
-
 }
-
 
 ConfigurationData UR3Message::getConfigurationData() const
 {
@@ -217,10 +229,14 @@ QVector<JointData> UR3Message::getJointsData() const
 {
     return jointsData;
 }
+QVector<ForceModeData> UR3Message::getForcesData() const
+{
+    return forceModeData;
+}
+
 
 void UR3Message::setJointsData(char *data, int offset)
 {
-
 
     for(int i = 0; i<6; i++){
 
@@ -588,8 +604,6 @@ JointData::~JointData()
 {
 
 }
-
-
 
 char ToolData::getAnalogInputRange3() const
 {
@@ -1220,3 +1234,84 @@ void ConfigurationData::setJointMinLimit(double value)
 {
     jointMinLimit = value;
 }
+
+ForceModeData::ForceModeData()
+{
+
+}
+
+ForceModeData::~ForceModeData()
+{
+
+}
+
+double ForceModeData::getFX() const
+{
+    return fx;
+}
+
+void ForceModeData::setFX(double value)
+{
+    fx = value;
+}
+
+double ForceModeData::getFY() const
+{
+    return fy;
+}
+
+void ForceModeData::setFY(double value)
+{
+    fy = value;
+}
+
+double ForceModeData::getFZ() const
+{
+    return fz;
+}
+
+void ForceModeData::setFZ(double value)
+{
+    fz = value;
+}
+
+double ForceModeData::getRx() const
+{
+    return rx;
+}
+
+void ForceModeData::setRx(double value)
+{
+    rx = value;
+}
+
+double ForceModeData::getRy() const
+{
+    return ry;
+}
+
+void ForceModeData::setRy(double value)
+{
+    ry = value;
+}
+
+double ForceModeData::getRz() const
+{
+    return rz;
+}
+
+void ForceModeData::setRz(double value)
+{
+    rz = value;
+}
+
+double ForceModeData::getRobotDexterity() const
+{
+    return RobotDexterity;
+}
+
+void ForceModeData::setRobotDexterity(double value)
+{
+    RobotDexterity = value;
+}
+

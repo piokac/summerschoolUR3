@@ -6,14 +6,48 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+    connect(this->ui->actionConnection,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
+    connect(this->ur3,SIGNAL(ConnectionAction(char*,bool)),this,SLOT(ConnectedToInfo(char*,bool)));
     connect(ui->actionUstawienia_okna,SIGNAL(triggered(bool)),this,SLOT(showConfigWindow()));
-    settings->read(this);
+    //   settings->read(this);
     settings->read(ur3);
+    connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));//
+    connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>)),this, SLOT(OnNewTCP(QVector<double>)));
+    ur3->ConnectToRobot();
+
+
+}
+
+void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
+{
+    QString ip = QString(Ip);
+    if (Achieved)
+    {
+        this->ui->lineEdit_Connection->setText("Connected with " + ip);
+    }
+    else
+    {
+        this->ui->lineEdit_Connection->setText("Connection to IP " + ip + " failed");
+    }
 }
 
 MainWindow::~MainWindow()
 {
+    settings->serialize(ur3);//
+    delete settings;//
     delete ui;
+}
+
+void MainWindow::OnNewTCP(QVector<double> data)
+{
+    this->ui->lineEdit_Fx->setText(QString::number(data[0]));
+    this->ui->lineEdit_Fy->setText(QString::number(data[1]));
+    this->ui->lineEdit_Fz->setText(QString::number(data[2]));
+    this->ui->lineEdit_Tx->setText(QString::number(data[3]));
+    this->ui->lineEdit_Ty->setText(QString::number(data[4]));
+    this->ui->lineEdit_Tz->setText(QString::number(data[5]));
 }
 
 void MainWindow::showConfigWindow()
@@ -41,4 +75,14 @@ int MainWindow::getPole1() const
 void MainWindow::setPole1(int value)
 {
     pole1 = value;
+}
+
+void MainWindow::OnActionConnection()
+{
+    this->ur3->ConnectToRobot();
+}
+
+void MainWindow::on_actionConnection_triggered()
+{
+    qDebug()<<"triggered";
 }

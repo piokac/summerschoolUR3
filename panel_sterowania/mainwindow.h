@@ -25,12 +25,18 @@ public:
 
 public slots:
     void showConfigWindow();
+    void OnNewTCP(QVector<double> data);
+    void OnActionConnection();
+    void ConnectedToInfo(char* Ip, bool Achieved);
+
+private slots:
+    void on_actionConnection_triggered();
 
 private:
     Ui::MainWindow *ui;
     Settings *settings;
     Q_PROPERTY(QString pole2_test READ getPole2 WRITE setPole2 USER true)
-     Q_PROPERTY(int pole1_test READ getPole1 WRITE setPole1 USER true)
+    Q_PROPERTY(int pole1_test READ getPole1 WRITE setPole1 USER true)
     int pole1;
     QString pole2;
     UR3Intermediator* ur3;

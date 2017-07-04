@@ -425,6 +425,35 @@ public:
     void setRobotSubType(int value);
 };
 
+
+class ForceModeData // value 7
+{
+private:
+    double fx,fy,fz;
+    double rx, ry, rz;
+    double RobotDexterity;
+
+public:
+    ForceModeData();
+    ~ForceModeData();
+    double getFX() const;
+    void setFX(double value);
+    double getFY() const;
+    void setFY(double value);
+    double getFZ() const;
+    void setFZ(double value);
+    double getRx() const;
+    void setRx(double value);
+    double getRy() const;
+    void setRy(double value);
+    double getRz() const;
+    void setRz(double value);
+    double getRobotDexterity() const;
+    void setRobotDexterity(double value);
+
+};
+
+
 /*!
   Klasa przechowywujaca dane ze strumienia robota
 */
@@ -434,13 +463,13 @@ class UR3Message
 public:
 
     CartesianInfoData cartesianInfoData;        /*!< Polozenie koncowki TCP, x,y,z typu double dla BASE w metrach, RX,RY,RZ typu double - Rotation Vector w radianach */
+    ForceModeData forceModeData;                /*!< Informacje o silach w koncowce tcp */
     MasterboardData masterboardData;            /*!< Informacje o ukladzie */
     ConfigurationData configurationData;        /*!< Informacje o konfiguracji robota, jego typie, maksymalnym zasiegu */
     QVector<JointData> jointsData;              /*!< Wektor 6 elementowy, dla kazdego z jointow, 0 - base, 1 - Shoulder, itd..., przechowuje predkosc,
                                                     aktualna i docelowa pozycje typu double w radianach, natezenie i napiecie pradu - float, temp silnika w stopniach - float oraz Joint Mode */
     ToolData toolData;                          /*!< */
     RobotModeData robotModeData;                /*!< Timestamp, czy robot jest podlaczony, aktualny RobotMode */
-
 public:
 
     /*!
@@ -462,12 +491,18 @@ public:
       \param offset uint aktualne miejsce w data.
     */
     void setCartesianInfoData(char *data, unsigned int offset);
+
+    ForceModeData getForceModeData() const;
+    void setForceModeData(char *data, unsigned int offset);
+
     MasterboardData getMasterboardData() const;
     void setMasterboardData(char *data, int offset);
     ConfigurationData getConfigurationData() const;
     void setConfigurationData(char *data, unsigned int offset);
     QVector<JointData> getJointsData() const;
+    QVector<ForceModeData> getForcesData() const;
     void setJointsData(char *data, int offset);
+
     ToolData getToolData() const;
     void setToolData(char *data, int offset);
     RobotModeData getRobotModeData() const;

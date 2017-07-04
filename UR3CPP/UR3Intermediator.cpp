@@ -5,6 +5,27 @@
 #include <QHostAddress>
 #include <QDebug>
 #include "UR3Message.h"
+
+void UR3Intermediator::CheckForceChanged()
+{
+    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
+    QVector<ForceModeData> jointsData = this->ActualRobotInfo.getForceModeData();
+    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
+    double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
+    double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
+    double fourthJointPos = RoundDouble(jointsData[3].getActualJointPosition(),4);
+    double fifthJointPos = RoundDouble(jointsData[4].getActualJointPosition(),4);
+    double sixthJointPos = RoundDouble(jointsData[5].getActualJointPosition(),4);
+    QVector<double> current = QVector<double>
+    ({firstJointPos,secondJointPos,thirdJointPos,fourthJointPos,fifthJointPos,sixthJointPos});
+
+    if(current != _lastJointPos){
+        _lastJointPos = current;
+        emit newPoseTCP(current, 'p');
+
+    }
+}
+
 char *strdup (const char *s)
 {
     char* d = (char*)malloc(strlen (s) + 1);   // Space for length plus nul
@@ -316,7 +337,6 @@ void UR3Intermediator::CheckJointsPosChanged()
         emit newPoseTCP(current, 'p');
 
     }
-
 }
 
 void UR3Intermediator::CheckPolozenieChanged()
@@ -336,7 +356,6 @@ void UR3Intermediator::CheckPolozenieChanged()
         _lastPolozenie = current;
         emit newPoseTCP(current, 't');
     }
-
 
 }
 
@@ -389,6 +408,8 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
         case CONFIGURATION_DATA:
             break;
         case FORCE_MODE_DATA:
+            this->ActualRobotInfo.setForceModeData(_data, offset);
+
             break;
         case ADDITIONAL_INFO:
             break;
