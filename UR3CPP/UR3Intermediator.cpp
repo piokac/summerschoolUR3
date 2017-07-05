@@ -8,8 +8,26 @@
 
 static double RoundDouble(double val,int prec)
 {
+<<<<<<< HEAD
+
+    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
+    double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
+    double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
+    double fourthJointPos = RoundDouble(jointsData[3].getActualJointPosition(),4);
+    double fifthJointPos = RoundDouble(jointsData[4].getActualJointPosition(),4);
+    double sixthJointPos = RoundDouble(jointsData[5].getActualJointPosition(),4);
+    QVector<double> current = QVector<double>
+    ({firstJointPos,secondJointPos,thirdJointPos,fourthJointPos,fifthJointPos,sixthJointPos});
+
+    if(current != _lastJointPos){
+        _lastJointPos = current;
+        emit newPoseTCP(current, 'p');
+
+    }
+=======
     auto precision = pow(10,prec);
     return round(val * precision) / precision;
+>>>>>>> 2270edaea277c500fdf1a9683f5c5d50d5aad858
 }
 
 char *strdup (const char *s)

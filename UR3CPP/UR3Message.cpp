@@ -6,7 +6,13 @@
 
 
 //#define rad2deg(kat_rad) kat_rad/3.14*180
-#define parseDouble(src_class, setter_suffix, type,  data, offset)  {type tmp; memcpy(&tmp,&data[offset], sizeof(tmp)); src_class.set ## setter_suffix(type ## Swap(tmp)); offset+=sizeof(tmp);}
+#define parseDouble(src_class, setter_suffix, type,  data, offset){type tmp;memcpy(&tmp,&data[offset], sizeof(tmp));src_class.set ## setter_suffix(type ## Swap(tmp));offset+=sizeof(tmp);}
+
+
+
+
+
+
 
 
 
@@ -88,7 +94,6 @@ void UR3Message::setCartesianInfoData(char *data, unsigned int offset)
     parseDouble(this->cartesianInfoData, Rx, double,  data, offset);
     parseDouble(this->cartesianInfoData, Ry, double,  data, offset);
     parseDouble(this->cartesianInfoData, Rz, double,  data, offset);
-    parseDouble(this->cartesianInfoData, Y, double,  data, offset);
     parseDouble(this->cartesianInfoData, TcpOffsetX, double,  data, offset);
     parseDouble(this->cartesianInfoData, TcpOffsetY, double,  data, offset);
     parseDouble(this->cartesianInfoData, TcpOffsetZ, double,  data, offset);
@@ -104,9 +109,16 @@ ForceModeData UR3Message::getForceModeData() const
 
 void UR3Message::setForceModeData(char *data, unsigned int offset)
 {
-    double tmp;
+    //double tmp;
 
-    memcpy(&tmp,&data[offset], sizeof(tmp));
+    parseDouble(this->forceModeData, FX, double,  data, offset);
+    parseDouble(this->forceModeData, FY, double,  data, offset);
+    parseDouble(this->forceModeData, FZ, double,  data, offset);
+    parseDouble(this->forceModeData, Rx, double,  data, offset);
+    parseDouble(this->forceModeData, Ry, double,  data, offset);
+    parseDouble(this->forceModeData, Rz, double,  data, offset);
+
+    /*memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setFX(doubleSwap(tmp));
     offset+=sizeof(tmp);
     qDebug()<<"Fx:"<<doubleSwap(tmp);
@@ -132,7 +144,7 @@ void UR3Message::setForceModeData(char *data, unsigned int offset)
 
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setRobotDexterity(doubleSwap(tmp));
-    offset+=sizeof(tmp);
+    offset+=sizeof(tmp);*/
 }
 
 MasterboardData UR3Message::getMasterboardData() const
