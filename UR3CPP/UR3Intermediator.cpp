@@ -8,8 +8,7 @@
 
 void UR3Intermediator::CheckForceChanged()
 {
-    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
-    QVector<ForceModeData> jointsData = this->ActualRobotInfo.getForceModeData();
+
     double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
     double secondJointPos = RoundDouble(jointsData[1].getActualJointPosition(),4);
     double thirdJointPos = RoundDouble(jointsData[2].getActualJointPosition(),4);
