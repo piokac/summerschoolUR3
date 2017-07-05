@@ -95,6 +95,7 @@ private:
     QVector<double> _moveLTargetPose;
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
+    QVector<double> _lastForceValue;
 
     Q_PROPERTY(int PortTCP READ getPort WRITE setPort USER true)
     int Port;
@@ -117,6 +118,8 @@ private:
     void GetRobotData();
     void GetRobotMessage(char * data, unsigned int &offset, int size);
     void ReadDataFlow();
+    void RealTime(char * data, unsigned int &offset, int size);
+
 
 private slots:
     void disconnected();

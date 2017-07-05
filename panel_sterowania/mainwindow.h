@@ -23,11 +23,17 @@ public:
     QString getPole2() const;
     void setPole2(const QString &value);
 
+signals:
+    void moduleChanged(QObject *object);
+
+
 public slots:
     void showConfigWindow();
-    void OnNewTCP(QVector<double> data);
+    void OnNewTCP(QVector<double> data, char a);
     void OnActionConnection();
     void ConnectedToInfo(char* Ip, bool Achieved);
+
+    void showSettings();
 
 private slots:
     void on_actionConnection_triggered();

@@ -121,11 +121,11 @@ void UR3Message::setForceModeData(char *data, unsigned int offset)
     /*memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setFX(doubleSwap(tmp));
     offset+=sizeof(tmp);
-
+    qDebug()<<"Fx:"<<doubleSwap(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setFY(doubleSwap(tmp));
     offset+=sizeof(tmp);
-
+    qDebug()<<"Fy:"<<doubleSwap(tmp);
     memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setFZ(doubleSwap(tmp));
     offset+=sizeof(tmp);
@@ -241,10 +241,10 @@ QVector<JointData> UR3Message::getJointsData() const
 {
     return jointsData;
 }
-QVector<ForceModeData> UR3Message::getForcesData() const
+/*ForceModeData UR3Message::getForcesData() const
 {
-    return forceModeData;
-}
+    return forcesModeData;
+}*/
 
 
 void UR3Message::setJointsData(char *data, int offset)
@@ -1325,5 +1325,14 @@ double ForceModeData::getRobotDexterity() const
 void ForceModeData::setRobotDexterity(double value)
 {
     RobotDexterity = value;
+}
+
+void ForceModeData::setActualForceValue(double value)
+{
+    actualForceValue = value;
+}
+double ForceModeData::getActualForceValue() const
+{
+    return actualForceValue;
 }
 

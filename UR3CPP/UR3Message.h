@@ -429,6 +429,7 @@ public:
 class ForceModeData // value 7
 {
 private:
+    double actualForceValue;
     double fx,fy,fz;
     double rx, ry, rz;
     double RobotDexterity;
@@ -450,7 +451,8 @@ public:
     void setRz(double value);
     double getRobotDexterity() const;
     void setRobotDexterity(double value);
-
+    double getActualForceValue() const;
+    void setActualForceValue(double value);
 };
 
 
@@ -468,6 +470,7 @@ public:
     ConfigurationData configurationData;        /*!< Informacje o konfiguracji robota, jego typie, maksymalnym zasiegu */
     QVector<JointData> jointsData;              /*!< Wektor 6 elementowy, dla kazdego z jointow, 0 - base, 1 - Shoulder, itd..., przechowuje predkosc,
                                                     aktualna i docelowa pozycje typu double w radianach, natezenie i napiecie pradu - float, temp silnika w stopniach - float oraz Joint Mode */
+    QVector <ForceModeData> forcesModeData;
     ToolData toolData;                          /*!< */
     RobotModeData robotModeData;                /*!< Timestamp, czy robot jest podlaczony, aktualny RobotMode */
 public:
@@ -500,7 +503,8 @@ public:
     ConfigurationData getConfigurationData() const;
     void setConfigurationData(char *data, unsigned int offset);
     QVector<JointData> getJointsData() const;
-    QVector<ForceModeData> getForcesData() const;
+    //QVector<ForceModeData> getForcesData() const;
+   //  QVector <double> getForcesData();
     void setJointsData(char *data, int offset);
 
     ToolData getToolData() const;
