@@ -1,7 +1,6 @@
 #ifndef UR3INTERMEDIATOR_H
 #define UR3INTERMEDIATOR_H
 
-
 #pragma once
 #include <vector>
 #include "UR3Message.h"

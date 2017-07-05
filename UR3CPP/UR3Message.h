@@ -1,6 +1,7 @@
 #ifndef UR3MESSAGE_H
 #define UR3MESSAGE_H
 
+//movej; sppedc; force
 
 #pragma once
 #include <vector>

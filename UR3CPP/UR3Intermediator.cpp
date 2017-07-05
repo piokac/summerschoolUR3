@@ -55,7 +55,7 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
 
-        QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
+       // QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
 
         QString command = "movej([" +
                 QString::number(JointPosition[0]) + ", " +
@@ -198,7 +198,7 @@ void UR3Intermediator::setIpAddress(const QString &value)
     IpAddress = value;
 }
 
-void UR3Intermediator::GetRobotData(_data, offset, size)
+void UR3Intermediator::GetRobotData()
 {
     int size = 0;
     unsigned int offset = 0;
@@ -452,13 +452,13 @@ void UR3Intermediator::ReadDataFlow()
     }
 }
 
-void UR3Intermediator::RealTime(char *data, unsigned int &offset, int size)
+void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
 {
-    double sizeOfPackage;
+ /*   double sizeOfPackage;
     memcpy(&sizeOfPackage, &_data[offset-1], sizeof(sizeOfPackage));
     sizeOfPackage = s(sizeOfPackage);
     //sizeOfPackage = qFromBigEndian<int>(sizeOfPackage);
-    offset+=sizeof(sizeOfPackage);
+    offset+=sizeof(sizeOfPackage);*/
 
 }
 
