@@ -6,9 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     this->ur3 = new UR3Intermediator("192.168.146.128",30002);
-
     connect(this->ui->actionConnect,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     //connect(this->ur3, SIGNAL(newJointPos(QVector<double>)),this,SLOT(OnNewJointPos(QVector<double>)));
     connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));
@@ -20,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(Home()));
     ur3->ConnectToRobot();
     connect(this->ui->actionSettings, SIGNAL(triggered(bool)), this, SLOT(showSettings()));
-
     settings->read(ur3);
 
 }
