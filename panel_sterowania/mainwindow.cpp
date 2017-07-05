@@ -84,7 +84,28 @@ void MainWindow::OnActionConnection()
     this->ur3->ConnectToRobot();
 }
 
+void MainWindow::OnMoveJ()
+{
+
+    this->ur3->MoveJ(QVector<double>(
+    {0.6236825723301582, 1.4, 1.05, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));
+    /*{0.6236825723301582, -1.477339167481995,
+     2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));*/
+    //(q, a=1.4, v=1.05, t=0, r=0)
+}
+
+void MainWindow::OnSpeedJ()
+{
+    this->ur3->SpeedJ(QVector<double>({0,0,0,0,.1,.1}));
+}
+
+
 void MainWindow::on_actionConnection_triggered()
 {
     qDebug()<<"triggered";
+}
+
+void MainWindow::on_pushButton_MoveJ_clicked()
+{
+
 }

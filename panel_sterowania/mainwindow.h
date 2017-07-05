@@ -32,11 +32,15 @@ public slots:
     void OnNewTCP(QVector<double> data, char a);
     void OnActionConnection();
     void ConnectedToInfo(char* Ip, bool Achieved);
-
     void showSettings();
+
+    void OnMoveJ();
+    void OnSpeedJ();
 
 private slots:
     void on_actionConnection_triggered();
+
+    void on_pushButton_MoveJ_clicked();
 
 private:
     Ui::MainWindow *ui;
