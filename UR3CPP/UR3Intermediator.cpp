@@ -63,7 +63,7 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
 
-        // QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
+       // QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
 
         QString command = "movej([" +
                 QString::number(JointPosition[0]) + ", " +
