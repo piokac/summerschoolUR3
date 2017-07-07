@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "settings.h"
 #include "UR3Intermediator.h"
+#include "waypoint.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,23 +34,33 @@ public slots:
     void OnActionConnection();
     void ConnectedToInfo(char* Ip, bool Achieved);
     void showSettings();
+    void showWayPoint();
 
     void OnMoveJ();
     void OnSpeedJ();
+    void OnForceMode();
+    void onHome();
+    void onServoc();
+
 
 private slots:
     void on_actionConnection_triggered();
 
     void on_pushButton_MoveJ_clicked();
 
+    void on_actionParameters_triggered();
+
 private:
+    WayPoint * wp;
+    UR3Intermediator* ur3;
     Ui::MainWindow *ui;
     Settings *settings;
     Q_PROPERTY(QString pole2_test READ getPole2 WRITE setPole2 USER true)
     Q_PROPERTY(int pole1_test READ getPole1 WRITE setPole1 USER true)
     int pole1;
     QString pole2;
-    UR3Intermediator* ur3;
+
+
 };
 
 #endif // MAINWINDOW_H

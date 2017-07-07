@@ -2,17 +2,24 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),settings(new Settings("settings.ini", this)),  ur3(new UR3Intermediator),
+    QMainWindow(parent),settings(new Settings("settings.ini", this)),  ur3(new UR3Intermediator), wp(new WayPoint),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->ur3 = new UR3Intermediator("192.168.146.128",30002);
     connect(this->ui->actionConnection,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));
     connect(this->ur3,SIGNAL(ConnectionAction(char*,bool)),this,SLOT(ConnectedToInfo(char*,bool)));
     connect(ui->actionUstawienia_okna,SIGNAL(triggered(bool)),this,SLOT(showConfigWindow()));
-    //connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));//
-    //  connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>)),this, SLOT(OnNewTCP(QVector<double>)));
+    connect(this->ui->pushButton_MoveJ,SIGNAL(clicked(bool)),this,SLOT(OnMoveJ()));
+    connect(this->ui->pushButton_SpeedJ,SIGNAL(pressed()),this,SLOT(OnSpeedJ()));
+    connect(this->ui->pushButton_ForceMode,SIGNAL(clicked(bool)),this,SLOT(OnForceMode()));
+    connect(this->ui->pushButton_Servoc,SIGNAL(clicked(bool)),this,SLOT(onServoc()));
+    connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(onHome()));
+
+   // connect(this->ui->actionParameters,SIGNAL(clicked(bool)),this,SLOT(showWayPoint()));
+   // connect(ui->actionParameters,SIGNAL(triggered(bool)),this,SLOT(showWayPoint()));
+    connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
+
     ur3->ConnectToRobot();
     settings->read(ur3);
 
@@ -23,6 +30,26 @@ MainWindow::~MainWindow()
     settings->serialize(ur3);//
     delete settings;//
     delete ui;
+}
+
+void MainWindow::on_actionParameters_triggered()
+{
+
+
+    if(wp->exec() == QDialog::Accepted)
+    {
+        wp->setWx(1);
+    double  a =  wp->getWx();
+        wp->getWy();
+        wp->getWz();
+        wp->getWrx();
+        wp->getWry();
+        wp->getWrz();
+        wp->getV();
+        wp->getA();
+        qDebug()<<a<<" "<<wp->getWx();
+
+    }
 }
 
 void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
@@ -91,16 +118,69 @@ void MainWindow::OnActionConnection()
 void MainWindow::OnMoveJ()
 {
 
-    this->ur3->MoveJ(QVector<double>(
-    {0.6236825723301582, 1.4, 1.05, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));
-    /*{0.6236825723301582, -1.477339167481995,
-     2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));*/
-    //(q, a=1.4, v=1.05, t=0, r=0)
+ /*   this->ur3->MoveJ(QVector<double>(
+                         // {0.6236825723301582, 1.4, 1.05, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));
+    {0.6236825723301582, -1.477339167481995,
+     2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}), 2.4, 3);
+    //(q, a=1.4, v=1.05, t=0, r=0)*/
+  //  double a = wp->getWx();
+    this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
+       wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
+    qDebug()<<wp->getWx();
+
+
+
 }
 
 void MainWindow::OnSpeedJ()
 {
     this->ur3->SpeedJ(QVector<double>({0,0,0,0,.1,.1}));
+    //joint speed, a, t_min
+}
+
+void MainWindow::OnForceMode()
+{
+    this->ur3->ForceMode(QVector<double>({0,0,0,0,0,0}),
+                         QVector<double>({1,0,1,0,0,0}),
+                         QVector<double>({10,0,0,0,0,0}),
+                         1,
+                         QVector<double>({0.1, 0.1,0.15, 0.35, 0.35, 0.35}));
+    qDebug()<<"Force Mode";
+
+
+}
+
+void MainWindow::onHome()
+{
+    this->ur3->Home();
+}
+
+void MainWindow::onServoc()
+{
+  /*  this->ur3->Servoc(QVector<double>(
+    {0.6236825723301582, -1.477339167481995,2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}), 1.2, 0.5);
+    this->ur3->Servoc(QVector<double>(
+    {-193.55,-16.44,294.15,2.255,2.454,-2.454}), 2.4, 1);
+    this->ur3->Servoc(QVector<double>(
+    {0.6236825723301582, -1.477339167481995,2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}), 1.2, 0.5);
+*/
+}
+
+void MainWindow::showSettings()
+{
+}
+
+void MainWindow::showWayPoint()
+{
+
+    wp->getWx();
+    wp->getWy();
+    wp->getWz();
+    wp->getWrx();
+    wp->getWry();
+    wp->getWrz();
+    wp->getV();
+    wp->getA();
 }
 
 
@@ -111,5 +191,6 @@ void MainWindow::on_actionConnection_triggered()
 
 void MainWindow::on_pushButton_MoveJ_clicked()
 {
+    qDebug()<<"MoveJ";
 
 }
