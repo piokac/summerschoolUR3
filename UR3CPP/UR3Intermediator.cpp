@@ -224,7 +224,7 @@ void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI, PRZETESTOWAC NA PRAWIDLOWYCH PZYCJACH
 
 
-        QString command = "movel([" +
+        QString commands = "movel([" +
                 QString::number(TargetPose[0]) + ", " +
                 QString::number(TargetPose[1]) + ", " +
                 QString::number(TargetPose[2]) + ", " +
