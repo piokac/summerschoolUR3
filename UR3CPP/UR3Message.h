@@ -457,6 +457,223 @@ public:
 };
 
 
+
+class QTargetJointsPositions
+{
+public:
+    double getKat1() const;
+    void setKat1(double value);
+
+    double getKat2() const;
+    void setKat2(double value);
+
+    double getKat3() const;
+    void setKat3(double value);
+
+    double getKat4() const;
+    void setKat4(double value);
+
+    double getKat5() const;
+    void setKat5(double value);
+
+    double getKat6() const;
+    void setKat6(double value);
+
+   // QVector<double> GetJointsPositions();
+
+
+private:
+    double kat1,kat2,kat3,kat4,kat5,kat6;
+
+};
+
+class QTargetJointsVelocities
+{
+public:
+
+    double getPredkosc1() const;
+    void setPredkosc1(double value);
+
+    double getPredkosc2() const;
+    void setPredkosc2(double value);
+
+    double getPredkosc3() const;
+    void setPredkosc3(double value);
+
+    double getPredkosc4() const;
+    void setPredkosc4(double value);
+
+    double getPredkosc5() const;
+    void setPredkosc5(double value);
+
+    double getPredkosc6() const;
+    void setPredkosc6(double value);
+
+private:
+    double predkosc1,predkosc2,predkosc3,predkosc4,predkosc5,predkosc6;
+};
+
+class QTargetJointsTorques
+{
+public:
+
+    double getTorque1() const;
+    void setTorque1(double value);
+
+    double getTorque2() const;
+    void setTorque2(double value);
+
+    double getTorque3() const;
+    void setTorque3(double value);
+
+    double getTorque4() const;
+    void setTorque4(double value);
+
+    double getTorque5() const;
+    void setTorque5(double value);
+
+    double getTorque6() const;
+    void setTorque6(double value);
+
+private:
+    double Torque1, Torque2, Torque3, Torque4, Torque5, Torque6;
+};
+
+class QActualJointsPositions
+{
+public:
+    double getKat1() const;
+    void setKat1(double value);
+
+    double getKat2() const;
+    void setKat2(double value);
+
+    double getKat3() const;
+    void setKat3(double value);
+
+    double getKat4() const;
+    void setKat4(double value);
+
+    double getKat5() const;
+    void setKat5(double value);
+
+    double getKat6() const;
+    void setKat6(double value);
+
+private:
+    double kat1, kat2, kat3, kat4, kat5, kat6;
+};
+
+class QActualJointsCurrents
+{
+public:
+    double getCurrent1() const;
+    void setCurrent1(double value);
+
+    double getCurrent2() const;
+    void setCurrent2(double value);
+
+    double getCurrent3() const;
+    void setCurrent3(double value);
+
+    double getCurrent4() const;
+    void setCurrent4(double value);
+
+    double getCurrent5() const;
+    void setCurrent5(double value);
+
+    double getCurrent6() const;
+    void setCurrent6(double value);
+
+private:
+    double current1, current2, current3, current4, current5, current6;
+};
+
+class QActualCartesianCoordinatesTCP
+{
+public:
+    double getX() const;
+    void setX(double value);
+
+    double getY() const;
+    void setY(double value);
+
+    double getZ() const;
+    void setZ(double value);
+
+    double getRx() const;
+    void setRx(double value);
+
+    double getRy() const;
+    void setRy(double value);
+
+    double getRz() const;
+    void setRz(double value);
+
+private:
+    double x, y, z, rx, ry, rz;
+};
+
+class QTCPForces
+{
+public:
+    double getFx() const;
+    void setFx(double value);
+
+    double getFy() const;
+    void setFy(double value);
+
+    double getFz() const;
+    void setFz(double value);
+
+    double getTx() const;
+    void setTx(double value);
+
+    double getTy() const;
+    void setTy(double value);
+
+    double getTz() const;
+    void setTz(double value);
+
+private:
+    double Fx, Fy, Fz, Tx, Ty, Tz;
+};
+
+class QTargetCartesianCoordinatesTCP
+{
+public:
+    double getX() const;
+    void setX(double value);
+
+    double getY() const;
+    void setY(double value);
+
+    double getZ() const;
+    void setZ(double value);
+
+    double getRx() const;
+    void setRx(double value);
+
+    double getRy() const;
+    void setRy(double value);
+
+    double getRz() const;
+    void setRz(double value);
+
+private:
+    double x, y, z, Rx, Ry, Rz;
+};
+
+class QRobotMode
+{
+public:
+    double getMode() const;
+    void setMode(double value);
+
+private:
+    double mode;
+};
+
 /*!
   Klasa przechowywujaca dane ze strumienia robota
 */

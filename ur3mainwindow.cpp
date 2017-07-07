@@ -7,7 +7,7 @@ UR3MainWindow::UR3MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //odczyt ustawien
-    ustawienia("settings");
+    //ustawienia("settings");
     //    robot = new UR3Intermediator();
     //    Settings.read(robot);
 

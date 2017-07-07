@@ -6,6 +6,14 @@
 #include <QDebug>
 #include "UR3Message.h"
 
+#define parseDouble( src_class, setter_suffix, data, offset){double val; memcpy(&val, &_data[offset], sizeof(val));val = bytesSwap(val);offset+=sizeof(val);src_class.set ## setter_suffix(val);}
+
+
+
+
+
+
+
 static double RoundDouble(double val,int prec)
 {
     auto precision = pow(10,prec);
@@ -219,7 +227,7 @@ void UR3Intermediator::GetRobotData()
             unsigned char Type;
             memcpy(&Type,&_data[offset],sizeof(Type));
             offset+=sizeof(Type);
-            int messageType = Type;
+            int messageType = Type;        
             switch(messageType)
             {
             case ROBOT_MESSAGE:
@@ -237,8 +245,9 @@ void UR3Intermediator::GetRobotData()
             {
                 break;
             }
-            case '@':
+            case 64:
             {
+
                 RealTime(_data, offset, size);
                 break;
             }
@@ -365,7 +374,7 @@ void UR3Intermediator::CheckForceChanged()
 
     //if(current != _lastForceValue){
         _lastForceValue = current;
-        qDebug()<<"Wyemitowno";
+       // qDebug()<<"Wyemitowno";
         emit newPoseTCP(current, 'f');
 
     //}
@@ -454,12 +463,222 @@ void UR3Intermediator::ReadDataFlow()
 
 void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
 {
- /*   double sizeOfPackage;
-    memcpy(&sizeOfPackage, &_data[offset-1], sizeof(sizeOfPackage));
-    sizeOfPackage = s(sizeOfPackage);
-    //sizeOfPackage = qFromBigEndian<int>(sizeOfPackage);
-    offset+=sizeof(sizeOfPackage);*/
+    QTargetJointsPositions TargetJointsPositions;
+    QTargetJointsVelocities TargetJointsVelocities;
+    QTargetJointsTorques TargetJointsTorques;
+    QActualJointsPositions ActualJointsPositions;
+    QActualJointsCurrents ActualJointsCurrents;
+    QActualCartesianCoordinatesTCP ActualCartesianCoordinatesTCP;
+    QTCPForces TCPForces;
+    QTargetCartesianCoordinatesTCP TargetCartesianCoordinatesTCP;
+    QRobotMode RobotMode;
 
+
+
+    offset += 7;
+
+    //qtarget
+    /*parseDouble(TargetJointsPositions,Kat1,data,offset);
+    parseDouble(TargetJointsPositions,Kat2,data,offset);
+    parseDouble(TargetJointsPositions,Kat3,data,offset);
+    parseDouble(TargetJointsPositions,Kat4,data,offset);
+    parseDouble(TargetJointsPositions,Kat5,data,offset);
+    parseDouble(TargetJointsPositions,Kat6,data,offset);*/
+    offset += 48;
+
+    //qdtarget
+    parseDouble(TargetJointsVelocities,Predkosc1,data,offset);
+    parseDouble(TargetJointsVelocities,Predkosc2,data,offset);
+    parseDouble(TargetJointsVelocities,Predkosc3,data,offset);
+    parseDouble(TargetJointsVelocities,Predkosc4,data,offset);
+    parseDouble(TargetJointsVelocities,Predkosc5,data,offset);
+    parseDouble(TargetJointsVelocities,Predkosc6,data,offset);
+    //offset += 48;
+
+    //qddtarget
+//    offset += 48;
+
+    //itarget
+//    offset += 48;
+
+    //mtarget
+    /*parseDouble(TargetJointsTorques,Torque1,data,offset);
+    parseDouble(TargetJointsTorques,Torque2,data,offset);
+    parseDouble(TargetJointsTorques,Torque3,data,offset);
+    parseDouble(TargetJointsTorques,Torque4,data,offset);
+    parseDouble(TargetJointsTorques,Torque5,data,offset);
+    parseDouble(TargetJointsTorques,Torque6,data,offset);*/
+//    offset += 48;
+
+    //qactual
+    /*parseDouble(ActualJointsPositions,Kat1,data,offset);
+    parseDouble(ActualJointsPositions,Kat2,data,offset);
+    parseDouble(ActualJointsPositions,Kat3,data,offset);
+    parseDouble(ActualJointsPositions,Kat4,data,offset);
+    parseDouble(ActualJointsPositions,Kat5,data,offset);
+    parseDouble(ActualJointsPositions,Kat6,data,offset);*/
+//    offset += 48;
+
+    //qdactual
+
+//    offset += 48;
+
+    //iactual
+    /*parseDouble(ActualJointsCurrents,Current1,data,offset);
+    parseDouble(ActualJointsCurrents,Current2,data,offset);
+    parseDouble(ActualJointsCurrents,Current3,data,offset);
+    parseDouble(ActualJointsCurrents,Current4,data,offset);
+    parseDouble(ActualJointsCurrents,Current5,data,offset);
+    parseDouble(ActualJointsCurrents,Current6,data,offset);*/
+//    offset += 48;
+
+    //icontrol
+//    offset += 48;
+
+    //toolvectoractual
+    /*parseDouble(ActualCartesianCoordinatesTCP,X,data,offset);
+    parseDouble(ActualCartesianCoordinatesTCP,Y,data,offset);
+    parseDouble(ActualCartesianCoordinatesTCP,Z,data,offset);
+    parseDouble(ActualCartesianCoordinatesTCP,Rx,data,offset);
+    parseDouble(ActualCartesianCoordinatesTCP,Ry,data,offset);
+    parseDouble(ActualCartesianCoordinatesTCP,Rz,data,offset);*/
+//    offset += 48;
+
+    //toolspeedactual
+//    offset += 48;
+
+    //tcpforce
+    /*parseDouble(TCPForces,Fx,data,offset);
+    parseDouble(TCPForces,Fy,data,offset);
+    parseDouble(TCPForces,Fz,data,offset);
+    parseDouble(TCPForces,Tx,data,offset);
+    parseDouble(TCPForces,Ty,data,offset);
+    parseDouble(TCPForces,Tz,data,offset);*/
+//    offset += 48;
+
+    //toolvectortarget
+   /* parseDouble(TargetCartesianCoordinatesTCP,X,data,offset);
+    parseDouble(TargetCartesianCoordinatesTCP,Y,data,offset);
+    parseDouble(TargetCartesianCoordinatesTCP,Z,data,offset);
+    parseDouble(TargetCartesianCoordinatesTCP,Rx,data,offset);
+    parseDouble(TargetCartesianCoordinatesTCP,Ry,data,offset);
+    parseDouble(TargetCartesianCoordinatesTCP,Rz,data,offset);*/
+//    offset += 48;
+
+    //tcpspeedtarget
+//    offset += 48;
+
+    //digitalinputsbits
+//    offset += 8;
+
+    //motortemperatures
+//    offset += 48;
+
+    //controllertimer
+//    offset += 8;
+
+    //testvalue
+//    offset += 8;
+
+    //robotmode
+    //parseDouble(RobotMode,Mode,data,offset);
+//    offset += 8;
+
+    //jointmodes
+//    offset += 48;
+
+    //safetymode
+//    offset += 8;
+    //
+//    offset += 48;
+
+    //toolaccelerometervalues
+//    offset += 24;
+
+    //
+//    offset += 8;
+
+    //speedscalling
+//    offset += 8;
+
+    //linearmomentumnorm
+//    offset += 8;
+
+    //
+//    offset += 8;
+
+    //
+//    offset += 8;
+
+    //vmain
+//    offset += 8;
+
+    //vrobot
+//    offset += 8;
+
+    //irobot
+//    offset += 8;
+
+    //vactual
+
+
+    /*qDebug()<<"kat1: "<<TargetJointsPositions.getKat1()*57;
+    qDebug()<<"kat2: "<<TargetJointsPositions.getKat2()*57;
+    qDebug()<<"kat3: "<<TargetJointsPositions.getKat3()*57;
+    qDebug()<<"kat4: "<<TargetJointsPositions.getKat4()*57;
+    qDebug()<<"kat5: "<<TargetJointsPositions.getKat5()*57;
+    qDebug()<<"kat6: "<<TargetJointsPositions.getKat6()*57;*/
+
+    qDebug()<<"predkosc1: "<<TargetJointsVelocities.getPredkosc1();
+    qDebug()<<"predkosc2: "<<TargetJointsVelocities.getPredkosc2();
+    qDebug()<<"predkosc3: "<<TargetJointsVelocities.getPredkosc3();
+    qDebug()<<"predkosc4: "<<TargetJointsVelocities.getPredkosc4();
+    qDebug()<<"predkosc5: "<<TargetJointsVelocities.getPredkosc5();
+    qDebug()<<"predkosc6: "<<TargetJointsVelocities.getPredkosc6();
+
+    /* qDebug()<<"moment1: "<<TargetJointsTorques.getTorque1();
+     qDebug()<<"moment2: "<<TargetJointsTorques.getTorque2();
+     qDebug()<<"moment3: "<<TargetJointsTorques.getTorque3();
+     qDebug()<<"moment4: "<<TargetJointsTorques.getTorque4();
+     qDebug()<<"moment5: "<<TargetJointsTorques.getTorque5();
+     qDebug()<<"moment6: "<<TargetJointsTorques.getTorque6();*/
+
+    /* qDebug()<<"kat1: "<<ActualJointsPositions.getKat1();
+     qDebug()<<"kat2: "<<ActualJointsPositions.getKat2();
+     qDebug()<<"kat3: "<<ActualJointsPositions.getKat3();
+     qDebug()<<"kat4: "<<ActualJointsPositions.getKat4();
+     qDebug()<<"kat5: "<<ActualJointsPositions.getKat5();
+     qDebug()<<"kat6: "<<ActualJointsPositions.getKat6();*/
+
+     /*qDebug()<<"prad1: "<<ActualJointsCurrents.getCurrent1();
+     qDebug()<<"prad2: "<<ActualJointsCurrents.getCurrent2();
+     qDebug()<<"prad3: "<<ActualJointsCurrents.getCurrent3();
+     qDebug()<<"prad4: "<<ActualJointsCurrents.getCurrent4();
+     qDebug()<<"prad5: "<<ActualJointsCurrents.getCurrent5();
+     qDebug()<<"prad6: "<<ActualJointsCurrents.getCurrent6();*/
+
+     /*qDebug()<<"wspolrzedna x tcp: "<<ActualCartesianCoordinatesTCP.getX();
+     qDebug()<<"wspolrzedna y tcp: "<<ActualCartesianCoordinatesTCP.getY();
+     qDebug()<<"wspolrzedna z tcp: "<<ActualCartesianCoordinatesTCP.getZ();
+     qDebug()<<"Orientacja Rx tcp: "<<ActualCartesianCoordinatesTCP.getRx();
+     qDebug()<<"Orientacja Ry tcp: "<<ActualCartesianCoordinatesTCP.getRy();
+     qDebug()<<"Orientacja Rz tcp: "<<ActualCartesianCoordinatesTCP.getRz();*/
+
+    /* qDebug()<<"sila Fx tcp: "<<TCPForces.getFx();
+     qDebug()<<"sila Fy tcp: "<<TCPForces.getFy();
+     qDebug()<<"sila Fz tcp: "<<TCPForces.getFz();
+     qDebug()<<"moment Tx tcp: "<<TCPForces.getTx();
+     qDebug()<<"moment Ty tcp: "<<TCPForces.getTy();
+     qDebug()<<"moment Tz tcp: "<<TCPForces.getTz();*/
+
+     /*qDebug()<<"docelowa pozycja x TCP: "<<TargetCartesianCoordinatesTCP.getX();
+     qDebug()<<"docelowa pozycja y TCP: "<<TargetCartesianCoordinatesTCP.getY();
+     qDebug()<<"docelowa pozycja z TCP: "<<TargetCartesianCoordinatesTCP.getZ();
+     qDebug()<<"docelowa orientacja Rx TCP: "<<TargetCartesianCoordinatesTCP.getRx();
+     qDebug()<<"docelowa orientacja Ry TCP: "<<TargetCartesianCoordinatesTCP.getRy();
+     qDebug()<<"docelowa orientacja Rz TCP: "<<TargetCartesianCoordinatesTCP.getRz();*/
+
+     //qDebug()<<"tryb robota: "<<RobotMode.getMode();
 }
 
 bool UR3Intermediator::ConnectToRobot()
