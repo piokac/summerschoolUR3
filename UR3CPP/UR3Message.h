@@ -502,7 +502,7 @@ public:
     MasterboardData getMasterboardData() const;
     void setMasterboardData(char *data, int offset);
     ConfigurationData getConfigurationData() const;
-    void setConfigurationData(char *data, unsigned int offset);
+    void setConfigurationData();//char *data, unsigned int offset);
     QVector<JointData> getJointsData() const;
     //QVector<ForceModeData> getForcesData() const;
    //  QVector <double> getForcesData();

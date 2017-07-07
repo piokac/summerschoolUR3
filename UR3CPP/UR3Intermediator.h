@@ -60,6 +60,18 @@ public:
      */
     void Home();
 
+    /**
+     * @brief ForceMode - sterowanie siłami
+     */
+    void ForceMode(QVector<double> task_frame, QVector<double> selection_vector, QVector<double> wrench, int type, QVector<double> limits);
+
+    /**
+     * @brief ForceMode - sterowanie bez zwalniania
+     */
+    void Servoc(QVector<double> pose, double acceleration = 1.2, double speed = 0.25);
+
+
+
     UR3Intermediator();
     /**
      * @brief konstruktor dla klasy
@@ -119,6 +131,7 @@ private:
     void ReadDataFlow();
     void RealTime(char * data, unsigned int &offset, int size);
 
+    void timerEvent(QTimerEvent *event);
 
 private slots:
     void disconnected();
@@ -130,6 +143,7 @@ public slots:
     void OnSocketNewBytesWritten();
 private:
     QMutex mutex;
+    QVector<QString> cmds;
 };
 
 

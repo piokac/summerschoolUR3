@@ -9,13 +9,6 @@
 #define parseDouble(src_class, setter_suffix, type,  data, offset){type tmp;memcpy(&tmp,&data[offset], sizeof(tmp));src_class.set ## setter_suffix(type ## Swap(tmp));offset+=sizeof(tmp);}
 
 
-
-
-
-
-
-
-
 UR3Message::UR3Message()
 {
     jointsData.resize(6);
@@ -109,7 +102,6 @@ ForceModeData UR3Message::getForceModeData() const
 
 void UR3Message::setForceModeData(char *data, unsigned int offset)
 {
-    //double tmp;
 
     parseDouble(this->forceModeData, FX, double,  data, offset);
     parseDouble(this->forceModeData, FY, double,  data, offset);
@@ -118,32 +110,8 @@ void UR3Message::setForceModeData(char *data, unsigned int offset)
     parseDouble(this->forceModeData, Ry, double,  data, offset);
     parseDouble(this->forceModeData, Rz, double,  data, offset);
 
-    /*memcpy(&tmp,&data[offset], sizeof(tmp));
+  /*  memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setFX(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-    qDebug()<<"Fx:"<<doubleSwap(tmp);
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->forceModeData.setFY(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-    qDebug()<<"Fy:"<<doubleSwap(tmp);
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->forceModeData.setFZ(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->forceModeData.setRx(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->forceModeData.setRy(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->forceModeData.setRz(doubleSwap(tmp));
-    offset+=sizeof(tmp);
-
-    memcpy(&tmp,&data[offset], sizeof(tmp));
-    this->forceModeData.setRobotDexterity(doubleSwap(tmp));
     offset+=sizeof(tmp);*/
 }
 
@@ -231,7 +199,7 @@ ConfigurationData UR3Message::getConfigurationData() const
     return configurationData;
 }
 
-void UR3Message::setConfigurationData(char *data, unsigned int offset)
+void UR3Message::setConfigurationData()//char *data, unsigned int offset)
 {
 
 }

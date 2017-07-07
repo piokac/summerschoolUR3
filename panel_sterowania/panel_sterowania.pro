@@ -25,8 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    waypoint.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    waypoint.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    waypoint.ui

@@ -55,7 +55,7 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
 
-       // QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
+        // QString test = "movej([-0.1, -1.66, 1.71, -1.62, -1.56, 1.19], a=1.0, v=0.1)\n";
 
         QString command = "movej([" +
                 QString::number(JointPosition[0]) + ", " +
@@ -67,8 +67,9 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
                 "a=" + QString::number(JointAcceleration)+ ", " +
                 "v=" + QString::number(JointSpeed)+ ")\n";
 
-        _socket->write(command.toLatin1().data());
-        _socket->waitForBytesWritten();
+        //        _socket->write(command.toLatin1().data());
+        //        _socket->waitForBytesWritten();
+        cmds.push_back(command);
         _running = true;
         _moveJTargetPos = JointPosition;
         //qDebug()<<"zaczynam ruch";
@@ -119,6 +120,94 @@ void UR3Intermediator::Home()
     MoveJ(QVector<double>({.0,-1.5708,.0,-1.5708,.0,.0}));
 }
 
+void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> selection_vector, QVector<double> wrench, int type, QVector<double> limits)
+{
+  /*  QString command = "force_mode([" +
+            QString::number(task_frame[0]) + ", " +
+            QString::number(task_frame[1]) + ", " +
+            QString::number(task_frame[2]) + ", " +
+            QString::number(task_frame[3]) + ", " +
+            QString::number(task_frame[4]) + ", " +
+            QString::number(task_frame[5]) + "], " +
+            "selection vector[" +
+            QString::number(selection_vector[0]) + ", " +
+            QString::number(selection_vector[1]) + ", " +
+            QString::number(selection_vector[2]) + ", " +
+            QString::number(selection_vector[3]) + ", " +
+            QString::number(selection_vector[4]) + ", " +
+            QString::number(selection_vector[5]) + "], " +
+            "wrench[" +
+            QString::number(wrench[0]) + ", " +
+            QString::number(wrench[1]) + ", " +
+            QString::number(wrench[2]) + ", " +
+            QString::number(wrench[3]) + ", " +
+            QString::number(wrench[4]) + ", " +
+            QString::number(wrench[5]) + "], " +
+            "type=" + QString::number(type)+ ", " +
+            "limits[" +
+            QString::number(limits[0]) + ", " +
+            QString::number(limits[1]) + ", " +
+            QString::number(limits[2]) + ", " +
+            QString::number(limits[3]) + ", " +
+            QString::number(limits[4]) + ", " +
+            QString::number(limits[5]) + "], " +
+            ")\n";*/
+
+    QString command = "def tesforce():\n force_mode(p[" +
+            QString::number(task_frame[0]) + "," +
+            QString::number(task_frame[1]) + "," +
+            QString::number(task_frame[2]) + "," +
+            QString::number(task_frame[3]) + "," +
+            QString::number(task_frame[4]) + "," +
+            QString::number(task_frame[5]) + "]," +
+            "[" +
+            QString::number(selection_vector[0]) + "," +
+            QString::number(selection_vector[1]) + "," +
+            QString::number(selection_vector[2]) + "," +
+            QString::number(selection_vector[3]) + "," +
+            QString::number(selection_vector[4]) + "," +
+            QString::number(selection_vector[5]) + "]," +
+            "[" +
+            QString::number(wrench[0]) + "," +
+            QString::number(wrench[1]) + "," +
+            QString::number(wrench[2]) + "," +
+            QString::number(wrench[3]) + "," +
+            QString::number(wrench[4]) + "," +
+            QString::number(wrench[5]) + "]," +
+            "" + QString::number(type)+ "," +
+            "[" +
+            QString::number(limits[0]) + "," +
+            QString::number(limits[1]) + "," +
+            QString::number(limits[2]) + "," +
+            QString::number(limits[3]) + "," +
+            QString::number(limits[4]) + "," +
+            QString::number(limits[5]) + "]" +
+            ")\n movej(p[-0.362,-0.118,0.246,1.55,2.9,-0.12], a=1.3962634015954636, v=0.1471975511965976)\nend\n";
+
+    qDebug()<<command;
+    _socket->write(command.toLatin1().data());
+    _socket->waitForBytesWritten();
+}
+
+void UR3Intermediator::Servoc(QVector<double> pose, double acceleration, double speed)
+{
+    QString command = "servoc(p[" +
+            QString::number(pose[0]) + ", " +
+            QString::number(pose[1]) + ", " +
+            QString::number(pose[2]) + ", " +
+            QString::number(pose[3]) + ", " +
+            QString::number(pose[4]) + ", " +
+            QString::number(pose[5]) + "], " +
+            "a=" + QString::number(acceleration)+ ", " +
+            "v=" + QString::number(speed)+ ")\n";
+    if(cmds.length()>0)
+        cmds.push_back(command);
+    else
+    {
+        _socket->write(command.toLatin1().data());
+        _socket->waitForBytesWritten();
+    }
+}
 
 void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration, double toolSpeed, double time, double blendRadius)
 {
@@ -160,7 +249,7 @@ UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(300
 
     connect(this->_socket,SIGNAL(readyRead()),this,SLOT(OnSocketNewBytesWritten()));
     connect(this->_socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
-
+    startTimer(1000);
 }
 
 UR3Intermediator::UR3Intermediator(QString ipAddress, int port):_connected(false), _running(false),Port(port),IpAddress(ipAddress)
@@ -364,9 +453,9 @@ void UR3Intermediator::CheckForceChanged()
     current[5] = forcesModeData.getRz();
 
     //if(current != _lastForceValue){
-        _lastForceValue = current;
-        qDebug()<<"Wyemitowno";
-        emit newPoseTCP(current, 'f');
+    _lastForceValue = current;
+    //qDebug()<<"Wyemitowno";
+    emit newPoseTCP(current, 'f');
 
     //}
 }
@@ -383,7 +472,6 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
         unsigned char packageType;
         memcpy(&packageType, &data[offset], sizeof(packageType));
         offset+=sizeof(packageType);
-        //  packageType = FORCE_MODE_DATA;
         switch(packageType){
         case ROBOT_MODE_DATA:
             this->ActualRobotInfo.setRobotModeData(_data, offset);
@@ -395,6 +483,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             break;
         case JOINT_DATA:
             this->ActualRobotInfo.setJointsData(_data, offset);
+            //   qDebug()<<"JOINT DATA";
             /*if(_running)
             {
                 CheckIfStillMovejRunning();
@@ -420,7 +509,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
         case CONFIGURATION_DATA:
             break;
         case FORCE_MODE_DATA:
-            qDebug()<<"Force mode";
+            //  qDebug()<<"Force mode";
             this->ActualRobotInfo.setForceModeData(_data, offset);
 
             CheckForceChanged();
@@ -454,12 +543,45 @@ void UR3Intermediator::ReadDataFlow()
 
 void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
 {
- /*   double sizeOfPackage;
-    memcpy(&sizeOfPackage, &_data[offset-1], sizeof(sizeOfPackage));
-    sizeOfPackage = s(sizeOfPackage);
-    //sizeOfPackage = qFromBigEndian<int>(sizeOfPackage);
-    offset+=sizeof(sizeOfPackage);*/
 
+
+   /* while(size>offset){
+       double sizeOfPackage;
+        memcpy(&sizeOfPackage, &_data[offset-1], sizeof(sizeOfPackage));
+        sizeOfPackage = _byteswap_ulong(sizeOfPackage);
+        //sizeOfPackage = qFromBigEndian<int>(sizeOfPackage);
+        offset+=sizeof(sizeOfPackage);
+
+        unsigned char Time;
+        memcpy(&Time, &data[offset], sizeof(Time));
+        offset+=sizeof(Time);
+        switch(packageType){
+        case ROBOT_MODE_DATA:
+            this->ActualRobotInfo.setRobotModeData(_data, offset);
+            if(ActualRobotInfo.robotModeData.getIsEmergencyStopped() || ActualRobotInfo.robotModeData.getIsProtectiveStopped()){
+
+                _socket->write(QString("end_force_mode()\n").toLatin1().data());
+                _socket->waitForBytesWritten();
+            }
+
+        offset +=sizeOfPackage - 5; //-5 poniewaz wczesniej przesunalem o sizeofpackage i packagetype
+    }
+
+}*/
+
+
+}
+
+void UR3Intermediator::timerEvent(QTimerEvent *event)
+{
+    if(cmds.length()>0)//&&!ActualRobotInfo.robotModeData.getIsProgramRunning();
+    {
+
+        QString command = cmds[0];
+        cmds.pop_front();
+        _socket->write(command.toLatin1().data());
+        _socket->waitForBytesWritten();
+    }
 }
 
 bool UR3Intermediator::ConnectToRobot()
