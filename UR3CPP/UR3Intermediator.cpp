@@ -122,6 +122,18 @@ void UR3Intermediator::Home()
     MoveJ(QVector<double>({.0,-1.5708,.0,-1.5708,.0,.0}));
 }
 
+void UR3Intermediator::timerEvent(QTimerEvent *event)
+{
+    if(cmds.length()>0)//&&!ActualRobotInfo.robotModeData.getIsProgramRunning();
+    {
+
+        QString command = cmds[0];
+        cmds.pop_front();
+        _socket->write(command.toLatin1().data());
+        _socket->waitForBytesWritten();
+    }
+}
+
 void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> selection_vector, QVector<double> wrench, int type, QVector<double> limits)
 {
     /*  QString command = "force_mode([" +
