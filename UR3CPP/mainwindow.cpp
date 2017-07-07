@@ -110,6 +110,7 @@ void MainWindow::OnNewTCP(QVector<double> data, char c)
         this->ui->lineEditRX->setText(QString::number(data[3]));
         this->ui->lineEditRY->setText(QString::number(data[4]));
         this->ui->lineEditRZ->setText(QString::number(data[5]));
+        qDebug()<<ui->lineEditX->text().toDouble();
         break;
     }
 
