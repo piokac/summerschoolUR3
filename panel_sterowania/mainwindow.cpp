@@ -39,17 +39,21 @@ void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
 }
 void MainWindow::OnNewTCP(QVector<double> data, char a)
 {
-    //this->ui->lineEditX->setText(QString::number(data[0]));
-    // this->ui->lineEditY->setText(QString::number(data[1]));
+     /*this->ui->lineEditX->setText(QString::number(data[0]));
+     this->ui->lineEditY->setText(QString::number(data[1]));
+
+
     if (a == 'f')
     {
+
+
         this->ui->lineEdit_Fx->setText(QString::number(data[0]));
         this->ui->lineEdit_Fy->setText(QString::number(data[1]));
         this->ui->lineEdit_Fz->setText(QString::number(data[2]));
         this->ui->lineEdit_Tx->setText(QString::number(data[3]));
         this->ui->lineEdit_Ty->setText(QString::number(data[4]));
         this->ui->lineEdit_Tz->setText(QString::number(data[5]));
-    }
+    }*/
 }
 
 void MainWindow::showConfigWindow()

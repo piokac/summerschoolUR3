@@ -1336,3 +1336,493 @@ double ForceModeData::getActualForceValue() const
     return actualForceValue;
 }
 
+
+double QTargetJointsPositions::getKat1() const
+{
+    return kat1;
+}
+
+void QTargetJointsPositions::setKat1(double value)
+{
+    kat1 = value;
+}
+
+double QTargetJointsPositions::getKat2() const
+{
+    return kat2;
+}
+
+void QTargetJointsPositions::setKat2(double value)
+{
+    kat2 = value;
+}
+
+double QTargetJointsPositions::getKat3() const
+{
+    return kat3;
+}
+
+void QTargetJointsPositions::setKat3(double value)
+{
+    kat3 = value;
+}
+
+double QTargetJointsPositions::getKat4() const
+{
+    return kat4;
+}
+
+void QTargetJointsPositions::setKat4(double value)
+{
+    kat4 = value;
+}
+
+double QTargetJointsPositions::getKat5() const
+{
+    return kat5;
+}
+
+void QTargetJointsPositions::setKat5(double value)
+{
+    kat5 = value;
+}
+
+double QTargetJointsPositions::getKat6() const
+{
+    return kat6;
+}
+
+void QTargetJointsPositions::setKat6(double value)
+{
+    kat6 = value;
+}
+
+double QTargetJointsVelocities::getPredkosc1() const
+{
+    return predkosc1;
+}
+
+void QTargetJointsVelocities::setPredkosc1(double value)
+{
+    predkosc1 = value;
+}
+
+double QTargetJointsVelocities::getPredkosc2() const
+{
+    return predkosc2;
+}
+
+void QTargetJointsVelocities::setPredkosc2(double value)
+{
+    predkosc2 = value;
+}
+
+double QTargetJointsVelocities::getPredkosc3() const
+{
+    return predkosc3;
+}
+
+void QTargetJointsVelocities::setPredkosc3(double value)
+{
+    predkosc3 = value;
+}
+
+double QTargetJointsVelocities::getPredkosc4() const
+{
+    return predkosc4;
+}
+
+void QTargetJointsVelocities::setPredkosc4(double value)
+{
+    predkosc4 = value;
+}
+
+double QTargetJointsVelocities::getPredkosc5() const
+{
+    return predkosc5;
+}
+
+void QTargetJointsVelocities::setPredkosc5(double value)
+{
+    predkosc5 = value;
+}
+
+double QTargetJointsVelocities::getPredkosc6() const
+{
+    return predkosc6;
+}
+
+void QTargetJointsVelocities::setPredkosc6(double value)
+{
+    predkosc6 = value;
+}
+
+double QTargetJointsTorques::getTorque1() const
+{
+    return Torque1;
+}
+
+void QTargetJointsTorques::setTorque1(double value)
+{
+    Torque1 = value;
+}
+
+double QTargetJointsTorques::getTorque2() const
+{
+    return Torque2;
+}
+
+void QTargetJointsTorques::setTorque2(double value)
+{
+    Torque2 = value;
+}
+
+double QTargetJointsTorques::getTorque3() const
+{
+    return Torque3;
+}
+
+void QTargetJointsTorques::setTorque3(double value)
+{
+    Torque3 = value;
+}
+
+double QTargetJointsTorques::getTorque4() const
+{
+    return Torque4;
+}
+
+void QTargetJointsTorques::setTorque4(double value)
+{
+    Torque4 = value;
+}
+
+double QTargetJointsTorques::getTorque5() const
+{
+    return Torque5;
+}
+
+void QTargetJointsTorques::setTorque5(double value)
+{
+    Torque5 = value;
+}
+
+double QTargetJointsTorques::getTorque6() const
+{
+    return Torque6;
+}
+
+void QTargetJointsTorques::setTorque6(double value)
+{
+    Torque6 = value;
+}
+
+double QActualJointsPositions::getKat1() const
+{
+    return kat1;
+}
+
+void QActualJointsPositions::setKat1(double value)
+{
+    kat1 = value;
+}
+
+double QActualJointsPositions::getKat2() const
+{
+    return kat2;
+}
+
+void QActualJointsPositions::setKat2(double value)
+{
+    kat2 = value;
+}
+
+double QActualJointsPositions::getKat3() const
+{
+    return kat3;
+}
+
+void QActualJointsPositions::setKat3(double value)
+{
+    kat3 = value;
+}
+
+double QActualJointsPositions::getKat4() const
+{
+    return kat4;
+}
+
+void QActualJointsPositions::setKat4(double value)
+{
+    kat4 = value;
+}
+
+double QActualJointsPositions::getKat5() const
+{
+    return kat5;
+}
+
+void QActualJointsPositions::setKat5(double value)
+{
+    kat5 = value;
+}
+
+double QActualJointsPositions::getKat6() const
+{
+    return kat6;
+}
+
+void QActualJointsPositions::setKat6(double value)
+{
+    kat6 = value;
+}
+
+double QActualJointsCurrents::getCurrent1() const
+{
+    return current1;
+}
+
+void QActualJointsCurrents::setCurrent1(double value)
+{
+    current1 = value;
+}
+
+double QActualJointsCurrents::getCurrent2() const
+{
+    return current2;
+}
+
+void QActualJointsCurrents::setCurrent2(double value)
+{
+    current2 = value;
+}
+
+double QActualJointsCurrents::getCurrent3() const
+{
+    return current3;
+}
+
+void QActualJointsCurrents::setCurrent3(double value)
+{
+    current3 = value;
+}
+
+double QActualJointsCurrents::getCurrent4() const
+{
+    return current4;
+}
+
+void QActualJointsCurrents::setCurrent4(double value)
+{
+    current4 = value;
+}
+
+double QActualJointsCurrents::getCurrent5() const
+{
+    return current5;
+}
+
+void QActualJointsCurrents::setCurrent5(double value)
+{
+    current5 = value;
+}
+
+double QActualJointsCurrents::getCurrent6() const
+{
+    return current6;
+}
+
+void QActualJointsCurrents::setCurrent6(double value)
+{
+    current6 = value;
+}
+
+double QActualCartesianCoordinatesTCP::getX() const
+{
+    return x;
+}
+
+void QActualCartesianCoordinatesTCP::setX(double value)
+{
+    x = value;
+}
+
+double QActualCartesianCoordinatesTCP::getY() const
+{
+    return y;
+}
+
+void QActualCartesianCoordinatesTCP::setY(double value)
+{
+    y = value;
+}
+
+double QActualCartesianCoordinatesTCP::getZ() const
+{
+    return z;
+}
+
+void QActualCartesianCoordinatesTCP::setZ(double value)
+{
+    z = value;
+}
+
+double QActualCartesianCoordinatesTCP::getRx() const
+{
+    return rx;
+}
+
+void QActualCartesianCoordinatesTCP::setRx(double value)
+{
+    rx = value;
+}
+
+double QActualCartesianCoordinatesTCP::getRy() const
+{
+    return ry;
+}
+
+void QActualCartesianCoordinatesTCP::setRy(double value)
+{
+    ry = value;
+}
+
+double QActualCartesianCoordinatesTCP::getRz() const
+{
+    return rz;
+}
+
+void QActualCartesianCoordinatesTCP::setRz(double value)
+{
+    rz = value;
+}
+
+double QTCPForces::getFx() const
+{
+    return Fx;
+}
+
+void QTCPForces::setFx(double value)
+{
+    Fx = value;
+}
+
+double QTCPForces::getFy() const
+{
+    return Fy;
+}
+
+void QTCPForces::setFy(double value)
+{
+    Fy = value;
+}
+
+double QTCPForces::getFz() const
+{
+    return Fz;
+}
+
+void QTCPForces::setFz(double value)
+{
+    Fz = value;
+}
+
+double QTCPForces::getTx() const
+{
+    return Tx;
+}
+
+void QTCPForces::setTx(double value)
+{
+    Tx = value;
+}
+
+double QTCPForces::getTy() const
+{
+    return Ty;
+}
+
+void QTCPForces::setTy(double value)
+{
+    Ty = value;
+}
+
+double QTCPForces::getTz() const
+{
+    return Tz;
+}
+
+void QTCPForces::setTz(double value)
+{
+    Tz = value;
+}
+
+double QTargetCartesianCoordinatesTCP::getX() const
+{
+    return x;
+}
+
+void QTargetCartesianCoordinatesTCP::setX(double value)
+{
+    x = value;
+}
+
+double QTargetCartesianCoordinatesTCP::getY() const
+{
+    return y;
+}
+
+void QTargetCartesianCoordinatesTCP::setY(double value)
+{
+    y = value;
+}
+
+double QTargetCartesianCoordinatesTCP::getZ() const
+{
+    return z;
+}
+
+void QTargetCartesianCoordinatesTCP::setZ(double value)
+{
+    z = value;
+}
+
+double QTargetCartesianCoordinatesTCP::getRx() const
+{
+    return Rx;
+}
+
+void QTargetCartesianCoordinatesTCP::setRx(double value)
+{
+    Rx = value;
+}
+
+double QTargetCartesianCoordinatesTCP::getRy() const
+{
+    return Ry;
+}
+
+void QTargetCartesianCoordinatesTCP::setRy(double value)
+{
+    Ry = value;
+}
+
+double QTargetCartesianCoordinatesTCP::getRz() const
+{
+    return Rz;
+}
+
+void QTargetCartesianCoordinatesTCP::setRz(double value)
+{
+    Rz = value;
+}
+
+double QRobotMode::getMode() const
+{
+    return mode;
+}
+
+void QRobotMode::setMode(double value)
+{
+    mode = value;
+}
