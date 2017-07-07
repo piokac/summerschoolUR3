@@ -8,12 +8,6 @@
 
 #define parseDouble( src_class, setter_suffix, data, offset){double val; memcpy(&val, &_data[offset], sizeof(val));val = bytesSwap(val);offset+=sizeof(val);src_class.set ## setter_suffix(val);}
 
-
-
-
-
-
-
 static double RoundDouble(double val,int prec)
 {
     auto precision = pow(10,prec);
