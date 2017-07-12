@@ -18,7 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
    // connect(this->ui->actionParameters,SIGNAL(clicked(bool)),this,SLOT(showWayPoint()));
    // connect(ui->actionParameters,SIGNAL(triggered(bool)),this,SLOT(showWayPoint()));
-    connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
+      connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
+   // connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)), this, SLOT(()));
+
 
     ur3->ConnectToRobot();
     settings->read(ur3);
@@ -34,12 +36,24 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionParameters_triggered()
 {
-
-
+   // WayPoint * wp;
     if(wp->exec() == QDialog::Accepted)
     {
-        wp->setWx(1);
-    double  a =  wp->getWx();
+
+        for(int i=0;i<wp->v_punkt1.size();i++)
+        {
+            pl->v_punkt1.push_back(wp->v_punkt1[i]);
+            pl->v_punkt2.push_back(wp->v_punkt2[i]);
+            pl->v_punkt3.push_back(wp->v_punkt3[i]);
+        }
+//        for(auto itr=wp->v_punkt1.begin();itr!=wp->v_punkt1.end();itr++)
+//        {
+//            qDebug()<<(*itr);
+//        }
+        qDebug()<<pl->v_punkt1[0];
+       /* wp->setWx(1);
+    double  a =  wp->getWx();*/
+        wp->getWx();
         wp->getWy();
         wp->getWz();
         wp->getWrx();
@@ -47,8 +61,7 @@ void MainWindow::on_actionParameters_triggered()
         wp->getWrz();
         wp->getV();
         wp->getA();
-        qDebug()<<a<<" "<<wp->getWx();
-
+        //qDebug()<<a<<"yjfyjf "<<wp->getWx();
     }
 }
 
@@ -66,14 +79,14 @@ void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
 }
 void MainWindow::OnNewTCP(QVector<double> data, char a)
 {
-     /*this->ui->lineEditX->setText(QString::number(data[0]));
-     this->ui->lineEditY->setText(QString::number(data[1]));
 
+    if(a=='t')
+    {       
+        //pl->pushButton(data);
+    }
 
-    if (a == 'f')
+    /*if (a == 'f')
     {
-
-
         this->ui->lineEdit_Fx->setText(QString::number(data[0]));
         this->ui->lineEdit_Fy->setText(QString::number(data[1]));
         this->ui->lineEdit_Fz->setText(QString::number(data[2]));
@@ -168,11 +181,11 @@ void MainWindow::onServoc()
 
 void MainWindow::showSettings()
 {
+
 }
 
 void MainWindow::showWayPoint()
 {
-
     wp->getWx();
     wp->getWy();
     wp->getWz();
@@ -181,6 +194,15 @@ void MainWindow::showWayPoint()
     wp->getWrz();
     wp->getV();
     wp->getA();
+}
+
+void MainWindow::showPlaneCallibration()
+{
+   /* PlaneCallibration planecallibration;
+    if(planecallibration.exec() == QDialog::Accepted)
+    {
+        qDebug()<<"ok";
+    }*/
 }
 
 
@@ -194,3 +216,4 @@ void MainWindow::on_pushButton_MoveJ_clicked()
     qDebug()<<"MoveJ";
 
 }
+

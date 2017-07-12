@@ -125,7 +125,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuustawienia">
@@ -140,6 +140,7 @@
      <string>WayPoint</string>
     </property>
     <addaction name="actionParameters"/>
+    <addaction name="actionPlane_Callibration"/>
    </widget>
    <addaction name="menuustawienia"/>
    <addaction name="menuWayPoint"/>
@@ -175,6 +176,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionPlane_Callibration">
+   <property name="text">
+    <string>Plane Callibration</string>
    </property>
   </action>
  </widget>

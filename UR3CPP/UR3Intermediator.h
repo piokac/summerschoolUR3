@@ -141,6 +141,7 @@ public slots:
 
     void OnTcpChanged();
     void OnSocketNewBytesWritten();
+
 private:
     QMutex mutex;
     QVector<QString> cmds;

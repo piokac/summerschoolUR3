@@ -674,6 +674,8 @@ private:
     double mode;
 };
 
+
+
 /*!
   Klasa przechowywujaca dane ze strumienia robota
 */

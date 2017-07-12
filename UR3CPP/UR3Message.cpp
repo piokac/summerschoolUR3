@@ -1794,3 +1794,5 @@ void QRobotMode::setMode(double value)
 {
     mode = value;
 }
+
+

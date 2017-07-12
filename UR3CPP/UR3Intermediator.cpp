@@ -589,19 +589,19 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
     offset += 48;
 
     //qdtarget
-    parseDouble(TargetJointsVelocities,Predkosc1,data,offset);
+   /* parseDouble(TargetJointsVelocities,Predkosc1,data,offset);
     parseDouble(TargetJointsVelocities,Predkosc2,data,offset);
     parseDouble(TargetJointsVelocities,Predkosc3,data,offset);
     parseDouble(TargetJointsVelocities,Predkosc4,data,offset);
     parseDouble(TargetJointsVelocities,Predkosc5,data,offset);
-    parseDouble(TargetJointsVelocities,Predkosc6,data,offset);
-    //offset += 48;
+    parseDouble(TargetJointsVelocities,Predkosc6,data,offset);*/
+    offset += 48;
 
     //qddtarget
-    //    offset += 48;
+        offset += 48;
 
     //itarget
-    //    offset += 48;
+        offset += 48;
 
     //mtarget
     /*parseDouble(TargetJointsTorques,Torque1,data,offset);
@@ -610,7 +610,7 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
     parseDouble(TargetJointsTorques,Torque4,data,offset);
     parseDouble(TargetJointsTorques,Torque5,data,offset);
     parseDouble(TargetJointsTorques,Torque6,data,offset);*/
-    //    offset += 48;
+        offset += 48;
 
     //qactual
     /*parseDouble(ActualJointsPositions,Kat1,data,offset);
@@ -619,11 +619,11 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
     parseDouble(ActualJointsPositions,Kat4,data,offset);
     parseDouble(ActualJointsPositions,Kat5,data,offset);
     parseDouble(ActualJointsPositions,Kat6,data,offset);*/
-    //    offset += 48;
+        offset += 48;
 
     //qdactual
 
-    //    offset += 48;
+        offset += 48;
 
     //iactual
     /*parseDouble(ActualJointsCurrents,Current1,data,offset);
@@ -632,22 +632,42 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
     parseDouble(ActualJointsCurrents,Current4,data,offset);
     parseDouble(ActualJointsCurrents,Current5,data,offset);
     parseDouble(ActualJointsCurrents,Current6,data,offset);*/
-    //    offset += 48;
+        offset += 48;
 
     //icontrol
-    //    offset += 48;
+        offset += 48;
 
     //toolvectoractual
-    /*parseDouble(ActualCartesianCoordinatesTCP,X,data,offset);
+    parseDouble(ActualCartesianCoordinatesTCP,X,data,offset);
     parseDouble(ActualCartesianCoordinatesTCP,Y,data,offset);
     parseDouble(ActualCartesianCoordinatesTCP,Z,data,offset);
     parseDouble(ActualCartesianCoordinatesTCP,Rx,data,offset);
     parseDouble(ActualCartesianCoordinatesTCP,Ry,data,offset);
-    parseDouble(ActualCartesianCoordinatesTCP,Rz,data,offset);*/
-    //    offset += 48;
+    parseDouble(ActualCartesianCoordinatesTCP,Rz,data,offset);
+
+    double x = ActualCartesianCoordinatesTCP.getX();
+    double y = ActualCartesianCoordinatesTCP.getY();
+    double z = ActualCartesianCoordinatesTCP.getZ();
+    double rx = ActualCartesianCoordinatesTCP.getRx();
+    double ry = ActualCartesianCoordinatesTCP.getRy();
+    double rz = ActualCartesianCoordinatesTCP.getRz();
+
+    QVector<double> v_poseTCP = QVector<double>({x,y,z,rx,ry,rz});
+
+    emit newPoseTCP(v_poseTCP, 't');
+
+    /*QVector<double> v_translate;
+    v_translate.push_back(v_poseTCP[0]);
+    v_translate.push_back(v_poseTCP[1]);
+    v_translate.push_back(v_poseTCP[2]);
+
+    emit newPoseTCP(v_translate,'l');
+*/
+
+        //offset += 48;
 
     //toolspeedactual
-    //    offset += 48;
+        //offset += 48;
 
     //tcpforce
     /*parseDouble(TCPForces,Fx,data,offset);
@@ -731,12 +751,12 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
     qDebug()<<"kat5: "<<TargetJointsPositions.getKat5()*57;
     qDebug()<<"kat6: "<<TargetJointsPositions.getKat6()*57;*/
 
-    qDebug()<<"predkosc1: "<<TargetJointsVelocities.getPredkosc1();
+    /*qDebug()<<"predkosc1: "<<TargetJointsVelocities.getPredkosc1();
     qDebug()<<"predkosc2: "<<TargetJointsVelocities.getPredkosc2();
     qDebug()<<"predkosc3: "<<TargetJointsVelocities.getPredkosc3();
     qDebug()<<"predkosc4: "<<TargetJointsVelocities.getPredkosc4();
     qDebug()<<"predkosc5: "<<TargetJointsVelocities.getPredkosc5();
-    qDebug()<<"predkosc6: "<<TargetJointsVelocities.getPredkosc6();
+    qDebug()<<"predkosc6: "<<TargetJointsVelocities.getPredkosc6();*/
 
     /* qDebug()<<"moment1: "<<TargetJointsTorques.getTorque1();
      qDebug()<<"moment2: "<<TargetJointsTorques.getTorque2();
@@ -759,14 +779,14 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
      qDebug()<<"prad5: "<<ActualJointsCurrents.getCurrent5();
      qDebug()<<"prad6: "<<ActualJointsCurrents.getCurrent6();*/
 
-    /*qDebug()<<"wspolrzedna x tcp: "<<ActualCartesianCoordinatesTCP.getX();
+    qDebug()<<"wspolrzedna x tcp: "<<ActualCartesianCoordinatesTCP.getX();
      qDebug()<<"wspolrzedna y tcp: "<<ActualCartesianCoordinatesTCP.getY();
      qDebug()<<"wspolrzedna z tcp: "<<ActualCartesianCoordinatesTCP.getZ();
      qDebug()<<"Orientacja Rx tcp: "<<ActualCartesianCoordinatesTCP.getRx();
      qDebug()<<"Orientacja Ry tcp: "<<ActualCartesianCoordinatesTCP.getRy();
-     qDebug()<<"Orientacja Rz tcp: "<<ActualCartesianCoordinatesTCP.getRz();*/
+     qDebug()<<"Orientacja Rz tcp: "<<ActualCartesianCoordinatesTCP.getRz();
 
-    /* qDebug()<<"sila Fx tcp: "<<TCPForces.getFx();
+    /*qDebug()<<"sila Fx tcp: "<<TCPForces.getFx();
      qDebug()<<"sila Fy tcp: "<<TCPForces.getFy();
      qDebug()<<"sila Fz tcp: "<<TCPForces.getFz();
      qDebug()<<"moment Tx tcp: "<<TCPForces.getTx();
@@ -781,7 +801,19 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
      qDebug()<<"docelowa orientacja Rz TCP: "<<TargetCartesianCoordinatesTCP.getRz();*/
 
     //qDebug()<<"tryb robota: "<<RobotMode.getMode();
+
+
+
+     /*qDebug()<<" drugie: ";
+     qDebug()<<v_poseTCP[0];
+     qDebug()<<v_poseTCP[1];
+     qDebug()<<v_poseTCP[2];
+     qDebug()<<v_poseTCP[3];
+     qDebug()<<v_poseTCP[4];
+     qDebug()<<v_poseTCP[5];*/
 }
+
+
 
 bool UR3Intermediator::ConnectToRobot()
 {

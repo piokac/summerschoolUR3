@@ -5,6 +5,7 @@
 #include "settings.h"
 #include "UR3Intermediator.h"
 #include "waypoint.h"
+#include"planecallibration.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,8 @@ public slots:
     void ConnectedToInfo(char* Ip, bool Achieved);
     void showSettings();
     void showWayPoint();
+    void showPlaneCallibration();
+   // void run_callibration();
 
     void OnMoveJ();
     void OnSpeedJ();
@@ -53,6 +56,7 @@ private slots:
 private:
     WayPoint * wp;
     UR3Intermediator* ur3;
+    PlaneCallibration *pl;
     Ui::MainWindow *ui;
     Settings *settings;
     Q_PROPERTY(QString pole2_test READ getPole2 WRITE setPole2 USER true)
