@@ -6,6 +6,7 @@ WayPoint::WayPoint(QWidget *parent) :
     ui(new Ui::WayPoint)
 {
     ui->setupUi(this);
+
 }
 
 WayPoint::~WayPoint()
@@ -15,7 +16,6 @@ WayPoint::~WayPoint()
 
 double WayPoint::getWx() const
 {
-    qDebug()<<ui->lineEdit_Wx->text().toDouble();
     return  ui->lineEdit_Wx->text().toDouble();
 }
 
@@ -106,4 +106,25 @@ void WayPoint::setV(double value)
 
     value = ui->lineEdit_Wv->text().toDouble();
     V = value;
+}
+
+void WayPoint::PushButtonData(QVector<double> data)
+{
+    if (flaga == 1)
+    {
+        this->ui->lineEdit_Wx->setText(QString::number(data[0]));
+        this->ui->lineEdit_Wy->setText(QString::number(data[1]));
+        this->ui->lineEdit_Wz->setText(QString::number(data[2]));
+        this->ui->lineEdit_Wrx->setText(QString::number(data[3]));
+        this->ui->lineEdit_Wry->setText(QString::number(data[4]));
+        this->ui->lineEdit_Wrz->setText(QString::number(data[5]));
+        flaga = 0;
+    }
+}
+
+void WayPoint::on_pushButton_Ap_pressed()
+{
+    flaga = 1;
+
+
 }

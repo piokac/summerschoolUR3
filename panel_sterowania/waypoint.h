@@ -39,12 +39,17 @@ public:
     double getV() const;
     void setV(double value);
 
+    void PushButtonData(QVector<double> data);
+
+private slots:
+    void on_pushButton_Ap_pressed();
+
 private:
     Ui::WayPoint *ui;
     double Wx, Wy, Wz;
     double Wrx, Wry, Wrz;
     double V, a;
-
+    bool flaga;
 
 };
 
