@@ -6,6 +6,7 @@ WayPoint::WayPoint(QWidget *parent) :
     ui(new Ui::WayPoint)
 {
     ui->setupUi(this);
+    connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(selectSettings(QVector<double>&)));
 }
 
 WayPoint::~WayPoint()
@@ -38,7 +39,6 @@ void WayPoint::setWy(double value)
 
 double WayPoint::getWz() const
 {
-
     return  ui->lineEdit_Wz->text().toDouble();
 }
 
@@ -107,3 +107,26 @@ void WayPoint::setV(double value)
     value = ui->lineEdit_Wv->text().toDouble();
     V = value;
 }
+
+void WayPoint::selectSettings(QVector<double> &v_punkt)
+{
+    v_punkt.push_back(ui->lineEdit_Wx->text().toDouble());
+    v_punkt.push_back(ui->lineEdit_Wy->text().toDouble());
+    v_punkt.push_back(ui->lineEdit_Wz->text().toDouble());
+    v_punkt.push_back(ui->lineEdit_Wrx->text().toDouble());
+    v_punkt.push_back(ui->lineEdit_Wry->text().toDouble());
+    v_punkt.push_back(ui->lineEdit_Wrz->text().toDouble());
+}
+
+/*QVector<double> WayPoint::get_v_tcppose()
+{
+    QVector<double> v;
+    v.push_back(getWx());
+    v.push_back(getWy());
+    v.push_back(getWz());
+    v.push_back(getWrx());
+    v.push_back(getWry());
+    v.push_back(getWrz());
+}*/
+
+

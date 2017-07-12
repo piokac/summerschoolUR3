@@ -2,10 +2,13 @@
 #define WAYPOINT_H
 
 #include <QDialog>
+#include<qdebug.h>
 
 namespace Ui {
 class WayPoint;
 }
+
+
 
 class WayPoint : public QDialog
 {
@@ -14,6 +17,9 @@ class WayPoint : public QDialog
 public:
     explicit WayPoint(QWidget *parent = 0);
     ~WayPoint();
+
+    Ui::WayPoint *ui;
+    //PlaneCallibration *pl;
 
     double getWx() const;
     void setWx(double value);
@@ -39,13 +45,23 @@ public:
     double getV() const;
     void setV(double value);
 
+    int licznik;
+
+    QVector<double> v_punkt1;
+    QVector<double> v_punkt2;
+    QVector<double> v_punkt3;
+private slots:
+
+    void selectSettings(QVector<double> &v_punkt);
+
 private:
-    Ui::WayPoint *ui;
+
     double Wx, Wy, Wz;
     double Wrx, Wry, Wrz;
     double V, a;
 
-
 };
+
+
 
 #endif // WAYPOINT_H
