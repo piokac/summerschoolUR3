@@ -107,7 +107,6 @@ void WayPoint::setV(double value)
     value = ui->lineEdit_Wv->text().toDouble();
     V = value;
 }
-
 void WayPoint::selectSettings(QVector<double> &v_punkt)
 {
     v_punkt.push_back(ui->lineEdit_Wx->text().toDouble());
@@ -118,15 +117,23 @@ void WayPoint::selectSettings(QVector<double> &v_punkt)
     v_punkt.push_back(ui->lineEdit_Wrz->text().toDouble());
 }
 
-/*QVector<double> WayPoint::get_v_tcppose()
+void WayPoint::PushButtonData(QVector<double> data)
 {
-    QVector<double> v;
-    v.push_back(getWx());
-    v.push_back(getWy());
-    v.push_back(getWz());
-    v.push_back(getWrx());
-    v.push_back(getWry());
-    v.push_back(getWrz());
-}*/
+    if (flaga == 1)
+    {
+        this->ui->lineEdit_Wx->setText(QString::number(data[0]));
+        this->ui->lineEdit_Wy->setText(QString::number(data[1]));
+        this->ui->lineEdit_Wz->setText(QString::number(data[2]));
+        this->ui->lineEdit_Wrx->setText(QString::number(data[3]));
+        this->ui->lineEdit_Wry->setText(QString::number(data[4]));
+        this->ui->lineEdit_Wrz->setText(QString::number(data[5]));
+        flaga = 0;
+    }
+}
+
+void WayPoint::on_pushButton_Ap_pressed()
+{
+    flaga = 1;
 
 
+}
