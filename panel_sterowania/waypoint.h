@@ -2,19 +2,10 @@
 #define WAYPOINT_H
 
 #include <QDialog>
-#include<qdebug.h>
-#include<qlabel.h>
-#include"macierz.h"
-//#include"planecallibration.h"
-
-class Macierz;
-
 
 namespace Ui {
 class WayPoint;
 }
-
-
 
 class WayPoint : public QDialog
 {
@@ -50,28 +41,16 @@ public:
 
     void PushButtonData(QVector<double> data);
 
-    QVector<double> getPose();
-    void setPose(QVector<double> v);
-
-    void SetText(QString text);
-
 private slots:
     void on_pushButton_Ap_pressed();
 
-    void selectSettings(QVector<double> &v_punkt);
-
-    void on_pushButton_Ap_clicked();
-
 private:
     Ui::WayPoint *ui;
-    Macierz *M;
-    //PlaneCallibration *pl;
     double Wx, Wy, Wz;
     double Wrx, Wry, Wrz;
     double V, a;
     bool flaga;
+
 };
-
-
 
 #endif // WAYPOINT_H

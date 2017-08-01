@@ -5,14 +5,14 @@
 #include "settings.h"
 #include "UR3Intermediator.h"
 #include "waypoint.h"
-#include"planecallibration.h"
-#include<math.h>
+#include <QFileDialog>
+#include <QDateTime>
+#include "clogger.h"
+#include <QElapsedTimer>
 
 namespace Ui {
 class MainWindow;
 }
-
-class PlaneCallibration;
 
 class MainWindow : public QMainWindow
 {
@@ -31,23 +31,21 @@ public:
 signals:
     void moduleChanged(QObject *object);
 
-
 public slots:
     void showConfigWindow();
     void OnNewTCP(QVector<double> data, char a);
     void OnActionConnection();
+    void OnActionDisconnection();
     void ConnectedToInfo(char* Ip, bool Achieved);
     void showSettings();
-    void showWayPoint();
-    void showPlaneCallibration();
-    // void run_callibration();
+    void onCheckBoxMoveJ(bool v);
+    void onCheckBoxServoc(bool v);
 
     void OnMoveJ();
     void OnSpeedJ();
     void OnForceMode();
     void onHome();
     void onServoc();
-
 
 private slots:
     void on_actionConnection_triggered();
@@ -56,17 +54,22 @@ private slots:
 
     void on_actionParameters_triggered();
 
+    void SaveFile();
+    void OpenFile();
+    void CloseFile();
+
 private:
+    cLogger * log;
     WayPoint * wp;
     UR3Intermediator* ur3;
-
     Ui::MainWindow *ui;
     Settings *settings;
     Q_PROPERTY(QString pole2_test READ getPole2 WRITE setPole2 USER true)
     Q_PROPERTY(int pole1_test READ getPole1 WRITE setPole1 USER true)
     int pole1;
     QString pole2;
-    PlaneCallibration *pl;
+    QElapsedTimer timerr;
+
 };
 
 #endif // MAINWINDOW_H

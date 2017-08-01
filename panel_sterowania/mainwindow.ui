@@ -15,37 +15,23 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="5" column="1">
-     <widget class="QPushButton" name="pushButton_Servoc">
-      <property name="text">
-       <string>Servoc</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="1">
      <widget class="QLineEdit" name="lineEdit_Fx"/>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_2">
+    <item row="1" column="2">
+     <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>FORCE Y:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QPushButton" name="pushButton_SpeedJ">
-      <property name="text">
-       <string>SpeedJ</string>
+       <string>TORQUE X:</string>
       </property>
      </widget>
     </item>
     <item row="1" column="3">
      <widget class="QLineEdit" name="lineEdit_Tx"/>
     </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_4">
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>TORQUE X:</string>
+       <string>FORCE Y:</string>
       </property>
      </widget>
     </item>
@@ -56,18 +42,15 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_Fy"/>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="lineEdit_Ty"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_5">
+    <item row="4" column="3">
+     <widget class="QPushButton" name="pushButton_SpeedJ">
       <property name="text">
-       <string>TORQUE Y:</string>
+       <string>SpeedJ</string>
       </property>
      </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="lineEdit_Fy"/>
     </item>
     <item row="3" column="1">
      <widget class="QLineEdit" name="lineEdit_Fz"/>
@@ -79,15 +62,15 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="3">
-     <widget class="QLineEdit" name="lineEdit_Tz"/>
-    </item>
-    <item row="0" column="0" colspan="4">
-     <widget class="QLineEdit" name="lineEdit_Connection">
-      <property name="readOnly">
-       <bool>true</bool>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>TORQUE Y:</string>
       </property>
      </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QLineEdit" name="lineEdit_Ty"/>
     </item>
     <item row="5" column="3">
      <widget class="QPushButton" name="pushButton_ForceMode">
@@ -96,6 +79,9 @@
       </property>
      </widget>
     </item>
+    <item row="3" column="3">
+     <widget class="QLineEdit" name="lineEdit_Tz"/>
+    </item>
     <item row="3" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
@@ -103,10 +89,10 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QPushButton" name="pushButton_MoveJ">
-      <property name="text">
-       <string>MoveJ</string>
+    <item row="0" column="0" colspan="4">
+     <widget class="QLineEdit" name="lineEdit_Connection">
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -117,6 +103,42 @@
       </property>
      </widget>
     </item>
+    <item row="4" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton_MoveJ">
+        <property name="text">
+         <string>MoveJ</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_moveJ">
+        <property name="text">
+         <string>Tracking</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_Servoc">
+        <property name="text">
+         <string>Servoc</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_Servoc">
+        <property name="text">
+         <string>Tracking</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -125,7 +147,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuustawienia">
@@ -134,16 +156,28 @@
     </property>
     <addaction name="actionUstawienia_okna"/>
     <addaction name="actionConnection"/>
+    <addaction name="actionDisconnection"/>
    </widget>
    <widget class="QMenu" name="menuWayPoint">
     <property name="title">
      <string>WayPoint</string>
     </property>
     <addaction name="actionParameters"/>
-    <addaction name="actionPlane_Callibration"/>
+   </widget>
+   <widget class="QMenu" name="menuRejestracja">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>Rejestracja</string>
+    </property>
+    <addaction name="actionRozpocznij"/>
+    <addaction name="actionZakoncz"/>
+    <addaction name="actionPlik"/>
    </widget>
    <addaction name="menuustawienia"/>
    <addaction name="menuWayPoint"/>
+   <addaction name="menuRejestracja"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -178,9 +212,33 @@
     <string>Ctrl+W</string>
    </property>
   </action>
-  <action name="actionPlane_Callibration">
+  <action name="actionRozpocznij">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Plane Callibration</string>
+    <string>Rozpocznij</string>
+   </property>
+  </action>
+  <action name="actionZakoncz">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Zakończ</string>
+   </property>
+  </action>
+  <action name="actionPlik">
+   <property name="text">
+    <string>Plik</string>
+   </property>
+  </action>
+  <action name="actionDisconnection">
+   <property name="text">
+    <string>Disconnection</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
  </widget>
