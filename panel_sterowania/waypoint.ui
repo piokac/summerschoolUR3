@@ -14,11 +14,28 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="4" column="3">
+    <widget class="QLineEdit" name="lineEdit_Wa"/>
+   </item>
    <item row="3" column="3">
     <widget class="QLineEdit" name="lineEdit_Wrz"/>
    </item>
-   <item row="4" column="3">
-    <widget class="QLineEdit" name="lineEdit_Wa"/>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Ry:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QLineEdit" name="lineEdit_Wry"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Z:</string>
+     </property>
+    </widget>
    </item>
    <item row="0" column="2">
     <widget class="QLabel" name="label_4">
@@ -30,32 +47,11 @@
    <item row="1" column="1">
     <widget class="QLineEdit" name="lineEdit_Wy"/>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Z:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QLineEdit" name="lineEdit_Wry"/>
-   </item>
-   <item row="1" column="2">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Ry:</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="3">
     <widget class="QLineEdit" name="lineEdit_Wrx"/>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>X:</string>
-     </property>
-    </widget>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="lineEdit_Wx"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
@@ -64,33 +60,30 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="lineEdit_Wv"/>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="lineEdit_Wx"/>
-   </item>
-   <item row="4" column="2">
-    <widget class="QLabel" name="label_8">
-     <property name="text">
-      <string>a:</string>
+   <item row="5" column="0" colspan="4">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
-   <item row="3" column="2">
-    <widget class="QLabel" name="label_6">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Rz:</string>
+      <string>X:</string>
      </property>
     </widget>
    </item>
    <item row="3" column="1">
     <widget class="QLineEdit" name="lineEdit_Wz"/>
    </item>
-   <item row="4" column="4">
-    <widget class="QPushButton" name="pushButton_Ap">
+   <item row="3" column="2">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Actual position</string>
+      <string>Rz:</string>
      </property>
     </widget>
    </item>
@@ -101,23 +94,20 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="4">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <item row="4" column="2">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>a:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="4">
-    <widget class="QLabel" name="label_description">
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="lineEdit_Wv"/>
+   </item>
+   <item row="4" column="4">
+    <widget class="QPushButton" name="pushButton_Ap">
      <property name="text">
-      <string>TextLabel</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>Actual position</string>
      </property>
     </widget>
    </item>

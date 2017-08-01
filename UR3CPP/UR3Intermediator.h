@@ -9,6 +9,9 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <QMutex>
+#include <QFile>
+#include <QTextStream>
+#include <QElapsedTimer>
 
 using namespace std;
 
@@ -17,15 +20,26 @@ class UR3Intermediator: public QObject
     Q_OBJECT
 
 public:
+    /*  explicit UR3Intermediator( QObject *parent = 0);
+    ~UR3Intermediator();*/
+    //  QElapsedTimer timer;
 
-
+    void SaveToFile(double x, double y, double z, double rx, double ry, double rz, double fx, double fy, double fz);     //aktualny czas, położenie, kąty, siły
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
-
+    bool banner;
+    bool baner_servoc;
     /**
      * @brief ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze
      * @return
      */
     bool ConnectToRobot();
+
+    /**
+     * @brief DisconnectFromRobot - próbuje odłączyć się od robotem na podstawie aktualnego ip i portu podanego w konstruktorze
+     * @return
+     */
+    bool DisconnectFromRobot();
+
 
     void MoveC(QVector<double> position_via, QVector<double> TargetPose, double toolAcceleration = 1.2, double toolSpeed=0.25, double blendRadius = 0);
     /**
@@ -63,14 +77,12 @@ public:
     /**
      * @brief ForceMode - sterowanie siłami
      */
-    void ForceMode(QVector<double> task_frame, QVector<double> selection_vector, QVector<double> wrench, int type, QVector<double> limits);
+    void ForceMode(QVector<double> task_frame, QVector<double> selection_vector, QVector<double> wrench, int type, QVector<double> limits, QVector<double> TargetPose,double toolAcceleration=1.2,double toolSpeed=.25);
 
     /**
      * @brief ForceMode - sterowanie bez zwalniania
      */
     void Servoc(QVector<double> pose, double acceleration = 1.2, double speed = 0.25);
-
-
 
     UR3Intermediator();
     /**
@@ -85,8 +97,6 @@ public:
      */
     UR3Message GetActualUR3State();
 
-
-
     int getPort() const;
     void setPort(int value);
 
@@ -97,16 +107,21 @@ signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
     void newPoseTCP(QVector<double> x, char flag);  /*!< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp  */
     void ConnectionAction(char* Ip,bool Result);
+    void newLog(int devId, char id, QVector <double> vec);
+    void DisconnectAction(bool Result);
+
 private:
-
+    QVector <int> t {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int it;
     //Fields
-
+    QElapsedTimer timerrr;
     bool _running;
     QVector<double> _moveJTargetPos;
     QVector<double> _moveLTargetPose;
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
     QVector<double> _lastForceValue;
+    QString SaveFileName;
 
     Q_PROPERTY(int PortTCP READ getPort WRITE setPort USER true)
     int Port;
@@ -121,6 +136,9 @@ private:
     bool _connected;
 
     //Methods
+    void Tracking();
+    void TrackingServoc();
+    QVector <double> Generate();
     void CheckForceChanged();
     void CheckIfStillMovejRunning();
     void CheckIfStillMoveLRunning();
@@ -129,7 +147,9 @@ private:
     void GetRobotData();
     void GetRobotMessage(char * data, unsigned int &offset, int size);
     void ReadDataFlow();
-    void RealTime(char * data, unsigned int &offset, int size);
+    //void RealTime(char * data, unsigned int &offset, int size);
+    void RealTime(unsigned int &offset);
+
 
     void timerEvent(QTimerEvent *event);
 
@@ -138,10 +158,8 @@ private slots:
 
 
 public slots:
-
     void OnTcpChanged();
     void OnSocketNewBytesWritten();
-
 private:
     QMutex mutex;
     QVector<QString> cmds;

@@ -66,8 +66,7 @@ private:
     double Wrx, Wry, Wrz;
     double V, a;
     bool flaga;
+
 };
-
-
 
 #endif // WAYPOINT_H

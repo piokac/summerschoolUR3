@@ -592,6 +592,7 @@ private:
 class QActualCartesianCoordinatesTCP
 {
 public:
+
     double getX() const;
     void setX(double value);
 
@@ -673,8 +674,6 @@ public:
 private:
     double mode;
 };
-
-
 
 /*!
   Klasa przechowywujaca dane ze strumienia robota
