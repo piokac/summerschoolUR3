@@ -96,8 +96,8 @@ void MainWindow::OnNewTCP(QVector<double> data, char a)
     if (a == 't')
     {
         // if(timerr.elapsed()!=8)
-        qDebug()<<timerr.restart();
-        qDebug()<<"Rozkodowana, odebrana ramka";
+   //     qDebug()<<timerr.restart();
+     //   qDebug()<<"Rozkodowana, odebrana ramka";
         refresh_interval++;
         refresh_interval %=50;
 

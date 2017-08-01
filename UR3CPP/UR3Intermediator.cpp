@@ -65,10 +65,11 @@ void UR3Intermediator::TrackingServoc()
 
 QVector<double> UR3Intermediator::Generate()
 {
-    double Ts, f = 2, Ax = 1, Ay = 1, Az = 1;
+    double Ts, f = .2, Ax = 50, Ay = 50, Az = 1;
     ++it;
-    QVector <double> sinj {Ax * qSin(2 * M_PI * f * t[0]), Ay * qCos(2 * M_PI * f * t[0]), Az * 0, qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
+    QVector <double> sinj {Ax * qSin(2 * M_PI * f * t[0] / 10.0), Ay * qCos(2 * M_PI * f * t[0] / 10.0), Az * 0, 0, 0, 0};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
     //  t.remove(0);
+    qDebug()<<
     t.push_back(it);
     t.erase(t.begin());
     qDebug()<<t[0];
