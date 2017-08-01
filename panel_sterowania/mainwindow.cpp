@@ -1,10 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include"planecallibration.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),settings(new Settings("settings.ini", this)),  ur3(new UR3Intermediator), wp(new WayPoint),
     ui(new Ui::MainWindow)
 {
+    pl = new PlaneCallibration(ur3,this);
+
+
+
     ui->setupUi(this);
     connect(this->ui->actionConnection,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));
@@ -17,8 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(onHome()));
 
    // connect(this->ui->actionParameters,SIGNAL(clicked(bool)),this,SLOT(showWayPoint()));
-   // connect(ui->actionParameters,SIGNAL(triggered(bool)),this,SLOT(showWayPoint()));
+    //connect(ui->actionParameters,SIGNAL(triggered(bool)),this,SLOT(showWayPoint()));
       connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
+      connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)),this,SLOT(showPlaneCallibration()));
    // connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)), this, SLOT(()));
 
 
@@ -38,21 +44,9 @@ void MainWindow::on_actionParameters_triggered()
 {
    // WayPoint * wp;
     if(wp->exec() == QDialog::Accepted)
-    {
-
-        for(int i=0;i<wp->v_punkt1.size();i++)
-        {
-            pl->v_punkt1.push_back(wp->v_punkt1[i]);
-            pl->v_punkt2.push_back(wp->v_punkt2[i]);
-            pl->v_punkt3.push_back(wp->v_punkt3[i]);
-        }
-//        for(auto itr=wp->v_punkt1.begin();itr!=wp->v_punkt1.end();itr++)
-//        {
-//            qDebug()<<(*itr);
-//        }
-        qDebug()<<pl->v_punkt1[0];
+    {               
        /* wp->setWx(1);
-    double  a =  wp->getWx();*/
+        double  a =  wp->getWx();*/
         wp->getWx();
         wp->getWy();
         wp->getWz();
@@ -61,6 +55,7 @@ void MainWindow::on_actionParameters_triggered()
         wp->getWrz();
         wp->getV();
         wp->getA();
+
         //qDebug()<<a<<"yjfyjf "<<wp->getWx();
     }
 }
@@ -82,10 +77,10 @@ void MainWindow::OnNewTCP(QVector<double> data, char a)
 
     if(a=='t')
     {       
-        //pl->pushButton(data);
+        wp->PushButtonData(data);
     }
 
-    /*if (a == 'f')
+    if (a == 'f')
     {
         this->ui->lineEdit_Fx->setText(QString::number(data[0]));
         this->ui->lineEdit_Fy->setText(QString::number(data[1]));
@@ -93,7 +88,7 @@ void MainWindow::OnNewTCP(QVector<double> data, char a)
         this->ui->lineEdit_Tx->setText(QString::number(data[3]));
         this->ui->lineEdit_Ty->setText(QString::number(data[4]));
         this->ui->lineEdit_Tz->setText(QString::number(data[5]));
-    }*/
+    }
 }
 
 void MainWindow::showConfigWindow()
@@ -159,8 +154,6 @@ void MainWindow::OnForceMode()
                          1,
                          QVector<double>({0.1, 0.1,0.15, 0.35, 0.35, 0.35}));
     qDebug()<<"Force Mode";
-
-
 }
 
 void MainWindow::onHome()
@@ -198,8 +191,10 @@ void MainWindow::showWayPoint()
 
 void MainWindow::showPlaneCallibration()
 {
-   /* PlaneCallibration planecallibration;
-    if(planecallibration.exec() == QDialog::Accepted)
+    pl->run_callibration();
+    //PlaneCallibration planecallibration;
+
+    /*if(planecallibration.exec() == QDialog::Accepted)
     {
         qDebug()<<"ok";
     }*/

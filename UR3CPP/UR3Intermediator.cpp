@@ -773,12 +773,12 @@ void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
      qDebug()<<"prad5: "<<ActualJointsCurrents.getCurrent5();
      qDebug()<<"prad6: "<<ActualJointsCurrents.getCurrent6();*/
 
-    qDebug()<<"wspolrzedna x tcp: "<<ActualCartesianCoordinatesTCP.getX();
+   /* qDebug()<<"wspolrzedna x tcp: "<<ActualCartesianCoordinatesTCP.getX();
      qDebug()<<"wspolrzedna y tcp: "<<ActualCartesianCoordinatesTCP.getY();
      qDebug()<<"wspolrzedna z tcp: "<<ActualCartesianCoordinatesTCP.getZ();
      qDebug()<<"Orientacja Rx tcp: "<<ActualCartesianCoordinatesTCP.getRx();
      qDebug()<<"Orientacja Ry tcp: "<<ActualCartesianCoordinatesTCP.getRy();
-     qDebug()<<"Orientacja Rz tcp: "<<ActualCartesianCoordinatesTCP.getRz();
+     qDebug()<<"Orientacja Rz tcp: "<<ActualCartesianCoordinatesTCP.getRz();*/
 
     /*qDebug()<<"sila Fx tcp: "<<TCPForces.getFx();
      qDebug()<<"sila Fy tcp: "<<TCPForces.getFy();

@@ -6,10 +6,13 @@
 #include "UR3Intermediator.h"
 #include "waypoint.h"
 #include"planecallibration.h"
+#include<math.h>
 
 namespace Ui {
 class MainWindow;
 }
+
+class PlaneCallibration;
 
 class MainWindow : public QMainWindow
 {
@@ -37,7 +40,7 @@ public slots:
     void showSettings();
     void showWayPoint();
     void showPlaneCallibration();
-   // void run_callibration();
+    // void run_callibration();
 
     void OnMoveJ();
     void OnSpeedJ();
@@ -56,15 +59,14 @@ private slots:
 private:
     WayPoint * wp;
     UR3Intermediator* ur3;
-    PlaneCallibration *pl;
+
     Ui::MainWindow *ui;
     Settings *settings;
     Q_PROPERTY(QString pole2_test READ getPole2 WRITE setPole2 USER true)
     Q_PROPERTY(int pole1_test READ getPole1 WRITE setPole1 USER true)
     int pole1;
     QString pole2;
-
-
+    PlaneCallibration *pl;
 };
 
 #endif // MAINWINDOW_H
