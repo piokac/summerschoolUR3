@@ -5,9 +5,6 @@
 #include<qdebug.h>
 #include<qlabel.h>
 #include"macierz.h"
-//#include"planecallibration.h"
-
-class Macierz;
 
 
 namespace Ui {
@@ -65,7 +62,6 @@ private slots:
 private:
     Ui::WayPoint *ui;
     Macierz *M;
-    //PlaneCallibration *pl;
     double Wx, Wy, Wz;
     double Wrx, Wry, Wrz;
     double V, a;

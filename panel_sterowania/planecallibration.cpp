@@ -3,14 +3,10 @@
 
 PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : QObject(parent), wp(new WayPoint), M(new Macierz)
 {
-    connect(ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
+    connect(_ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
     ur3=_ur3;
 
-    setV_x(div(minus(getV_punkt2(),getV_punkt1()),norm(minus(getV_punkt2(),getV_punkt1()))));
-    setV_z(div(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())),norm(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())))));
-    setV_y(cross(getV_z(), getV_x()));
-    setTrans(getV_punkt1());
-    //M->setMatrix(M->setH(pl->getV_x(), pl->getV_y(), pl->getV_z(), pl->getTrans()));
+
 }
 /*void PlaneCallibration::selectPoints(QVector<double> &v_punkt)
 {
@@ -152,7 +148,11 @@ void PlaneCallibration::run_callibration()
                        //selectPoints(v_punkt3);
                       if(wp->exec()==QDialog::Accepted)
                       {
-
+                          setV_x(div(minus(getV_punkt2(),getV_punkt1()),norm(minus(getV_punkt2(),getV_punkt1()))));
+                          setV_z(div(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())),norm(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())))));
+                          setV_y(cross(getV_z(), getV_x()));
+                          setTrans(getV_punkt1());
+                          M->setMatrix(M->setH(getV_x(), getV_y(), getV_z(),getTrans()));
                       }
                    }
                }

@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     pl = new PlaneCallibration(ur3,this);
 
-
-
     ui->setupUi(this);
     connect(this->ui->actionConnection,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));
