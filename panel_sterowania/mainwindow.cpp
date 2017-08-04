@@ -1,14 +1,16 @@
+// X: -496, Y: 244, Z: 58, Rx: 2.6, Ry: 1.7, Rz: 0
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtMath>
 
 #define _USE_MATH_DEFINE
+
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),settings(new Settings("settings.ini", this)), ur3(new UR3Intermediator),  log(new cLogger),
-  ui(new Ui::MainWindow)
+    QMainWindow(parent),settings(new Settings("settings.ini", this)), ur3(new UR3Intermediator), wp(new WayPoint), log(new cLogger),//ur3(new UR3Intermediator(this)), wp(new WayPoint(this)), log(new cLogger(this)),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    wp= new WayPoint;
     pl = new PlaneCallibration(ur3,this);
     connect(this->ui->actionConnection,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     connect(this->ui->actionDisconnection,SIGNAL(triggered(bool)),this,SLOT(OnActionDisconnection()));
@@ -16,12 +18,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ur3,SIGNAL(ConnectionAction(char*,bool)),this,SLOT(ConnectedToInfo(char*,bool)));
     connect(ui->actionUstawienia_okna,SIGNAL(triggered(bool)),this,SLOT(showConfigWindow()));
     connect(this->ui->pushButton_MoveJ,SIGNAL(clicked(bool)),this,SLOT(OnMoveJ()));
+    connect(this->ui->pushButton_MoveL,SIGNAL(clicked(bool)),this,SLOT(OnMoveL()));
     connect(this->ui->pushButton_SpeedJ,SIGNAL(pressed()),this,SLOT(OnSpeedJ()));
     connect(this->ui->pushButton_ForceMode,SIGNAL(clicked(bool)),this,SLOT(OnForceMode()));
     connect(this->ui->pushButton_Servoc,SIGNAL(clicked(bool)),this,SLOT(onServoc()));
     connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(onHome()));
     connect(this->ui->checkBox_moveJ,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxMoveJ(bool)));
+    connect(this->ui->checkBox_moveL,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxMoveL(bool)));
     connect(this->ui->checkBox_Servoc,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxServoc(bool)));
+    connect(this->ui->checkBox_stepWorking,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxStepWorking(bool)));
+    connect(this->ui->pushButton_NextStep,SIGNAL(clicked(bool)),this,SLOT(onNextStep()));
 
     connect(ui->actionRozpocznij, SIGNAL(triggered(bool)), this,SLOT(SaveFile()));
     connect(ui->actionPlik, SIGNAL(triggered(bool)), this,SLOT(OpenFile()));
@@ -45,22 +51,7 @@ MainWindow::~MainWindow()
 }
 void MainWindow::on_actionParameters_triggered()
 {
-    // WayPoint * wp;
-    if(wp->exec() == QDialog::Accepted)
-    {
-        /* wp->setWx(1);
-        double  a =  wp->getWx();*/
-        wp->getWx();
-        wp->getWy();
-        wp->getWz();
-        wp->getWrx();
-        wp->getWry();
-        wp->getWrz();
-        wp->getV();
-        wp->getA();
-
-        //qDebug()<<a<<"yjfyjf "<<wp->getWx();
-    }
+    wp->exec();
 }
 
 void MainWindow::SaveFile()
@@ -105,10 +96,11 @@ void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
 
 void MainWindow::OnNewTCP(QVector<double> data, char a)
 {
+
     static int refresh_interval = 0;
     static int refresh_interval_2 = 0;
     if (a == 't')
-    {      
+    {
         if(wp->isVisible())
         {
             wp->PushButtonData(data);
@@ -116,7 +108,7 @@ void MainWindow::OnNewTCP(QVector<double> data, char a)
         }
         //log->slot_turn(1, a, data);
     }
-    if (a == 't')
+    if (a == 'f')
     {
         // if(timerr.elapsed()!=8)
         //     qDebug()<<timerr.restart();
@@ -185,37 +177,60 @@ void MainWindow::OnActionConnection()
     this->ur3->ConnectToRobot();
 }
 
-/*void MainWindow::OnMoveJ()
-{
-
-    /*   this->ur3->MoveJ(QVector<double>(
-                         // {0.6236825723301582, 1.4, 1.05, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));
-    {0.6236825723301582, -1.477339167481995,
-     2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}), 2.4, 3);
-    //(q, a=1.4, v=1.05, t=0, r=0)
-    //  double a = wp->getWx();
-    this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
-                                      wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
-    qDebug()<<wp->getWx();
-
-
-
-}*/
 void MainWindow::OnActionDisconnection()
 {
     this->ur3->DisconnectFromRobot();
 }
 
-void MainWindow::OnMoveJ()
+void MainWindow::onServoc()
 {
-    if(wp->getV() > 0&& wp->getA() > 0)
-        this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
+    if (ui->checkBox_Servoc->isChecked())
+    {
+        this->ur3->Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);
+    }
+    else
+    {
+        if(wp->getV() > 0&& wp->getA() > 0)
+            this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
+                                               wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
+        else
+            this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
+                                               wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
+
+    }
+}
+
+void MainWindow::OnMoveL()
+{
+    this->ur3->MoveL(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 1, 1);
+    /*    if(wp->getV() > 0&& wp->getA() > 0)
+        this->ur3->MoveL(QVector<double>({wp->getWx(), wp->getWy(),
                                           wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
     else
-        this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
+        this->ur3->MoveL(QVector<double>({wp->getWx(), wp->getWy(),
                                           wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
-    //  this->ur3->Servoc(QVector<double>({qSin(0.2), 1, 1, 1, 1, 1}), 1, 1);
-    // this->ur3->Servoc(QVector<double>({qSin(0.3), 1, 1, 1, 1, 1}), 1, 1);
+*/
+}
+
+void MainWindow::OnMoveJ()
+{
+    //  if (ui->checkBox_moveJ->isChecked())
+    //  {
+    this->ur3->MoveJ(QVector <double> ({0.400, 0.050, 0/1000,  2.6, 1.7, 0.007}), 1, 1);
+
+    /* }
+    else
+    {
+
+        if(wp->getV() > 0&& wp->getA() > 0)
+            this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
+                                              wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
+        else
+            this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
+                                              wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
+        //  this->ur3->Servoc(QVector<double>({qSin(0.2), 1, 1, 1, 1, 1}), 1, 1);
+        // this->ur3->Servoc(QVector<double>({qSin(0.3), 1, 1, 1, 1, 1}), 1, 1);
+    }*/
 }
 
 void MainWindow::OnSpeedJ()
@@ -244,6 +259,7 @@ void MainWindow::OnForceMode()
                          QVector<double>({0.1, 0.1,0.15, 0.35, 0.35, 0.35}),
                          QVector<double>({wp->getWx(), wp->getWy(),wp->getWz(),wp->getWrx(),
                                           wp->getWy(), wp->getWz()}), 1, 1);
+
 }
 
 void MainWindow::onHome()
@@ -251,20 +267,11 @@ void MainWindow::onHome()
     this->ur3->Home();
 }
 
-void MainWindow::onServoc()
+void MainWindow::onCheckBoxMoveL(bool v)
 {
-    if(wp->getV() > 0&& wp->getA() > 0)
-        this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
-                                           wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
-    else
-        this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
-                                           wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
+    ur3->banner_moveL = v;
 }
 
-void MainWindow::showSettings()
-{
-
-}
 
 void MainWindow::onCheckBoxMoveJ(bool v)
 {
@@ -276,16 +283,16 @@ void MainWindow::onCheckBoxServoc(bool v)
     ur3->baner_servoc = v;
 }
 
-void MainWindow::showWayPoint()
+void MainWindow::onCheckBoxStepWorking(bool v)
 {
-    /* wp->getWx();
-    wp->getWy();
-    wp->getWz();
-    wp->getWrx();
-    wp->getWry();
-    wp->getWrz();
-    wp->getV();
-    wp->getA();*/
+    // if(v)
+    // {
+    ur3->timerflag = v;
+    //  ui->checkBox_stepWorking->setChecked(false);
+    qDebug()<<"Aktualna pozycja: "<<"X: "<<ui->lineEdit_Fx->text()<<" Y: "<<ui->lineEdit_Fy->text()<< " ";
+    qDebug()<<ur3->Generate();
+    //   }
+
 }
 
 void MainWindow::showPlaneCallibration()
@@ -293,13 +300,25 @@ void MainWindow::showPlaneCallibration()
     pl->run_callibration(wp);
 }
 
+void MainWindow::onNextStep()
+{
+    ur3->NextStep = 1;
+}
+
+
 void MainWindow::on_actionConnection_triggered()
 {
-    qDebug()<<"triggered";
 }
 
 void MainWindow::on_pushButton_MoveJ_clicked()
 {
-    qDebug()<<"MoveJ";
+}
+void MainWindow::showSettings()
+{
+
+}
+void MainWindow::showWayPoint()
+{
+
 }
 

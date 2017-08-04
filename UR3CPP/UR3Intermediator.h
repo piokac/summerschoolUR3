@@ -1,6 +1,8 @@
 #ifndef UR3INTERMEDIATOR_H
 #define UR3INTERMEDIATOR_H
 
+//CONTROL();
+
 #pragma once
 #include <vector>
 #include "UR3Message.h"
@@ -28,6 +30,9 @@ public:
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
     bool banner;
     bool baner_servoc;
+    bool banner_moveL;
+    bool timerflag;
+    bool NextStep;
     /**
      * @brief ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze
      * @return
@@ -102,6 +107,7 @@ public:
 
     QString getIpAddress() const;
     void setIpAddress(const QString &value);
+    QVector <double> Generate();
 
 signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
@@ -138,7 +144,7 @@ private:
     //Methods
     void Tracking();
     void TrackingServoc();
-    QVector <double> Generate();
+    void TrackingMoveL();
     void CheckForceChanged();
     void CheckIfStillMovejRunning();
     void CheckIfStillMoveLRunning();

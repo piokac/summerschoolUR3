@@ -43,9 +43,13 @@ public slots:
     void showWayPoint();
     void showPlaneCallibration();
 
+    void onNextStep();
     void onCheckBoxMoveJ(bool v);
     void onCheckBoxServoc(bool v);
+    void onCheckBoxStepWorking(bool v);
+    void onCheckBoxMoveL(bool v);
 
+    void OnMoveL();
     void OnMoveJ();
     void OnSpeedJ();
     void OnForceMode();
@@ -64,6 +68,7 @@ private slots:
     void CloseFile();
 
 private:
+    bool qdflag;
     PlaneCallibration *pl;
     cLogger * log;
     WayPoint * wp;

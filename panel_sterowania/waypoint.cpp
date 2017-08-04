@@ -250,6 +250,8 @@ void WayPoint::PushButtonData(QVector<double> data)
     qDebug()<<"WayPoint::PushButtonData"<<flaga;
     if (flaga == 1)
     {
+         
+
         this->ui->lineEdit_Wx->setText(QString::number(data[0]));
         this->ui->lineEdit_Wy->setText(QString::number(data[1]));
         this->ui->lineEdit_Wz->setText(QString::number(data[2]));
