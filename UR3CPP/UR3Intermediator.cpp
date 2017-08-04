@@ -69,8 +69,7 @@ QVector<double> UR3Intermediator::Generate()
     ++it;
     QVector <double> sinj {Ax * qSin(2 * M_PI * f * t[0] / 10.0), Ay * qCos(2 * M_PI * f * t[0] / 10.0), Az * 0, 0, 0, 0};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
     //  t.remove(0);
-    qDebug()<<
-    t.push_back(it);
+               t.push_back(it);
     t.erase(t.begin());
     qDebug()<<t[0];
     // t.pop_front();
@@ -163,7 +162,7 @@ void UR3Intermediator::timerEvent(QTimerEvent *event)
                 Tracking();
             if (baner_servoc)
                 TrackingServoc();
-
+            //dodac Qmesseage gdzie chce koncowka dojsc i gdzie dochodzi, dop. po tym mozna przejsc do nast kroku
             QString command = cmds[0];
             cmds.pop_front();
             _socket->write(command.toLatin1().data());

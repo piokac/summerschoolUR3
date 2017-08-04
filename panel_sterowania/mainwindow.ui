@@ -163,6 +163,7 @@
      <string>WayPoint</string>
     </property>
     <addaction name="actionParameters"/>
+    <addaction name="actionPlane_Callibration"/>
    </widget>
    <widget class="QMenu" name="menuRejestracja">
     <property name="tearOffEnabled">
@@ -239,6 +240,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionPlane_Callibration">
+   <property name="text">
+    <string>Plane callibration</string>
    </property>
   </action>
  </widget>

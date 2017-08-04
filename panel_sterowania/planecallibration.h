@@ -54,7 +54,8 @@ private slots:
     newPose(QVector<double> x, char flag);
 
 public slots:
-    void run_callibration();
+    void run_callibration(WayPoint *w);
+
 
 private:
     QVector<double> v_x;

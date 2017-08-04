@@ -5,8 +5,6 @@ PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : 
 {
     connect(_ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
     ur3=_ur3;
-
-
 }
 /*void PlaneCallibration::selectPoints(QVector<double> &v_punkt)
 {
@@ -20,7 +18,7 @@ PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : 
 
 QVector<double> PlaneCallibration::calculateTransformation(QVector<double> p)
 {
-    M->mul(M->setH(getV_x(), getV_y(), getV_z(), getTrans()),p);
+    M->mul(p);
 }
 
 QVector<QVector<double> > PlaneCallibration::calculateTransformation(QVector<QVector<double> > p)
@@ -28,7 +26,7 @@ QVector<QVector<double> > PlaneCallibration::calculateTransformation(QVector<QVe
     QVector<QVector<double>> v_punkty;
     for(int i=0;i<p.size();i++)
     {
-        v_punkty.push_back(M->mul(M->setH(getV_x(), getV_y(), getV_z(), getTrans()),p[i]));
+        v_punkty.push_back(M->mul(p[i]));
     }
     return v_punkty;
 }
@@ -87,7 +85,7 @@ PlaneCallibration::newPose(QVector<double> x, char flag)
     if(flag=='t')
     {
         //wp->setPose(x);
-        wp->PushButtonData(x);
+        //wp->PushButtonData(x);
     }
 }
 
@@ -121,42 +119,43 @@ void PlaneCallibration::setV_punkt1(const QVector<double> &value)
     v_punkt1 = value;
 }
 
-void PlaneCallibration::run_callibration()
+void PlaneCallibration::run_callibration(WayPoint *w)
 {
-       //WayPoint dlg;
        qDebug()<<"222333";
-       //connect to ur3
-        wp->SetText("poczatek ukladu wspolrzednych");
-           if(wp->exec() == QDialog::Accepted)
+
+       wp->SetText("poczatek ukladu wspolrzednych");
+           if(w->exec() == QDialog::Accepted)
            {
-               wp->SetText("punkt na osi oX");
-               setV_punkt1(wp->getPose());
+               w->SetText("punkt na osi oX");
+               setV_punkt1(w->getPose());
                //selectPoints(v_punkt1);
                //zappisac punkt
 
                //ustawic opis
-               if(wp->exec() == QDialog::Accepted)
+               if(w->exec() == QDialog::Accepted)
                {
-                   wp->SetText("punkt na osi oY");
-                   setV_punkt2(wp->getPose());
+                   w->SetText("punkt na osi oY");
+                   setV_punkt2(w->getPose());
                    //selectPoints(v_punkt2);
 
-                   if(wp->exec() == QDialog::Accepted)
+                   if(w->exec() == QDialog::Accepted)
                    {
-                      wp->SetText("aktualna pozycja we wspolrzednych roboczych");
-                      setV_punkt3(wp->getPose());
-                       //selectPoints(v_punkt3);
-                      if(wp->exec()==QDialog::Accepted)
+                      w->SetText("aktualna pozycja we wspolrzednych roboczych");
+                      setV_punkt3(w->getPose());
+                      //selectPoints(v_punkt3);
+                      if(w->exec()==QDialog::Accepted)
                       {
                           setV_x(div(minus(getV_punkt2(),getV_punkt1()),norm(minus(getV_punkt2(),getV_punkt1()))));
                           setV_z(div(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())),norm(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())))));
                           setV_y(cross(getV_z(), getV_x()));
                           setTrans(getV_punkt1());
                           M->setMatrix(M->setH(getV_x(), getV_y(), getV_z(),getTrans()));
+                          wp->setTransformation(M->getMatrix());
+                          qDebug()<<"element macierzy h: "<<M->getMatrix()[0];
                       }
                    }
                }
-           }          
+           }
 }
 
 void PlaneCallibration::setTrans(const QVector<double> &value)

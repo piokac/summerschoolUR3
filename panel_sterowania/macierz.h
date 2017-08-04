@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include<QVector>
+#include<QDebug>
 
 
 class Macierz : public QObject
@@ -10,9 +11,9 @@ class Macierz : public QObject
     Q_OBJECT
 public:
     explicit Macierz(QObject *parent = nullptr);
-    QVector<QVector<double>> setH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
-    QVector<double> mul(QVector<QVector<double>> v1, QVector<double> v2);
-    QVector<QVector<double>> mulM(QVector<QVector<double>> v1, QVector<QVector<double>> v2);
+    QVector<QVector<double> >setH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
+    QVector<double> mul( QVector<double> v2);
+    QVector<QVector<double>> mulM( QVector<QVector<double>> v2);
 
     void setMatrix(const QVector<QVector<double> > &value);
 

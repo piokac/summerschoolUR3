@@ -9,6 +9,8 @@
 #include <QDateTime>
 #include "clogger.h"
 #include <QElapsedTimer>
+#include"planecallibration.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -38,6 +40,9 @@ public slots:
     void OnActionDisconnection();
     void ConnectedToInfo(char* Ip, bool Achieved);
     void showSettings();
+    void showWayPoint();
+    void showPlaneCallibration();
+
     void onCheckBoxMoveJ(bool v);
     void onCheckBoxServoc(bool v);
 
@@ -59,6 +64,7 @@ private slots:
     void CloseFile();
 
 private:
+    PlaneCallibration *pl;
     cLogger * log;
     WayPoint * wp;
     UR3Intermediator* ur3;

@@ -6,12 +6,9 @@
 #include<qlabel.h>
 #include"macierz.h"
 
-
 namespace Ui {
 class WayPoint;
 }
-
-
 
 class WayPoint : public QDialog
 {
@@ -46,18 +43,26 @@ public:
     void setV(double value);
 
     void PushButtonData(QVector<double> data);
+    void PushButtonDataCC(QVector<double>data);   
 
     QVector<double> getPose();
     void setPose(QVector<double> v);
 
     void SetText(QString text);
 
+    void setTransformation(QVector<QVector<double> > v);
+
 private slots:
+
     void on_pushButton_Ap_pressed();
 
     void selectSettings(QVector<double> &v_punkt);
 
     void on_pushButton_Ap_clicked();
+
+    void on_pushButton_cc_pressed();
+
+    void on_pushButton_cc_clicked();
 
 private:
     Ui::WayPoint *ui;
@@ -66,7 +71,7 @@ private:
     double Wrx, Wry, Wrz;
     double V, a;
     bool flaga;
-
+    bool plFlag;
 };
 
 #endif // WAYPOINT_H

@@ -2,15 +2,14 @@
 #include "ui_mainwindow.h"
 #include <QtMath>
 
-#include"planecallibration.h"
 #define _USE_MATH_DEFINE
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),settings(new Settings("settings.ini", this)), ur3(new UR3Intermediator), wp(new WayPoint), log(new cLogger),//ur3(new UR3Intermediator(this)), wp(new WayPoint(this)), log(new cLogger(this)),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent),settings(new Settings("settings.ini", this)), ur3(new UR3Intermediator),  log(new cLogger),
+  ui(new Ui::MainWindow)
 {
-    pl = new PlaneCallibration(ur3,this);
-
     ui->setupUi(this);
+    wp= new WayPoint;
+    pl = new PlaneCallibration(ur3,this);
     connect(this->ui->actionConnection,SIGNAL(triggered(bool)),this,SLOT(OnActionConnection()));
     connect(this->ui->actionDisconnection,SIGNAL(triggered(bool)),this,SLOT(OnActionDisconnection()));
     connect(this->ur3, SIGNAL(newPoseTCP(QVector<double>,char)),this, SLOT(OnNewTCP(QVector<double>,char)));
@@ -27,8 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionRozpocznij, SIGNAL(triggered(bool)), this,SLOT(SaveFile()));
     connect(ui->actionPlik, SIGNAL(triggered(bool)), this,SLOT(OpenFile()));
     connect(ui->actionZakoncz, SIGNAL(triggered(bool)), this,SLOT(CloseFile()));
-      connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
-      connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)),this,SLOT(showPlaneCallibration()));
+    //connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
+    connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)),this,SLOT(showPlaneCallibration()));
 
     ur3->ConnectToRobot();
     settings->read(ur3);
@@ -46,10 +45,10 @@ MainWindow::~MainWindow()
 }
 void MainWindow::on_actionParameters_triggered()
 {
-   // WayPoint * wp;
+    // WayPoint * wp;
     if(wp->exec() == QDialog::Accepted)
-    {               
-       /* wp->setWx(1);
+    {
+        /* wp->setWx(1);
         double  a =  wp->getWx();*/
         wp->getWx();
         wp->getWy();
@@ -86,10 +85,10 @@ void MainWindow::CloseFile()
     log->Close();
 }
 
-void MainWindow::on_actionParameters_triggered()
+/*void MainWindow::on_actionParameters_triggered()
 {
     wp->exec();
-}
+}*/
 
 void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
 {
@@ -109,16 +108,19 @@ void MainWindow::OnNewTCP(QVector<double> data, char a)
     static int refresh_interval = 0;
     static int refresh_interval_2 = 0;
     if (a == 't')
-    {
+    {      
         if(wp->isVisible())
+        {
             wp->PushButtonData(data);
+            wp->PushButtonDataCC(data);
+        }
         //log->slot_turn(1, a, data);
     }
     if (a == 't')
     {
         // if(timerr.elapsed()!=8)
-   //     qDebug()<<timerr.restart();
-     //   qDebug()<<"Rozkodowana, odebrana ramka";
+        //     qDebug()<<timerr.restart();
+        //   qDebug()<<"Rozkodowana, odebrana ramka";
         refresh_interval++;
         refresh_interval %=50;
 
@@ -149,6 +151,7 @@ void MainWindow::OnNewTCP(QVector<double> data, char a)
     }
     log->slot_turn(1, a, data);
 }
+
 
 void MainWindow::showConfigWindow()
 {
@@ -182,22 +185,22 @@ void MainWindow::OnActionConnection()
     this->ur3->ConnectToRobot();
 }
 
-void MainWindow::OnMoveJ()
+/*void MainWindow::OnMoveJ()
 {
 
- /*   this->ur3->MoveJ(QVector<double>(
+    /*   this->ur3->MoveJ(QVector<double>(
                          // {0.6236825723301582, 1.4, 1.05, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}));
     {0.6236825723301582, -1.477339167481995,
      2.478097719134525, -2.5575642827418985, -1.5571205043625342, 2.781621040141847}), 2.4, 3);
-    //(q, a=1.4, v=1.05, t=0, r=0)*/
-  //  double a = wp->getWx();
+    //(q, a=1.4, v=1.05, t=0, r=0)
+    //  double a = wp->getWx();
     this->ur3->MoveJ(QVector<double>({wp->getWx(), wp->getWy(),
-       wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
+                                      wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
     qDebug()<<wp->getWx();
 
 
 
-}
+}*/
 void MainWindow::OnActionDisconnection()
 {
     this->ur3->DisconnectFromRobot();
@@ -241,7 +244,6 @@ void MainWindow::OnForceMode()
                          QVector<double>({0.1, 0.1,0.15, 0.35, 0.35, 0.35}),
                          QVector<double>({wp->getWx(), wp->getWy(),wp->getWz(),wp->getWrx(),
                                           wp->getWy(), wp->getWz()}), 1, 1);
-
 }
 
 void MainWindow::onHome()
@@ -257,7 +259,6 @@ void MainWindow::onServoc()
     else
         this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
                                            wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
-
 }
 
 void MainWindow::showSettings()
@@ -267,9 +268,7 @@ void MainWindow::showSettings()
 
 void MainWindow::onCheckBoxMoveJ(bool v)
 {
-
     ur3->banner = v;
-
 }
 
 void MainWindow::onCheckBoxServoc(bool v)
@@ -277,35 +276,22 @@ void MainWindow::onCheckBoxServoc(bool v)
     ur3->baner_servoc = v;
 }
 
-
-void MainWindow::on_actionConnection_triggered()
-{
-
-}
-
 void MainWindow::showWayPoint()
 {
-    wp->getWx();
+    /* wp->getWx();
     wp->getWy();
     wp->getWz();
     wp->getWrx();
     wp->getWry();
     wp->getWrz();
     wp->getV();
-    wp->getA();
+    wp->getA();*/
 }
 
 void MainWindow::showPlaneCallibration()
 {
-    pl->run_callibration();
-    //PlaneCallibration planecallibration;
-
-    /*if(planecallibration.exec() == QDialog::Accepted)
-    {
-        qDebug()<<"ok";
-    }*/
+    pl->run_callibration(wp);
 }
-
 
 void MainWindow::on_actionConnection_triggered()
 {
@@ -315,6 +301,5 @@ void MainWindow::on_actionConnection_triggered()
 void MainWindow::on_pushButton_MoveJ_clicked()
 {
     qDebug()<<"MoveJ";
-
-
 }
+
