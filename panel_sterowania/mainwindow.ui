@@ -28,13 +28,6 @@
     <item row="1" column="3">
      <widget class="QLineEdit" name="lineEdit_Tx"/>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>FORCE Y:</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -49,16 +42,30 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>FORCE Y:</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="1">
      <widget class="QLineEdit" name="lineEdit_Fy"/>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_Fz"/>
     </item>
     <item row="3" column="2">
      <widget class="QLabel" name="label_6">
       <property name="text">
        <string>TORQUE Z:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="lineEdit_Fz"/>
+    </item>
+    <item row="5" column="3">
+     <widget class="QPushButton" name="pushButton_ForceMode">
+      <property name="text">
+       <string>ForceMode</string>
       </property>
      </widget>
     </item>
@@ -72,20 +79,20 @@
     <item row="2" column="3">
      <widget class="QLineEdit" name="lineEdit_Ty"/>
     </item>
-    <item row="5" column="3">
-     <widget class="QPushButton" name="pushButton_ForceMode">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>ForceMode</string>
+       <string>FORCE Z:</string>
       </property>
      </widget>
     </item>
     <item row="3" column="3">
      <widget class="QLineEdit" name="lineEdit_Tz"/>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_3">
+    <item row="7" column="1">
+     <widget class="QPushButton" name="pushButton_Home">
       <property name="text">
-       <string>FORCE Z:</string>
+       <string>HOME</string>
       </property>
      </widget>
     </item>
@@ -96,12 +103,23 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QPushButton" name="pushButton_Home">
-      <property name="text">
-       <string>HOME</string>
-      </property>
-     </widget>
+    <item row="5" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_Servoc">
+        <property name="text">
+         <string>Servoc</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_Servoc">
+        <property name="text">
+         <string>Tracking</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="4" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -121,17 +139,35 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item row="7" column="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QPushButton" name="pushButton_Servoc">
+       <widget class="QCheckBox" name="checkBox_stepWorking">
         <property name="text">
-         <string>Servoc</string>
+         <string>Step Working</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_Servoc">
+       <widget class="QPushButton" name="pushButton_NextStep">
+        <property name="text">
+         <string>Next step</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="6" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="pushButton_MoveL">
+        <property name="text">
+         <string>MoveL</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_moveL">
         <property name="text">
          <string>Tracking</string>
         </property>
@@ -163,6 +199,7 @@
      <string>WayPoint</string>
     </property>
     <addaction name="actionParameters"/>
+    <addaction name="actionPlane_Callibration"/>
    </widget>
    <widget class="QMenu" name="menuRejestracja">
     <property name="tearOffEnabled">
@@ -239,6 +276,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionPlane_Callibration">
+   <property name="text">
+    <string>Plane callibration</string>
    </property>
   </action>
  </widget>

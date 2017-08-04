@@ -156,7 +156,7 @@ void PlaneCallibration::run_callibration()
                       }
                    }
                }
-           }          
+           }
 }
 
 void PlaneCallibration::setTrans(const QVector<double> &value)

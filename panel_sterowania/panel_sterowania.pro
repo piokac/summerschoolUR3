@@ -27,11 +27,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     waypoint.cpp \
-    clogger.cpp
+    clogger.cpp \
+    macierz.cpp \
+    planecallibration.cpp
 
 HEADERS  += mainwindow.h \
     waypoint.h \
-    clogger.h
+    clogger.h \
+    macierz.h \
+    planecallibration.h
 
 FORMS    += mainwindow.ui \
     waypoint.ui
