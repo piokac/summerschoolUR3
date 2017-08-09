@@ -80,6 +80,11 @@ QVector<double> UR3Intermediator::Generate()
     return sinj;
 }
 
+QVector<QVector<double>> UR3Intermediator::GenerateInConfigurationCoordinates()
+{
+    M->mul(Generate());
+}
+
 void UR3Intermediator::Servoc(QVector<double> pose, double acceleration, double speed)
 {
     QString command = "movep(p[" +  //servoc
@@ -325,8 +330,9 @@ void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> sel
     _socket->waitForBytesWritten();
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), it(10)
+UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), it(10), M(new Macierz)
 {
+
     this->_socket = new QTcpSocket();
     this->_lastJointPos.resize(6);
     this->_lastJointPos.fill(.0);
@@ -609,6 +615,16 @@ void UR3Intermediator::ReadDataFlow()
             mutex.unlock();
         }
     }
+}
+
+void UR3Intermediator::setInvTransformation(QVector<QVector<double> > v)
+{
+    M->setInvMatrix(v);
+}
+
+QVector<QVector<double> > UR3Intermediator::getInvTransformation()
+{
+    return M->getInvMatrix();
 }
 
 //void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)

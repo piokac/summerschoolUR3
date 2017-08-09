@@ -12,12 +12,18 @@ class Macierz : public QObject
 public:
     explicit Macierz(QObject *parent = nullptr);
     QVector<QVector<double> >setH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
+    QVector<QVector<double>> setInvH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
     QVector<double> mul( QVector<double> v2);
+    QVector<double> inv_mul(QVector<double> v);
     QVector<QVector<double>> mulM( QVector<QVector<double>> v2);
 
-    void setMatrix(const QVector<QVector<double> > &value);
+    void setUnitMatrix(QVector<QVector<double>> H,QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
 
+    void setMatrix(const QVector<QVector<double> > &value);
     QVector<QVector<double> > getMatrix() const;
+
+    QVector<QVector<double> > getInvMatrix() const;
+    void setInvMatrix(const QVector<QVector<double> > &value);
 
 signals:
 
@@ -26,6 +32,7 @@ public slots:
 
 private:
     QVector<QVector<double>>Matrix;
+    QVector<QVector<double>>invMatrix;
 
 };
 

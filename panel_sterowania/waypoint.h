@@ -51,10 +51,13 @@ public:
     void SetText(QString text);
 
     void setTransformation(QVector<QVector<double> > v);
+    QVector<QVector<double>> getTransformation();
+
+    void setInvTransformation(QVector<QVector<double> > v);
 
 private slots:
 
-    void on_pushButton_Ap_pressed();
+     void on_pushButton_Ap_pressed();
 
     void selectSettings(QVector<double> &v_punkt);
 

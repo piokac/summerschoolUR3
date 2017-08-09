@@ -1,7 +1,7 @@
 #include "planecallibration.h"
 
 
-PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : QObject(parent), wp(new WayPoint), M(new Macierz)
+PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : QObject(parent)/*, wp(new WayPoint)*/, M(new Macierz)
 {
     connect(_ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
     ur3=_ur3;
@@ -44,7 +44,7 @@ QVector<double> PlaneCallibration::minus(QVector<double> p1, QVector<double> p2)
     QVector<double> p;
     for(int i=0;i<p1.size();i++)
     {
-        p[i]=p1[i]-p2[i];
+        p.push_back(p1[i]-p2[i]);
     }
     return p;
 }
@@ -64,9 +64,9 @@ double PlaneCallibration::norm(QVector<double> p)
 QVector<double> PlaneCallibration::div(QVector<double> p, double d)
 {
     QVector<double> ptemp;
-    for(int i=0;i<p.size();i++)
+    for(int i=0;i<3;i++)
     {
-        ptemp[i]=p[i]*1/d;
+        ptemp.push_back(p[i]*1/d);
     }
     return ptemp;
 }
@@ -74,9 +74,10 @@ QVector<double> PlaneCallibration::div(QVector<double> p, double d)
 QVector<double> PlaneCallibration::cross(QVector<double> p1, QVector<double> p2)
 {
     QVector<double> p;
-    p[0]=p1[1]*p2[2]-p1[2]*p2[1];
-    p[1]=p1[2]*p2[0]-p1[0]*p2[2];
-    p[2]=p1[0]*p2[1]-p1[1]*p2[0];
+
+    p.push_back(p1[1]*p2[2]-p1[2]*p2[1]);
+    p.push_back(p1[2]*p2[0]-p1[0]*p2[2]);
+    p.push_back(p1[0]*p2[1]-p1[1]*p2[0]);
     return p;
 }
 
@@ -119,39 +120,38 @@ void PlaneCallibration::setV_punkt1(const QVector<double> &value)
     v_punkt1 = value;
 }
 
-void PlaneCallibration::run_callibration(WayPoint *w)
+void PlaneCallibration::run_callibration(WayPoint *w, UR3Intermediator *u)
 {
-       qDebug()<<"222333";
-
-       wp->SetText("poczatek ukladu wspolrzednych");
+           w->SetText("poczatek ukladu wspolrzednych");
            if(w->exec() == QDialog::Accepted)
            {
                w->SetText("punkt na osi oX");
                setV_punkt1(w->getPose());
-               //selectPoints(v_punkt1);
-               //zappisac punkt
-
-               //ustawic opis
                if(w->exec() == QDialog::Accepted)
                {
                    w->SetText("punkt na osi oY");
                    setV_punkt2(w->getPose());
-                   //selectPoints(v_punkt2);
-
                    if(w->exec() == QDialog::Accepted)
                    {
                       w->SetText("aktualna pozycja we wspolrzednych roboczych");
                       setV_punkt3(w->getPose());
-                      //selectPoints(v_punkt3);
+                      setV_x(div(minus(getV_punkt2(),getV_punkt1()),norm(minus(getV_punkt2(),getV_punkt1()))));
+                      setV_z(div(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())),norm(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())))));
+                      setV_y(cross(getV_z(), getV_x()));
+                      setTrans(getV_punkt1());
+                      M->setInvMatrix(M->setInvH(getV_x(), getV_y(), getV_z(),getTrans()));
+                      /*for(int i=0;i<4;i++)
+                      {
+                          for(int j=0;j<4;j++)
+                          {
+                            qDebug()<<M->getInvMatrix()[i][j];
+                          }
+                      }*/
+                      w->setInvTransformation(M->getInvMatrix());
+                      u->setInvTransformation(M->getInvMatrix());
                       if(w->exec()==QDialog::Accepted)
                       {
-                          setV_x(div(minus(getV_punkt2(),getV_punkt1()),norm(minus(getV_punkt2(),getV_punkt1()))));
-                          setV_z(div(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())),norm(cross(minus(getV_punkt2(),getV_punkt1()),minus(getV_punkt3(),getV_punkt1())))));
-                          setV_y(cross(getV_z(), getV_x()));
-                          setTrans(getV_punkt1());
-                          M->setMatrix(M->setH(getV_x(), getV_y(), getV_z(),getTrans()));
-                          wp->setTransformation(M->getMatrix());
-                          qDebug()<<"element macierzy h: "<<M->getMatrix()[0];
+
                       }
                    }
                }

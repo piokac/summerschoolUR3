@@ -54,7 +54,7 @@ private slots:
     newPose(QVector<double> x, char flag);
 
 public slots:
-    void run_callibration(WayPoint *w);
+    void run_callibration(WayPoint *w, UR3Intermediator *u);
 
 
 private:
@@ -65,7 +65,6 @@ private:
     QVector<double> v_punkt1;
     QVector<double> v_punkt2;
     QVector<double> v_punkt3;
-    WayPoint *wp;
     Macierz *M;
     UR3Intermediator *ur3;
 };

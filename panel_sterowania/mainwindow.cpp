@@ -216,7 +216,7 @@ void MainWindow::OnMoveJ()
 {
     //  if (ui->checkBox_moveJ->isChecked())
     //  {
-    this->ur3->MoveJ(QVector <double> ({0.400, 0.050, 0/1000,  2.6, 1.7, 0.007}), 1, 1);
+    this->ur3->MoveJ(QVector <double> ({-500/1000, 125/1000, -90/1000,  3.2, 3.1, -1.2}), 1, 1);
 
     /* }
     else
@@ -297,13 +297,14 @@ void MainWindow::onCheckBoxStepWorking(bool v)
 
 void MainWindow::showPlaneCallibration()
 {
-    pl->run_callibration(wp);
+    pl->run_callibration(wp, ur3);
 }
 
 void MainWindow::onNextStep()
 {
     ur3->NextStep = 1;
 }
+
 
 
 void MainWindow::on_actionConnection_triggered()

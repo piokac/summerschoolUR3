@@ -14,6 +14,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QElapsedTimer>
+#include"macierz.h"
 
 using namespace std;
 
@@ -109,6 +110,11 @@ public:
     void setIpAddress(const QString &value);
     QVector <double> Generate();
 
+    QVector<QVector<double> > GenerateInConfigurationCoordinates();
+
+    void setInvTransformation(QVector<QVector<double> > v);
+    QVector<QVector<double>> getInvTransformation();
+
 signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
     void newPoseTCP(QVector<double> x, char flag);  /*!< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp  */
@@ -153,6 +159,7 @@ private:
     void GetRobotData();
     void GetRobotMessage(char * data, unsigned int &offset, int size);
     void ReadDataFlow();
+
     //void RealTime(char * data, unsigned int &offset, int size);
     void RealTime(unsigned int &offset);
 
@@ -169,6 +176,7 @@ public slots:
 private:
     QMutex mutex;
     QVector<QString> cmds;
+    Macierz *M;
 };
 
 
