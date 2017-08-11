@@ -6,17 +6,6 @@ PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : 
     connect(_ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
     ur3=_ur3;
 }
-/*void PlaneCallibration::selectPoints(QVector<double> &v_punkt)
-{
-    v_punkt.push_back(ui->lineEdit_x->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_y->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_z->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Rx->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Ry->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Rz->text().toDouble());
-}*/
-
-
 
 void PlaneCallibration::wypisz_wektor(QVector<double> v)
 {

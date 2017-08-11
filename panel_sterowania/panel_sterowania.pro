@@ -29,15 +29,13 @@ SOURCES += main.cpp\
     waypoint.cpp \
     clogger.cpp \
     macierz.cpp \
-    planecallibration.cpp \
-    ccontrol.cpp
+    planecallibration.cpp
 
 HEADERS  += mainwindow.h \
     waypoint.h \
     clogger.h \
     macierz.h \
-    planecallibration.h \
-    ccontrol.h
+    planecallibration.h
 
 FORMS    += mainwindow.ui \
     waypoint.ui

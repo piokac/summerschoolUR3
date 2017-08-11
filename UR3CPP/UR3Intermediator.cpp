@@ -405,7 +405,7 @@ void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> sel
     _socket->waitForBytesWritten();
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), it(10), Controller(NULL), ForceModeFlag(0)
+UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), Controller(NULL), ForceModeFlag(0)
 {
 
     this->_socket = new QTcpSocket();
