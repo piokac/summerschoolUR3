@@ -15,6 +15,8 @@
 #include <QTextStream>
 #include <QElapsedTimer>
 #include"macierz.h"
+#include "ccontrol.h"
+
 
 using namespace std;
 
@@ -23,9 +25,6 @@ class UR3Intermediator: public QObject
     Q_OBJECT
 
 public:
-    /*  explicit UR3Intermediator( QObject *parent = 0);
-    ~UR3Intermediator();*/
-    //  QElapsedTimer timer;
 
 
     void MoveToInitialPoint();
@@ -111,6 +110,7 @@ public:
 
     QString getIpAddress() const;
     void setIpAddress(const QString &value);
+
     QVector <double> Generate();
     QVector<double> resize_generate_vector();
 
@@ -120,10 +120,16 @@ public:
     void setRotationVector(const QVector<double> &value);
 
     QVector<double> calculateTransformation(const QVector<double>& p);
+    void setController(cControl *value);
+
+
+    void SetBios();
+    bool ForceModeFlag;
+
 
 signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
-    void newPoseTCP(QVector<double> x, char flag);  /*!< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp  */
+    void newPoseTCP(QVector<double> x, char flag);  //< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp
     void ConnectionAction(char* Ip,bool Result);
     void newLog(int devId, char id, QVector <double> vec);
     void DisconnectAction(bool Result);
@@ -134,7 +140,7 @@ private:
     //Fields
     QElapsedTimer timerrr;
     bool _running;
-    QVector<double> _moveJTargetPos;
+    QVector<double> _moveJTargetPos;//< opis pola
     QVector<double> _moveLTargetPose;
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
@@ -153,8 +159,10 @@ private:
     QByteArray _DataFlow;
     QTcpSocket* _socket;
     bool _connected;
+    cControl * Controller;
 
     //Methods
+    void Execute(QString command);
     void Tracking();
     void TrackingServoc();
     void TrackingMoveL();
@@ -179,6 +187,8 @@ private slots:
 public slots:
     void OnTcpChanged();
     void OnSocketNewBytesWritten();
+
+
 private:
     QMutex mutex;
     QVector<QString> cmds;

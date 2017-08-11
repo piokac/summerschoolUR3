@@ -10,6 +10,7 @@
 #include "clogger.h"
 #include <QElapsedTimer>
 #include"planecallibration.h"
+#include "ccontrol.h"
 
 
 namespace Ui {
@@ -57,6 +58,8 @@ public slots:
     void onServoc();
 
 private slots:
+
+    void onCheckBoxSetBios();
     void on_actionConnection_triggered();
 
     void on_pushButton_MoveJ_clicked();
@@ -82,6 +85,8 @@ private:
     int pole1;
     QString pole2;
     QElapsedTimer timerr;
+    cControlFTWC* controllerFTWC;
+    //cProportionalIntegralController * controllerPI;
 
 };
 

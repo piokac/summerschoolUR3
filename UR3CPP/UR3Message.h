@@ -58,7 +58,7 @@ enum ToolMode{
 
 enum MessageType
 {
-        ROBOT_STATE = 16, ROBOT_MESSAGE = 20, PROGRAM_STATE_MESSAGE = 25
+        ROBOT_STATE = 16, ROBOT_MESSAGE = 20, PROGRAM_STATE_MESSAGE = 25, RT_FRAME
 };
 
 enum PackageTypes
@@ -432,7 +432,7 @@ class ForceModeData // value 7
 private:
     double actualForceValue;
     double fx,fy,fz;
-    double rx, ry, rz;
+    double tx, ty, tz;
     double RobotDexterity;
 
 public:
@@ -444,16 +444,16 @@ public:
     void setFY(double value);
     double getFZ() const;
     void setFZ(double value);
-    double getRx() const;
-    void setRx(double value);
-    double getRy() const;
-    void setRy(double value);
-    double getRz() const;
-    void setRz(double value);
     double getRobotDexterity() const;
     void setRobotDexterity(double value);
     double getActualForceValue() const;
     void setActualForceValue(double value);
+    double getTx() const;
+    void setTx(double value);
+    double getTy() const;
+    void setTy(double value);
+    double getTz() const;
+    void setTz(double value);
 };
 
 
@@ -587,57 +587,6 @@ public:
 
 private:
     double current1, current2, current3, current4, current5, current6;
-};
-
-class QActualCartesianCoordinatesTCP
-{
-public:
-
-    double getX() const;
-    void setX(double value);
-
-    double getY() const;
-    void setY(double value);
-
-    double getZ() const;
-    void setZ(double value);
-
-    double getRx() const;
-    void setRx(double value);
-
-    double getRy() const;
-    void setRy(double value);
-
-    double getRz() const;
-    void setRz(double value);
-
-private:
-    double x, y, z, rx, ry, rz;
-};
-
-class QTCPForces
-{
-public:
-    double getFx() const;
-    void setFx(double value);
-
-    double getFy() const;
-    void setFy(double value);
-
-    double getFz() const;
-    void setFz(double value);
-
-    double getTx() const;
-    void setTx(double value);
-
-    double getTy() const;
-    void setTy(double value);
-
-    double getTz() const;
-    void setTz(double value);
-
-private:
-    double Fx, Fy, Fz, Tx, Ty, Tz;
 };
 
 class QTargetCartesianCoordinatesTCP

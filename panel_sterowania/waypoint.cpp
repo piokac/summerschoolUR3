@@ -128,15 +128,16 @@ void WayPoint::PushButtonData(QVector<double> data)
         this->ui->lineEdit_Wry->setText(QString::number(data[4]));
         this->ui->lineEdit_Wrz->setText(QString::number(data[5]));
         flaga = 0;
-        qDebug()<<"flaga: "<<flaga;
     }
 }
+
+
 
 void WayPoint::PushButtonDataCC(QVector<double> data)
 {
     if(plFlag==1)
     {
-      //qDebug()<<"WayPoint::on_pushButton_cc_clicked()"<<plFlag;
+   
       QVector<double> _data2;
       QVector<double> configuration_data;
       _data2.push_back(data[0]);
@@ -197,7 +198,7 @@ void WayPoint::setInvTransformation(QVector<QVector<double> > v)
 void WayPoint::on_pushButton_Ap_pressed()
 {
     flaga = 1;
-    qDebug()<<"flaga: "<<flaga;
+
 }
 
 void WayPoint::on_pushButton_cc_clicked()
