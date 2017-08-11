@@ -46,7 +46,6 @@ public slots:
 
     void onNextStep();
     void onCheckBoxMoveJ(bool v);
-    void onCheckBoxServoc(bool v);
     void onCheckBoxStepWorking(bool v);
     void onCheckBoxMoveL(bool v);
 
@@ -59,7 +58,7 @@ public slots:
 
 private slots:
 
-    void onCheckBoxSetBios();
+    void onCheckBoxSetBias();
     void on_actionConnection_triggered();
 
     void on_pushButton_MoveJ_clicked();

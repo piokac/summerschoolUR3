@@ -4,8 +4,6 @@
 #include <QtEndian>
 #include <stdlib.h>
 
-
-//#define rad2deg(kat_rad) kat_rad/3.14*180
 #define parseDouble(src_class, setter_suffix, type,  data, offset){type tmp;memcpy(&tmp,&data[offset], sizeof(tmp));src_class.set ## setter_suffix(type ## Swap(tmp));offset+=sizeof(tmp);}
 
 

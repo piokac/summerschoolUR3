@@ -25,18 +25,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->pushButton_Home,SIGNAL(clicked(bool)),this,SLOT(onHome()));
     connect(this->ui->checkBox_moveJ,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxMoveJ(bool)));
     connect(this->ui->checkBox_moveL,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxMoveL(bool)));
-    connect(this->ui->checkBox_Servoc,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxServoc(bool)));
     connect(this->ui->checkBox_stepWorking,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxStepWorking(bool)));
     connect(this->ui->pushButton_NextStep,SIGNAL(clicked(bool)),this,SLOT(onNextStep()));
-    connect(this->ui->checkBox_SetBios,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxSetBios()));
+    connect(this->ui->checkBox_SetBias,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxSetBias()));
 
     connect(ui->actionRozpocznij, SIGNAL(triggered(bool)), this,SLOT(SaveFile()));
     connect(ui->actionPlik, SIGNAL(triggered(bool)), this,SLOT(OpenFile()));
     connect(ui->actionZakoncz, SIGNAL(triggered(bool)), this,SLOT(CloseFile()));
-    //connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
     connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)),this,SLOT(showPlaneCallibration()));
     controllerFTWC = new cControlFTWC();
-  //  controllerPI = new cProportionalIntegralController();
+    //  controllerPI = new cProportionalIntegralController();
     ur3->setController(controllerFTWC);
     ur3->ConnectToRobot();
     settings->read(ur3);
@@ -51,12 +49,13 @@ MainWindow::~MainWindow()
     delete wp;
     delete ur3;
     delete controllerFTWC;
+    //delete controllerPI;
     delete ui;
 }
 
-void MainWindow::onCheckBoxSetBios()
+void MainWindow::onCheckBoxSetBias()
 {
-    ur3->SetBios();
+    ur3->SetBias();
 }
 
 void MainWindow::on_actionParameters_triggered()
@@ -85,11 +84,6 @@ void MainWindow::CloseFile()
     ui->actionZakoncz->setChecked(true);
     log->Close();
 }
-
-/*void MainWindow::on_actionParameters_triggered()
-{
-    wp->exec();
-}*/
 
 void MainWindow::ConnectedToInfo(char* Ip, bool Achieved)
 {
@@ -194,20 +188,13 @@ void MainWindow::OnActionDisconnection()
 
 void MainWindow::onServoc()
 {
-//    if (ui->checkBox_Servoc->isChecked())
-//    {
-//        this->ur3->Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);
-//    }
-//    else
-//    {
-        if(wp->getV() > 0&& wp->getA() > 0)
-            this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
-                                               wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
-        else
-            this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
-                                               wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
 
-//    }
+    if(wp->getV() > 0&& wp->getA() > 0)
+        this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
+                                           wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
+    else
+        this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
+                                           wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
 }
 
 void MainWindow::OnMoveL()
@@ -226,8 +213,7 @@ void MainWindow::OnMoveJ()
 {
     //  if (ui->checkBox_moveJ->isChecked())
     //  {
-    //this->ur3->MoveJ(QVector <double> ({-500/1000, 125/1000, -90/1000,  3.2, 3.1, -1.2}), 1, 1);
-    this->ur3->MoveJ(ur3->Generate());
+    this->ur3->MoveJ(ur3->GenerateCircle(0.4,0,0));
 
     /* }
     else
@@ -284,7 +270,12 @@ void MainWindow::onHome()
 
 void MainWindow::onCheckBoxMoveL(bool v)
 {
-    ur3->banner_moveL = v;
+    ur3->banner_moveL = UR3Intermediator::GENERATE_IDLE_MOVEL;
+    if (v)
+    {
+        this->ur3->MoveToInitialPoint(); ///Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);//przesun do punktu poczatkowego
+        ur3->banner_moveL =UR3Intermediator::GENERATE_MOVING2INITIAL_POSE_MOVEL;
+    }
 }
 
 
@@ -293,20 +284,11 @@ void MainWindow::onCheckBoxMoveJ(bool v)
     ur3->banner = v;
 }
 
-void MainWindow::onCheckBoxServoc(bool v)
-{
-
-}
-
 void MainWindow::onCheckBoxStepWorking(bool v)
 {
-    // if(v)
-    // {
     ur3->timerflag = v;
-    //  ui->checkBox_stepWorking->setChecked(false);
     qDebug()<<"Aktualna pozycja: "<<"X: "<<ui->lineEdit_Fx->text()<<" Y: "<<ui->lineEdit_Fy->text()<< " ";
-    qDebug()<<ur3->Generate();
-    //   }
+    qDebug()<<ur3->GenerateCircle(0.4,0,0);
 
 }
 
@@ -343,11 +325,16 @@ void MainWindow::on_checkBox_Servoc_toggled(bool checked)
     ur3->baner_servoc = UR3Intermediator::GENERATE_IDLE;
     if (checked)
     {
-        this->ur3->MoveToInitialPoint(); ///Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);//przesun do punktu poczatkowego
+        this->ur3->MoveToInitialPoint(); //przesun do punktu poczatkowego
+       // while(!ur3->CheckIfRunning())
+        {
+
+          qDebug()<<"czekam";
+        };
+        qDebug()<<"wyszedlem z while";
         ur3->baner_servoc =UR3Intermediator::GENERATE_MOVING2INITIAL_POSE;
 
-                //czekaj na zakonczenie ruchu
+        //czekaj na zakonczenie ruchu
         //uruchom servoc
     }
-
 }
