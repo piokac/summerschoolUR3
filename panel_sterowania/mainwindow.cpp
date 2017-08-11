@@ -37,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ur3->ConnectToRobot();
     settings->read(ur3);
-
 }
 
 MainWindow::~MainWindow()
@@ -184,12 +183,12 @@ void MainWindow::OnActionDisconnection()
 
 void MainWindow::onServoc()
 {
-    if (ui->checkBox_Servoc->isChecked())
-    {
-        this->ur3->Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);
-    }
-    else
-    {
+//    if (ui->checkBox_Servoc->isChecked())
+//    {
+//        this->ur3->Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);
+//    }
+//    else
+//    {
         if(wp->getV() > 0&& wp->getA() > 0)
             this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
                                                wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), wp->getV(), wp->getA());
@@ -197,7 +196,7 @@ void MainWindow::onServoc()
             this->ur3->Servoc(QVector<double>({wp->getWx(), wp->getWy(),
                                                wp->getWz(),wp->getWrx(), wp->getWy(), wp->getWz()}), 1, 1);
 
-    }
+//    }
 }
 
 void MainWindow::OnMoveL()
@@ -216,7 +215,8 @@ void MainWindow::OnMoveJ()
 {
     //  if (ui->checkBox_moveJ->isChecked())
     //  {
-    this->ur3->MoveJ(QVector <double> ({-500/1000, 125/1000, -90/1000,  3.2, 3.1, -1.2}), 1, 1);
+    //this->ur3->MoveJ(QVector <double> ({-500/1000, 125/1000, -90/1000,  3.2, 3.1, -1.2}), 1, 1);
+    this->ur3->MoveJ(ur3->Generate());
 
     /* }
     else
@@ -280,7 +280,7 @@ void MainWindow::onCheckBoxMoveJ(bool v)
 
 void MainWindow::onCheckBoxServoc(bool v)
 {
-    ur3->baner_servoc = v;
+
 }
 
 void MainWindow::onCheckBoxStepWorking(bool v)
@@ -305,8 +305,6 @@ void MainWindow::onNextStep()
     ur3->NextStep = 1;
 }
 
-
-
 void MainWindow::on_actionConnection_triggered()
 {
 }
@@ -323,3 +321,17 @@ void MainWindow::showWayPoint()
 
 }
 
+
+void MainWindow::on_checkBox_Servoc_toggled(bool checked)
+{
+    ur3->baner_servoc = UR3Intermediator::GENERATE_IDLE;
+    if (checked)
+    {
+        this->ur3->MoveToInitialPoint(); ///Servoc(QVector <double> ({0.300, 0.050, 0/1000,  2.6, 1.7, 0.007}), 0.1, 0.1);//przesun do punktu poczatkowego
+        ur3->baner_servoc =UR3Intermediator::GENERATE_MOVING2INITIAL_POSE;
+
+                //czekaj na zakonczenie ruchu
+        //uruchom servoc
+    }
+
+}

@@ -18,8 +18,10 @@ public:
     double norm(QVector<double> p);
     QVector<double> div(QVector<double> p, double d);
     QVector<double> cross(QVector<double>p1, QVector<double> p2);
-    QVector<double> calculateTransformation(QVector<double> p);
+    QVector<double> calculateTransformation(const QVector<double>& p);
     QVector<QVector<double>> calculateTransformation(QVector<QVector<double>> p);
+
+
     void wypisz_wektor(QVector<double> v);
 
     QVector<double> getV_punkt1() const;

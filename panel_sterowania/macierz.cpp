@@ -106,15 +106,12 @@ QVector<double> Macierz::mul(QVector<double> v2)
     }
 }
 
-QVector<double> Macierz::inv_mul(QVector<double> v2)
+QVector<double> Macierz::inv_mul(const QVector<double>& v2)
 {
     QVector<double>wektor_wynikowy;
 
     if(invMatrix.size()==v2.size())
     {
-        qDebug()<<"ok";
-        qDebug()<<"wymiar macierzy: "<<invMatrix.size()<<"X"<<invMatrix[0].size();
-        qDebug()<<"wymiar wektora: "<<v2.size();
         for(int i=0;i<invMatrix[0].size();i++)
         {
             double temp=0;
@@ -171,7 +168,6 @@ void Macierz::setUnitMatrix(QVector<QVector<double>> H, QVector<double> x, QVect
     H.push_back(y);
     H.push_back(z);
     H.push_back(trans);
-
 }
 
 void Macierz::setMatrix(const QVector<QVector<double> > &value)

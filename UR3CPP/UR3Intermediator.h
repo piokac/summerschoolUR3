@@ -27,13 +27,16 @@ public:
     ~UR3Intermediator();*/
     //  QElapsedTimer timer;
 
+
+    void MoveToInitialPoint();
     void SaveToFile(double x, double y, double z, double rx, double ry, double rz, double fx, double fy, double fz);     //aktualny czas, położenie, kąty, siły
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
     bool banner;
-    bool baner_servoc;
+    enum {GENERATE_IDLE=0,GENERATE_MOVING2INITIAL_POSE=2,GENERATE_ON=1} baner_servoc;
     bool banner_moveL;
     bool timerflag;
     bool NextStep;
+    bool useTransformation;
     /**
      * @brief ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze
      * @return
@@ -109,11 +112,14 @@ public:
     QString getIpAddress() const;
     void setIpAddress(const QString &value);
     QVector <double> Generate();
+    QVector<double> resize_generate_vector();
 
-    QVector<QVector<double> > GenerateInConfigurationCoordinates();
+    void setTransformation(QVector<QVector<double> > v);
 
-    void setInvTransformation(QVector<QVector<double> > v);
-    QVector<QVector<double>> getInvTransformation();
+    QVector<double> getRotationVector() const;
+    void setRotationVector(const QVector<double> &value);
+
+    QVector<double> calculateTransformation(const QVector<double>& p);
 
 signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
@@ -123,8 +129,8 @@ signals:
     void DisconnectAction(bool Result);
 
 private:
-    QVector <int> t {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int it;
+    int current_timestamp;// {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    //int it;
     //Fields
     QElapsedTimer timerrr;
     bool _running;
@@ -134,6 +140,7 @@ private:
     QVector<double> _lastPolozenie;
     QVector<double> _lastForceValue;
     QString SaveFileName;
+    QVector<double> rotationVector;
 
     Q_PROPERTY(int PortTCP READ getPort WRITE setPort USER true)
     int Port;
@@ -152,8 +159,7 @@ private:
     void TrackingServoc();
     void TrackingMoveL();
     void CheckForceChanged();
-    void CheckIfStillMovejRunning();
-    void CheckIfStillMoveLRunning();
+    bool CheckIfRunning();
     void CheckJointsPosChanged();
     void CheckPolozenieChanged();
     void GetRobotData();

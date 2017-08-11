@@ -67,6 +67,8 @@ private slots:
     void OpenFile();
     void CloseFile();
 
+    void on_checkBox_Servoc_toggled(bool checked);
+
 private:
     bool qdflag;
     PlaneCallibration *pl;

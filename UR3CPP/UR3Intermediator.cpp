@@ -36,6 +36,22 @@ static double bytesSwap(double v)
 
 }
 
+void UR3Intermediator::setTransformation(QVector<QVector<double> > v)
+{
+    M->setMatrix(v);
+}
+
+QVector<double> UR3Intermediator::getRotationVector() const
+{
+    return rotationVector;
+}
+
+void UR3Intermediator::setRotationVector(const QVector<double> &value)
+{
+    rotationVector = value;
+}
+
+
 void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, double JointSpeed)
 {
     //TODO: nie dziala, zla logika
@@ -52,16 +68,33 @@ void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, 
     MoveL(cord);
 }
 
+QVector<double> UR3Intermediator::calculateTransformation(const QVector<double>& p)
+{
+    qDebug()<<"QVector<double> UR3Intermediator::resize_generate_vector()";
+    QVector<double> temp = p.mid(0,4);
+    temp[3]=1;
+
+    temp=M->mul(temp);
+    temp[3]=(rotationVector[0]);
+    temp.push_back(rotationVector[1]);
+    temp.push_back(rotationVector[2]);
+
+    return temp;
+}
 
 void UR3Intermediator::Tracking()
 {
     MoveJ(Generate(), 1, 1);
-
 }
 
 void UR3Intermediator::TrackingServoc()
 {
-    Servoc(Generate(), 0.1, 0.05);
+    if(useTransformation)
+    {
+        Servoc(calculateTransformation(Generate()), 0.1, 0.05);
+    }
+    else
+        Servoc(Generate(), 0.1, 0.05);
 }
 
 void UR3Intermediator::TrackingMoveL()
@@ -71,18 +104,24 @@ void UR3Intermediator::TrackingMoveL()
 
 QVector<double> UR3Intermediator::Generate()
 {
-    double Ts, f = .2, Ax = 50, Ay = 50, Az = 1;
-    ++it;
-    QVector <double> sinj {(Ax * qSin(2 * M_PI * f * t[0] / 10.0) + 400)/1000, (Ay * qCos(2 * M_PI * f * t[0] / 10.0))/1000, Az * 0, 2.6, 1.7, 0.007};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
+    double Ts, f = .2, Ax = 50/1000.0, Ay = 50/1000.0, Az = 1/1000.0;
+
+    QVector <double> sinj {(Ax * qSin(2 * M_PI * f * current_timestamp / 10.0) + 400)/1000, (Ay * qCos(2 * M_PI * f * current_timestamp / 10.0))/1000, Az * 0, 2.6, 1.7, 0.007};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
     //  qDebug()<<"Generate(): "<<Ax * qSin(2 * M_PI * f * t[0] / 10.0)<<" "<<Ay * qCos(2 * M_PI * f * t[0] / 10.0)<<" "<<Az * 0<< " "<<" 0 0 0 ";
-    t.push_back(it);
-    t.erase(t.begin());
+    current_timestamp++;
     return sinj;
 }
 
-QVector<QVector<double>> UR3Intermediator::GenerateInConfigurationCoordinates()
+void UR3Intermediator::MoveToInitialPoint()
 {
-    M->mul(Generate());
+    current_timestamp = 0;
+    if(useTransformation)
+    {
+        MoveJ(calculateTransformation(Generate()), 0.5, 0.25);
+    }
+    else
+        MoveJ(Generate(), 0.5, 0.25);
+    current_timestamp = 0;
 }
 
 void UR3Intermediator::Servoc(QVector<double> pose, double acceleration, double speed)
@@ -103,41 +142,39 @@ void UR3Intermediator::Servoc(QVector<double> pose, double acceleration, double 
         _socket->write(command.toLatin1().data());
         _socket->waitForBytesWritten();
     }
-
-
 }
 
 void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration, double toolSpeed, double time, double blendRadius)
 {
- //   if(_connected && !_running)
- //   {
-        //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI, PRZETESTOWAC NA PRAWIDLOWYCH PZYCJACH
-        QString command = "movel(p[" +
-                QString::number(TargetPose[0]) + ", " +
-                QString::number(TargetPose[1]) + ", " +
-                QString::number(TargetPose[2]) + ", " +
-                QString::number(TargetPose[3]) + ", " +
-                QString::number(TargetPose[4]) + ", " +
-                QString::number(TargetPose[5]) + "], " +
-                "a=" + QString::number(toolAcceleration)+ ", " +
-                "v=" + QString::number(toolSpeed)+ ", " +
-                "t=" + QString::number(time)+", "+
-                "r=" + QString::number(blendRadius)+
-                ")\n";
-        cmds.push_back(command);
-  //      _socket->write(command.toLatin1().data());
- //       _socket->waitForBytesWritten();
-        _moveLTargetPose = TargetPose;
-        _running = true;
-   // }
+    //   if(_connected && !_running)
+    //   {
+    //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI, PRZETESTOWAC NA PRAWIDLOWYCH PZYCJACH
+    QString command = "movel(p[" +
+            QString::number(TargetPose[0]) + ", " +
+            QString::number(TargetPose[1]) + ", " +
+            QString::number(TargetPose[2]) + ", " +
+            QString::number(TargetPose[3]) + ", " +
+            QString::number(TargetPose[4]) + ", " +
+            QString::number(TargetPose[5]) + "], " +
+            "a=" + QString::number(toolAcceleration)+ ", " +
+            "v=" + QString::number(toolSpeed)+ ", " +
+            "t=" + QString::number(time)+", "+
+            "r=" + QString::number(blendRadius)+
+            ")\n";
+    cmds.push_back(command);
+    //      _socket->write(command.toLatin1().data());
+    //       _socket->waitForBytesWritten();
+    _moveLTargetPose = TargetPose;
+    _running = true;
+    // }
 
 }
 
 void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAcceleration, double JointSpeed)
 {
     // if(_running == true) qDebug()<<"rusza sie";
-    CheckIfStillMovejRunning();
-    if(_connected && _running==false)
+
+    if(_connected )
     {
         //TODO :: ZAMIEN NA STRING PARAMETRY PRZEKAZYWANE W FUNKCJI
         QString command = "movej(p[" +
@@ -152,9 +189,20 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
 
         //        _socket->write(command.toLatin1().data());
         //        _socket->waitForBytesWritten();
-        cmds.push_back(command);
-        _running = true;
-        _moveJTargetPos = JointPosition;
+        qDebug()<<command;
+        if(!CheckIfRunning())
+        {
+            _socket->write(command.toLatin1().data());
+            _socket->waitForBytesWritten();
+            _running = true;
+            _moveJTargetPos = JointPosition;
+        }
+        else
+        {
+            cmds.push_back(command);
+            _running = true;
+            _moveJTargetPos = JointPosition;
+        }
         //qDebug()<<"zaczynam ruch";
     }
 }
@@ -210,9 +258,17 @@ void UR3Intermediator::timerEvent(QTimerEvent *event)
 
     if(_connected)
     {
+        if(baner_servoc == UR3Intermediator::GENERATE_MOVING2INITIAL_POSE)
+        {
+            if(!CheckIfRunning())
+            {
+                baner_servoc = UR3Intermediator::GENERATE_ON;
+            }
+        }
         if(cmds.length()>0)//&&!ActualRobotInfo.robotModeData.getIsProgramRunning();
         {
             //dodac Qmesseage gdzie chce koncowka dojsc i gdzie dochodzi, dop. po tym mozna przejsc do nast kroku
+
             if(timerflag)
             {
 
@@ -220,7 +276,7 @@ void UR3Intermediator::timerEvent(QTimerEvent *event)
                 {
                     if (banner)
                         Tracking();
-                    if (baner_servoc)
+                    if (baner_servoc == UR3Intermediator::GENERATE_ON)
                         TrackingServoc();
                     if (banner_moveL)
                     {
@@ -238,7 +294,7 @@ void UR3Intermediator::timerEvent(QTimerEvent *event)
 
                 if (banner)
                     Tracking();
-                if (baner_servoc)
+                if (baner_servoc == UR3Intermediator::GENERATE_ON)
                     TrackingServoc();
                 if (banner_moveL)
                 {
@@ -330,7 +386,7 @@ void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> sel
     _socket->waitForBytesWritten();
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), it(10), M(new Macierz)
+UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128")/*, it(10)*/, M(new Macierz)
 {
 
     this->_socket = new QTcpSocket();
@@ -446,7 +502,7 @@ void UR3Intermediator::GetRobotData()
     }
     // }
 }
-void UR3Intermediator::CheckIfStillMovejRunning()
+bool UR3Intermediator::CheckIfRunning()
 {
     //    QVector<JointData> jointsData = this->ActualRobotInfo.getJointsData();
     //    double firstJointPos = RoundDouble(jointsData[0].getActualJointPosition(),4);
@@ -467,22 +523,10 @@ void UR3Intermediator::CheckIfStillMovejRunning()
     //        //qDebug()<<"przestal sie ruszac";
     //    }
     _running =ActualRobotInfo.robotModeData.getIsProgramRunning();
+    return _running;
 }
 
-void UR3Intermediator::CheckIfStillMoveLRunning()
-{
-    CartesianInfoData CurrentCartesianInfo = this->ActualRobotInfo.getCartesianInfoData();
-    double x = RoundDouble(CurrentCartesianInfo.getX(),4);
-    double y = RoundDouble(CurrentCartesianInfo.getY(),4);
-    double z = RoundDouble(CurrentCartesianInfo.getZ(),4);
-    double rx = RoundDouble(CurrentCartesianInfo.getRx(),4);
-    double ry = RoundDouble(CurrentCartesianInfo.getRy(),4);
-    double rz = RoundDouble(CurrentCartesianInfo.getRz(),4);
-    QVector<double> current = QVector<double>({x,y,z,rx,ry,rz});
-    if(current == _moveLTargetPose){
-        _running = false;
-    }
-}
+
 
 void UR3Intermediator::CheckJointsPosChanged()
 {
@@ -578,7 +622,7 @@ void UR3Intermediator::GetRobotMessage(char *data, unsigned int &offset, int siz
             this->ActualRobotInfo.setCartesianInfoData(_data,offset);
             if(_running)
             {
-                CheckIfStillMoveLRunning();
+                CheckIfRunning();
             }
             CheckPolozenieChanged();
             break;
@@ -615,16 +659,6 @@ void UR3Intermediator::ReadDataFlow()
             mutex.unlock();
         }
     }
-}
-
-void UR3Intermediator::setInvTransformation(QVector<QVector<double> > v)
-{
-    M->setInvMatrix(v);
-}
-
-QVector<QVector<double> > UR3Intermediator::getInvTransformation()
-{
-    return M->getInvMatrix();
 }
 
 //void UR3Intermediator::RealTime(char *_data, unsigned int &offset, int size)
