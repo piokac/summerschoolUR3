@@ -160,9 +160,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_SetBios">
+       <widget class="QCheckBox" name="checkBox_SetBias">
         <property name="text">
-         <string>Set bios</string>
+         <string>Set bias</string>
         </property>
        </widget>
       </item>

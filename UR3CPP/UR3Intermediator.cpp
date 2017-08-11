@@ -65,7 +65,7 @@ void UR3Intermediator::MoveToPoint(QVector<double> q, double JointAcceleration, 
     double rz = RoundDouble(CurrentCartesianInfo.getRz(),4);
 
     QVector<double> cord = QVector<double>({x+(q[0]/1000.0),y+(q[1]/1000.0),z+(q[2]/1000.0),rx,ry,rz});
-    MoveL(cord);
+    MoveL(cord, JointAcceleration, JointSpeed);
 }
 
 QVector<double> UR3Intermediator::calculateTransformation(const QVector<double>& p)
@@ -84,7 +84,7 @@ QVector<double> UR3Intermediator::calculateTransformation(const QVector<double>&
 
 void UR3Intermediator::Tracking()
 {
-    MoveJ(Generate(), 1, 1);
+    MoveJ(GenerateCircle(0.4,0,0), 1, 1);
 
 }
 
@@ -92,22 +92,24 @@ void UR3Intermediator::TrackingServoc()
 {
     if(useTransformation)
     {
-        Servoc(calculateTransformation(Generate()), 0.1, 0.05);
+        Servoc(calculateTransformation(GenerateCircle(0.050,0.050,0)), 0.1, 0.05);
     }
     else
-        Servoc(Generate(), 0.1, 0.05);
+    {
+        Servoc(GenerateCircle(0.4,0,0), 0.1, 0.05);
+    }
 }
 
 void UR3Intermediator::TrackingMoveL()
 {
-    MoveL(Generate(), 1, 1, 0 ,0);
+    MoveL(GenerateCircle(0.4,0,0), 1, 1, 0 ,0);
 }
 
-QVector<double> UR3Intermediator::Generate()
+QVector<double> UR3Intermediator::GenerateCircle(double x0, double y0, double z0)
 {
-    double Ts, f = .2, Ax = 50/1000.0, Ay = 50/1000.0, Az = 1/1000.0;
+    double f = .2, Ax = 50/1000.0, Ay = 50/1000.0, Az = 1/1000.0;
 
-    QVector <double> sinj {(Ax * qSin(2 * M_PI * f * current_timestamp / 10.0) + 400)/1000, (Ay * qCos(2 * M_PI * f * current_timestamp / 10.0))/1000, Az * 0, 2.6, 1.7, 0.007};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
+    QVector <double> sinj {x0+(Ax * qSin(2 * M_PI * f * current_timestamp / 10.0)), (y0+Ay * qCos(2 * M_PI * f * current_timestamp / 10.0)), z0+Az * 0, 2.6, 1.7, 0.007};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
     //  qDebug()<<"Generate(): "<<Ax * qSin(2 * M_PI * f * t[0] / 10.0)<<" "<<Ay * qCos(2 * M_PI * f * t[0] / 10.0)<<" "<<Az * 0<< " "<<" 0 0 0 ";
     current_timestamp++;
     return sinj;
@@ -118,10 +120,12 @@ void UR3Intermediator::MoveToInitialPoint()
     current_timestamp = 0;
     if(useTransformation)
     {
-        MoveJ(calculateTransformation(Generate()), 0.5, 0.25);
+        MoveJ(calculateTransformation(GenerateCircle(0.05,0.05)), 0.5, 0.25);
     }
     else
-        MoveJ(Generate(), 0.5, 0.25);
+    {
+        MoveJ(GenerateCircle(0.4,0,0), 0.5, 0.25);
+    }
     current_timestamp = 0;
 }
 
@@ -133,8 +137,8 @@ void UR3Intermediator::setController(cControl *value)
 
 void UR3Intermediator::Execute(QString command)
 {
-    qDebug()<<"Eceute: "<<command;
-    cmds.pop_front();
+    qDebug()<<"Execute: "<<command;
+
     _socket->write(command.toLatin1().data());
     _socket->waitForBytesWritten();
 
@@ -151,6 +155,7 @@ void UR3Intermediator::Servoc(QVector<double> pose, double acceleration, double 
             QString::number(pose[5]) + "], " +
             "a=" + QString::number(acceleration)+ ", " +
             "v=" + QString::number(speed)+ ")\n";
+    qDebug()<<command;
     if(cmds.length()>0)
         cmds.push_back(command);
     else
@@ -179,12 +184,19 @@ void UR3Intermediator::MoveL(QVector<double> TargetPose, double toolAcceleration
             "t=" + QString::number(time)+", "+
             "r=" + QString::number(blendRadius)+
             ")\n";
-    cmds.push_back(command);
-    //      _socket->write(command.toLatin1().data());
-    //       _socket->waitForBytesWritten();
-    _moveLTargetPose = TargetPose;
-    _running = true;
-    // }
+    if(!CheckIfRunning())
+    {
+        _socket->write(command.toLatin1().data());
+        _socket->waitForBytesWritten();
+        _running = true;
+        _moveJTargetPos = TargetPose;
+    }
+    else
+    {
+        cmds.push_back(command);
+        _running = true;
+        _moveJTargetPos = TargetPose;
+    }
 
 }
 
@@ -204,10 +216,10 @@ void UR3Intermediator::MoveJ(QVector<double> JointPosition, double JointAccelera
                 QString::number(JointPosition[5]) + "], " +
                 "a=" + QString::number(JointAcceleration)+ ", " +
                 "v=" + QString::number(JointSpeed)+ ")\n";
-
+        qDebug()<<command;
         //        _socket->write(command.toLatin1().data());
         //        _socket->waitForBytesWritten();
-        qDebug()<<command;
+        //    qDebug()<<command;
         if(!CheckIfRunning())
         {
             _socket->write(command.toLatin1().data());
@@ -283,48 +295,55 @@ void UR3Intermediator::timerEvent(QTimerEvent *event)
                 baner_servoc = UR3Intermediator::GENERATE_ON;
             }
         }
+        if(banner_moveL == UR3Intermediator::GENERATE_MOVING2INITIAL_POSE_MOVEL)
+        {
+            if(!CheckIfRunning())
+            {
+                banner_moveL = UR3Intermediator::GENERATE_ON_MOVEL;
+            }
+        }
+
+
         if(cmds.length()>0)//&&!ActualRobotInfo.robotModeData.getIsProgramRunning();
         {
+            qDebug()<<"nast zadanie";
             //dodac Qmesseage gdzie chce koncowka dojsc i gdzie dochodzi, dop. po tym mozna przejsc do nast kroku
+            Execute(cmds[0]);
+            cmds.pop_front();
+        }
+        if(timerflag)
+        {
 
-            if(timerflag)
+            if (NextStep)
             {
-
-                if (NextStep)
-                {
-                    if (banner)
-                        Tracking();
-                    if (baner_servoc == UR3Intermediator::GENERATE_ON)
-                        TrackingServoc();
-                    if (banner_moveL)
-                    {
-                        TrackingMoveL();
-                    }
-                    Execute(cmds[0]);
-                    /*  QString command = cmds[0];
-                        cmds.pop_front();
-                        _socket->write(command.toLatin1().data());
-                        _socket->waitForBytesWritten();*/
-
-
-
-                    NextStep = 0;
-                }
-            }
-            else
-            {
-
                 if (banner)
                     Tracking();
                 if (baner_servoc == UR3Intermediator::GENERATE_ON)
                     TrackingServoc();
-                if (banner_moveL)
+                if (banner_moveL == UR3Intermediator::GENERATE_ON_MOVEL)
                 {
                     TrackingMoveL();
                 }
-                Execute(cmds[0]);
+                // Execute(cmds[0]);
+
+                NextStep = 0;
             }
         }
+        else
+        {
+
+            if (banner)
+                Tracking();
+            if (baner_servoc == UR3Intermediator::GENERATE_ON)
+            {
+                TrackingServoc();
+            }
+            if (banner_moveL == UR3Intermediator::GENERATE_ON_MOVEL)
+            {
+                TrackingMoveL();
+            }
+        }
+
     }
 }
 
@@ -405,7 +424,7 @@ void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> sel
     _socket->waitForBytesWritten();
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), Controller(NULL), ForceModeFlag(0)
+UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), Controller(NULL), ForceModeFlag(0), useTransformation(0),timerflag(0),banner(0),banner_moveL(UR3Intermediator::GENERATE_IDLE_MOVEL), baner_servoc(UR3Intermediator::GENERATE_IDLE)
 {
 
     this->_socket = new QTcpSocket();
@@ -421,7 +440,7 @@ UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(300
 
 }
 
-UR3Intermediator::UR3Intermediator(QString ipAddress, int port):_connected(false), _running(false),Port(port),IpAddress(ipAddress), Controller(NULL)
+UR3Intermediator::UR3Intermediator(QString ipAddress, int port):_connected(false), _running(false),Port(port),IpAddress(ipAddress), Controller(NULL), useTransformation(0), timerflag(0), banner(0),banner_moveL(UR3Intermediator::GENERATE_IDLE_MOVEL), baner_servoc(UR3Intermediator::GENERATE_IDLE)
 {
     this->_socket = new QTcpSocket();
     this->_lastJointPos.resize(6);
@@ -529,19 +548,19 @@ void UR3Intermediator::GetRobotData()
         {
             QTime t = QTime::currentTime();
             Controller->update(&ActualRobotInfo, t);
-                QString cmd = Controller->getControl(t);
-                if(cmds.length()>0)
-                {
-                    cmds.push_back(cmd);
-                    QTimerEvent * event;
-                    timerEvent(event);
-                }
+            QString cmd = Controller->getControl(t);
+            if(cmds.length()>0)
+            {
+                cmds.push_back(cmd);
+                QTimerEvent * event;
+                timerEvent(event);
+            }
 
-                else
-                {
-                    _socket->write(cmd.toLatin1().data());
-                    _socket->waitForBytesWritten();
-                }
+            else
+            {
+                _socket->write(cmd.toLatin1().data());
+                _socket->waitForBytesWritten();
+            }
 
         }
         _DataFlow.clear(); // TODO: NIE WIADOMO JAKIE DANE SA KASOWANE; ROZWIĄZANIE PROWIZORYCZNE
@@ -549,9 +568,9 @@ void UR3Intermediator::GetRobotData()
     // }
 }
 
-void UR3Intermediator::SetBios()
+void UR3Intermediator::SetBias()
 {
-    Controller->setBios(&ActualRobotInfo);
+    Controller->setBias(&ActualRobotInfo);
 }
 
 bool UR3Intermediator::CheckIfRunning()
@@ -726,7 +745,7 @@ void UR3Intermediator::RealTime(unsigned int &offset)
     //QTargetJointsVelocities TargetJointsVelocities;
     //QTargetJointsTorques TargetJointsTorques;
     //QActualJointsPositions ActualJointsPositions;
-   
+
     QActualJointsCurrents ActualJointsCurrents;
     //QTargetCartesianCoordinatesTCP TargetCartesianCoordinatesTCP;
     //QRobotMode RobotMode;

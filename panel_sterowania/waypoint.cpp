@@ -4,7 +4,7 @@
 #include<qDebug>
 WayPoint::WayPoint(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::WayPoint), M(new Macierz)
+    ui(new Ui::WayPoint), M(new Macierz), plFlag(0),flaga(0)
 {
     ui->setupUi(this);
     //connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(selectSettings(QVector<double>&)));

@@ -26,13 +26,13 @@ class UR3Intermediator: public QObject
 
 public:
 
-
+    bool CheckIfRunning();
     void MoveToInitialPoint();
     void SaveToFile(double x, double y, double z, double rx, double ry, double rz, double fx, double fy, double fz);     //aktualny czas, położenie, kąty, siły
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
     bool banner;
     enum {GENERATE_IDLE=0,GENERATE_MOVING2INITIAL_POSE=2,GENERATE_ON=1} baner_servoc;
-    bool banner_moveL;
+    enum {GENERATE_IDLE_MOVEL=0,GENERATE_MOVING2INITIAL_POSE_MOVEL=2,GENERATE_ON_MOVEL=1} banner_moveL;
     bool timerflag;
     bool NextStep;
     bool useTransformation;
@@ -111,7 +111,7 @@ public:
     QString getIpAddress() const;
     void setIpAddress(const QString &value);
 
-    QVector <double> Generate();
+    QVector <double> GenerateCircle(double x0=0, double y0=0, double z0=0);
     QVector<double> resize_generate_vector();
 
     void setTransformation(QVector<QVector<double> > v);
@@ -123,7 +123,7 @@ public:
     void setController(cControl *value);
 
 
-    void SetBios();
+    void SetBias();
     bool ForceModeFlag;
 
 
@@ -167,7 +167,6 @@ private:
     void TrackingServoc();
     void TrackingMoveL();
     void CheckForceChanged();
-    bool CheckIfRunning();
     void CheckJointsPosChanged();
     void CheckPolozenieChanged();
     void GetRobotData();
