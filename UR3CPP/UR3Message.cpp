@@ -106,9 +106,9 @@ void UR3Message::setForceModeData(char *data, unsigned int offset)
     parseDouble(this->forceModeData, FX, double,  data, offset);
     parseDouble(this->forceModeData, FY, double,  data, offset);
     parseDouble(this->forceModeData, FZ, double,  data, offset);
-    parseDouble(this->forceModeData, Rx, double,  data, offset);
-    parseDouble(this->forceModeData, Ry, double,  data, offset);
-    parseDouble(this->forceModeData, Rz, double,  data, offset);
+    parseDouble(this->forceModeData, Tx, double,  data, offset);
+    parseDouble(this->forceModeData, Ty, double,  data, offset);
+    parseDouble(this->forceModeData, Tz, double,  data, offset);
 
   /*  memcpy(&tmp,&data[offset], sizeof(tmp));
     this->forceModeData.setFX(doubleSwap(tmp));
@@ -1215,6 +1215,36 @@ void ConfigurationData::setJointMinLimit(double value)
     jointMinLimit = value;
 }
 
+double ForceModeData::getTx() const
+{
+    return tx;
+}
+
+void ForceModeData::setTx(double value)
+{
+    tx = value;
+}
+
+double ForceModeData::getTy() const
+{
+    return ty;
+}
+
+void ForceModeData::setTy(double value)
+{
+    ty = value;
+}
+
+double ForceModeData::getTz() const
+{
+    return tz;
+}
+
+void ForceModeData::setTz(double value)
+{
+    tz = value;
+}
+
 ForceModeData::ForceModeData()
 {
 
@@ -1253,36 +1283,6 @@ double ForceModeData::getFZ() const
 void ForceModeData::setFZ(double value)
 {
     fz = value;
-}
-
-double ForceModeData::getRx() const
-{
-    return rx;
-}
-
-void ForceModeData::setRx(double value)
-{
-    rx = value;
-}
-
-double ForceModeData::getRy() const
-{
-    return ry;
-}
-
-void ForceModeData::setRy(double value)
-{
-    ry = value;
-}
-
-double ForceModeData::getRz() const
-{
-    return rz;
-}
-
-void ForceModeData::setRz(double value)
-{
-    rz = value;
 }
 
 double ForceModeData::getRobotDexterity() const
@@ -1603,126 +1603,6 @@ double QActualJointsCurrents::getCurrent6() const
 void QActualJointsCurrents::setCurrent6(double value)
 {
     current6 = value;
-}
-
-double QActualCartesianCoordinatesTCP::getX() const
-{
-    return x;
-}
-
-void QActualCartesianCoordinatesTCP::setX(double value)
-{
-    x = value;
-}
-
-double QActualCartesianCoordinatesTCP::getY() const
-{
-    return y;
-}
-
-void QActualCartesianCoordinatesTCP::setY(double value)
-{
-    y = value;
-}
-
-double QActualCartesianCoordinatesTCP::getZ() const
-{
-    return z;
-}
-
-void QActualCartesianCoordinatesTCP::setZ(double value)
-{
-    z = value;
-}
-
-double QActualCartesianCoordinatesTCP::getRx() const
-{
-    return rx;
-}
-
-void QActualCartesianCoordinatesTCP::setRx(double value)
-{
-    rx = value;
-}
-
-double QActualCartesianCoordinatesTCP::getRy() const
-{
-    return ry;
-}
-
-void QActualCartesianCoordinatesTCP::setRy(double value)
-{
-    ry = value;
-}
-
-double QActualCartesianCoordinatesTCP::getRz() const
-{
-    return rz;
-}
-
-void QActualCartesianCoordinatesTCP::setRz(double value)
-{
-    rz = value;
-}
-
-double QTCPForces::getFx() const
-{
-    return Fx;
-}
-
-void QTCPForces::setFx(double value)
-{
-    Fx = value;
-}
-
-double QTCPForces::getFy() const
-{
-    return Fy;
-}
-
-void QTCPForces::setFy(double value)
-{
-    Fy = value;
-}
-
-double QTCPForces::getFz() const
-{
-    return Fz;
-}
-
-void QTCPForces::setFz(double value)
-{
-    Fz = value;
-}
-
-double QTCPForces::getTx() const
-{
-    return Tx;
-}
-
-void QTCPForces::setTx(double value)
-{
-    Tx = value;
-}
-
-double QTCPForces::getTy() const
-{
-    return Ty;
-}
-
-void QTCPForces::setTy(double value)
-{
-    Ty = value;
-}
-
-double QTCPForces::getTz() const
-{
-    return Tz;
-}
-
-void QTCPForces::setTz(double value)
-{
-    Tz = value;
 }
 
 double QTargetCartesianCoordinatesTCP::getX() const

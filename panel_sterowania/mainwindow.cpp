@@ -7,7 +7,7 @@
 #define _USE_MATH_DEFINE
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),settings(new Settings("settings.ini", this)), ur3(new UR3Intermediator), wp(new WayPoint), log(new cLogger),//ur3(new UR3Intermediator(this)), wp(new WayPoint(this)), log(new cLogger(this)),
+    QMainWindow(parent),settings(new Settings("settings.ini", this)), ur3(new UR3Intermediator), wp(new WayPoint), log(new cLogger), //ur3(new UR3Intermediator(this)), wp(new WayPoint(this)), log(new cLogger(this)),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -28,13 +28,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->checkBox_Servoc,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxServoc(bool)));
     connect(this->ui->checkBox_stepWorking,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxStepWorking(bool)));
     connect(this->ui->pushButton_NextStep,SIGNAL(clicked(bool)),this,SLOT(onNextStep()));
+    connect(this->ui->checkBox_SetBios,SIGNAL(toggled(bool)),this,SLOT(onCheckBoxSetBios()));
 
     connect(ui->actionRozpocznij, SIGNAL(triggered(bool)), this,SLOT(SaveFile()));
     connect(ui->actionPlik, SIGNAL(triggered(bool)), this,SLOT(OpenFile()));
     connect(ui->actionZakoncz, SIGNAL(triggered(bool)), this,SLOT(CloseFile()));
     //connect(this->ui->actionParameters, SIGNAL(triggered(bool)), this, SLOT(showWayPoint()));
     connect(this->ui->actionPlane_Callibration, SIGNAL(triggered(bool)),this,SLOT(showPlaneCallibration()));
-
+    controllerFTWC = new cControlFTWC();
+  //  controllerPI = new cProportionalIntegralController();
+    ur3->setController(controllerFTWC);
     ur3->ConnectToRobot();
     settings->read(ur3);
 
@@ -47,8 +50,15 @@ MainWindow::~MainWindow()
     delete log;
     delete wp;
     delete ur3;
+    delete controllerFTWC;
     delete ui;
 }
+
+void MainWindow::onCheckBoxSetBios()
+{
+    ur3->SetBios();
+}
+
 void MainWindow::on_actionParameters_triggered()
 {
     wp->exec();
@@ -216,8 +226,8 @@ void MainWindow::OnMoveJ()
 {
     //  if (ui->checkBox_moveJ->isChecked())
     //  {
+    // this->ur3->MoveJ(QVector <double> ({0.400, 0.050, 0/1000,  2.6, 1.7, 0.007}), 1, 1);
     this->ur3->MoveJ(QVector <double> ({0.400, 0.050, 0/1000,  2.6, 1.7, 0.007}), 1, 1);
-
     /* }
     else
     {
@@ -241,7 +251,7 @@ void MainWindow::OnSpeedJ()
 
 void MainWindow::OnForceMode()
 {
-    if(wp->getV() > 0&& wp->getA() > 0)
+    /*  if(wp->getV() > 0&& wp->getA() > 0)
         this->ur3->ForceMode(QVector<double>({0,0,0,0,0,0}),
                              QVector<double>({1,0,1,0,0,0}),
                              QVector<double>({10,0,0,0,0,0}),
@@ -258,7 +268,11 @@ void MainWindow::OnForceMode()
                          1,
                          QVector<double>({0.1, 0.1,0.15, 0.35, 0.35, 0.35}),
                          QVector<double>({wp->getWx(), wp->getWy(),wp->getWz(),wp->getWrx(),
-                                          wp->getWy(), wp->getWz()}), 1, 1);
+                                          wp->getWy(), wp->getWz()}), 1, 1);*/
+    if (!ur3->ForceModeFlag)
+        ur3->ForceModeFlag = 1;
+    else
+        ur3->ForceModeFlag = 0;
 
 }
 

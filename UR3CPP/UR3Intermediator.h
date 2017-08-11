@@ -14,19 +14,19 @@
 #include <QFile>
 #include <QTextStream>
 #include <QElapsedTimer>
+#include "ccontrol.h"
 
 using namespace std;
-
+/**
+ * @brief The UR3Intermediator class
+ *
+ */
 class UR3Intermediator: public QObject
 {
     Q_OBJECT
 
 public:
-    /*  explicit UR3Intermediator( QObject *parent = 0);
-    ~UR3Intermediator();*/
-    //  QElapsedTimer timer;
 
-    void SaveToFile(double x, double y, double z, double rx, double ry, double rz, double fx, double fy, double fz);     //aktualny czas, położenie, kąty, siły
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
     bool banner;
     bool baner_servoc;
@@ -107,22 +107,31 @@ public:
 
     QString getIpAddress() const;
     void setIpAddress(const QString &value);
+
     QVector <double> Generate();
+    /**
+     * @brief setController
+     * @param value
+     */
+    void setController(cControl *value);
+
+
+    void SetBios();
+    bool ForceModeFlag;
 
 signals:
     //umieszczone w jednym sygnale, dwa sygnaly z argumentami qvector crashuja aplikacje, najprawdopdobniej blad mingw 4.9.2
-    void newPoseTCP(QVector<double> x, char flag);  /*!< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp  */
+    void newPoseTCP(QVector<double> x, char flag);  //< Sygnal przekazujacy TCP albo pose jointwo, w zaleznosci od flagi, 'p' - pose, 't' - tcp
     void ConnectionAction(char* Ip,bool Result);
     void newLog(int devId, char id, QVector <double> vec);
     void DisconnectAction(bool Result);
 
 private:
-    QVector <int> t {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int it;
     //Fields
     QElapsedTimer timerrr;
     bool _running;
-    QVector<double> _moveJTargetPos;
+    QVector<double> _moveJTargetPos;//< opis pola
     QVector<double> _moveLTargetPose;
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
@@ -140,8 +149,10 @@ private:
     QByteArray _DataFlow;
     QTcpSocket* _socket;
     bool _connected;
+    cControl * Controller;
 
     //Methods
+    void Execute(QString command);
     void Tracking();
     void TrackingServoc();
     void TrackingMoveL();
@@ -166,6 +177,8 @@ private slots:
 public slots:
     void OnTcpChanged();
     void OnSocketNewBytesWritten();
+
+
 private:
     QMutex mutex;
     QVector<QString> cmds;

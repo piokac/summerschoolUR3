@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>454</width>
     <height>300</height>
    </rect>
   </property>
@@ -15,16 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_Fx"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>TORQUE X:</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="3">
      <widget class="QLineEdit" name="lineEdit_Tx"/>
     </item>
@@ -35,13 +25,6 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="3">
-     <widget class="QPushButton" name="pushButton_SpeedJ">
-      <property name="text">
-       <string>SpeedJ</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
@@ -49,8 +32,25 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>TORQUE X:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QPushButton" name="pushButton_SpeedJ">
+      <property name="text">
+       <string>SpeedJ</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="1">
      <widget class="QLineEdit" name="lineEdit_Fy"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="lineEdit_Fx"/>
     </item>
     <item row="3" column="2">
      <widget class="QLabel" name="label_6">
@@ -62,17 +62,10 @@
     <item row="3" column="1">
      <widget class="QLineEdit" name="lineEdit_Fz"/>
     </item>
-    <item row="5" column="3">
-     <widget class="QPushButton" name="pushButton_ForceMode">
+    <item row="8" column="1">
+     <widget class="QPushButton" name="pushButton_Home">
       <property name="text">
-       <string>ForceMode</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>TORQUE Y:</string>
+       <string>HOME</string>
       </property>
      </widget>
     </item>
@@ -89,37 +82,12 @@
     <item row="3" column="3">
      <widget class="QLineEdit" name="lineEdit_Tz"/>
     </item>
-    <item row="7" column="1">
-     <widget class="QPushButton" name="pushButton_Home">
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_5">
       <property name="text">
-       <string>HOME</string>
+       <string>TORQUE Y:</string>
       </property>
      </widget>
-    </item>
-    <item row="0" column="0" colspan="4">
-     <widget class="QLineEdit" name="lineEdit_Connection">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QPushButton" name="pushButton_Servoc">
-        <property name="text">
-         <string>Servoc</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox_Servoc">
-        <property name="text">
-         <string>Tracking</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
     <item row="4" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -139,7 +107,32 @@
       </item>
      </layout>
     </item>
-    <item row="7" column="3">
+    <item row="6" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_Servoc">
+        <property name="text">
+         <string>Servoc</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_Servoc">
+        <property name="text">
+         <string>Tracking</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0" colspan="4">
+     <widget class="QLineEdit" name="lineEdit_Connection">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="3">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QCheckBox" name="checkBox_stepWorking">
@@ -157,7 +150,25 @@
       </item>
      </layout>
     </item>
-    <item row="6" column="1">
+    <item row="6" column="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QPushButton" name="pushButton_ForceMode">
+        <property name="text">
+         <string>ForceMode</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_SetBios">
+        <property name="text">
+         <string>Set bios</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="7" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QPushButton" name="pushButton_MoveL">
@@ -182,7 +193,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>454</width>
      <height>21</height>
     </rect>
    </property>
