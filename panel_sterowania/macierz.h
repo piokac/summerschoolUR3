@@ -14,7 +14,7 @@ class Macierz : public QObject
 public:
     explicit Macierz(QObject *parent = nullptr);
     /**
-     * @brief setH - ustawia macierz transformacji na podstawie macierzy rotacji i wektora translacji
+     * @brief setH - ustawianie macierzy transformacji na podstawie macierzy rotacji i wektora translacji
      * @param x - pierwsza kolumna macierzy rotacji blokowo należącej do macierzy transformacji
      * @param y - druga kolumna macierzy rotacji blokowo należącej do macierzy transformacji
      * @param z - trzecia kolumna macierzy rotacji blokowo należącej do macierzy transformacji
@@ -23,7 +23,7 @@ public:
      */
     QVector<QVector<double> >setH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
     /**
-     * @brief setInvH - ustawia macierz odwrotną transformacji
+     * @brief setInvH - ustawianie macierzy odwrotną transformacji
      * @param x - pierwsza kolumna macierzy rotacji blokowo należącej do macierzy transformacji
      * @param y - druga kolumna macierzy rotacji blokowo należącej do macierzy transformacji
      * @param z - trzecia kolumna macierzy rotacji blokowo należącej do macierzy transformacji
@@ -32,25 +32,25 @@ public:
      */
     QVector<QVector<double>> setInvH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans);
     /**
-     * @brief mul - wyznacza iloczyn macierzy transformacji i wektora
+     * @brief mul - wyznaczanie iloczynu macierzy transformacji i wektora
      * @param v2
      * @return
      */
     QVector<double> mul( QVector<double> v2);
     /**
-     * @brief inv_mul - wyznacza iloczyn macierzy odwrotnej transformacji i wektora
+     * @brief inv_mul - wyznaczanie iloczynu macierzy odwrotnej transformacji i wektora
      * @param v
      * @return
      */
     QVector<double> inv_mul(const QVector<double>& v);
     /**
-     * @brief mulM - wyznacza iloczyn macierzy transformacji i innej macierzy (zbioru punktów)
+     * @brief mulM - wyznaczanie iloczynu macierzy transformacji i innej macierzy (zbioru punktów)
      * @param v2
      * @return
      */
     QVector<QVector<double>> mulM( QVector<QVector<double>> v2);
     /**
-     * @brief setUnitMatrix - ustawia macierz jako jednostkową
+     * @brief setUnitMatrix - ustawianie macierzy jako jednostkowej
      * @param H
      */
     void setUnitMatrix(QVector<QVector<double>> H);
@@ -66,8 +66,8 @@ signals:
 public slots:
 
 private:
-    QVector<QVector<double>>Matrix;
-    QVector<QVector<double>>invMatrix;
+    QVector<QVector<double>>Matrix;/*!<macierz transformacji*/
+    QVector<QVector<double>>invMatrix;/*!<macierz odwrotna transformacji*/
 };
 
 #endif // MACIERZ_H

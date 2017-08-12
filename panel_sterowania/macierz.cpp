@@ -2,6 +2,7 @@
 
 Macierz::Macierz(QObject *parent) : QObject(parent)
 {
+
     setUnitMatrix(invMatrix);
     setUnitMatrix(Matrix);
 }

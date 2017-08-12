@@ -3,7 +3,7 @@
 
 PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : QObject(parent)/*, wp(new WayPoint)*/, M(new Macierz)
 {
-    connect(_ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
+    //connect(_ur3,SIGNAL(newPoseTCP(QVector<double> ,char )), this,SLOT(newPose(QVector<double> ,char)));
     ur3=_ur3;
 }
 
@@ -147,10 +147,10 @@ void PlaneCallibration::run_callibration(WayPoint *w, UR3Intermediator *u)
                 w->setInvTransformation(M->getInvMatrix());
                 u->useTransformation=1;
                 u->setTransformation(M->getMatrix());
-                if(w->exec()==QDialog::Accepted)
+                /*if(w->exec()==QDialog::Accepted)
                 {
 
-                }
+                }*/
             }
         }
     }
@@ -159,9 +159,9 @@ void PlaneCallibration::run_callibration(WayPoint *w, UR3Intermediator *u)
 void PlaneCallibration::setTrans(const QVector<double> &value)
 {
     trans.resize(value.size());
-    trans[0] = value[0]/1000.0;
-    trans[1] = value[1]/1000.0;
-    trans[2] = value[2]/1000.0;
+    trans[0] = value[0];
+    trans[1] = value[1];
+    trans[2] = value[2];
     trans[3]=1;
 }
 

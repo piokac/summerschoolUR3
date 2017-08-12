@@ -84,7 +84,14 @@ QVector<double> UR3Intermediator::calculateTransformation(const QVector<double>&
 
 void UR3Intermediator::Tracking()
 {
-    MoveJ(GenerateCircle(0.4,0,0), 1, 1);
+    if(useTransformation)
+    {
+        MoveJ(calculateTransformation(GenerateCircle(0.030,0.050,0)), 0.1, 0.05);
+    }
+    else
+    {
+        MoveJ(GenerateCircle(0.4,0,0), 0.1, 0.05);
+    }
 
 }
 
@@ -92,7 +99,7 @@ void UR3Intermediator::TrackingServoc()
 {
     if(useTransformation)
     {
-        Servoc(calculateTransformation(GenerateCircle(0.050,0.050,0)), 0.1, 0.05);
+        Servoc(calculateTransformation(GenerateCircle(0.50,0.50,0)), 0.1, 0.05);
     }
     else
     {
@@ -107,9 +114,9 @@ void UR3Intermediator::TrackingMoveL()
 
 QVector<double> UR3Intermediator::GenerateCircle(double x0, double y0, double z0)
 {
-    double f = .2, Ax = 50/1000.0, Ay = 50/1000.0, Az = 1/1000.0;
+    double f = 0.1, Ax = 200/1000.0, Ay = 200/1000.0, Az = 1/1000.0;
 
-    QVector <double> sinj {x0+(Ax * qSin(2 * M_PI * f * current_timestamp / 10.0)), (y0+Ay * qCos(2 * M_PI * f * current_timestamp / 10.0)), z0+Az * 0, 2.6, 1.7, 0.007};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
+    QVector <double> sinj {x0+(Ax * qSin(2 * M_PI * f * current_timestamp / 10.0)), y0+(Ay * qCos(2 * M_PI * f * current_timestamp / 10.0)), z0+Az * 0, 2.6, 1.7, 0.007};// qrand() % ((180 + 1) - (-180)) + (-180), qrand() % ((180 + 1) - (-180)) + (-180)};
     //  qDebug()<<"Generate(): "<<Ax * qSin(2 * M_PI * f * t[0] / 10.0)<<" "<<Ay * qCos(2 * M_PI * f * t[0] / 10.0)<<" "<<Az * 0<< " "<<" 0 0 0 ";
     current_timestamp++;
     return sinj;
@@ -124,7 +131,7 @@ void UR3Intermediator::MoveToInitialPoint()
     }
     else
     {
-        MoveJ(GenerateCircle(0.4,0,0), 0.5, 0.25);
+        MoveJ(GenerateCircle(0.4,0,0), 0.3, 0.25);
     }
     current_timestamp = 0;
 }
@@ -424,9 +431,8 @@ void UR3Intermediator::ForceMode(QVector<double> task_frame, QVector<double> sel
     _socket->waitForBytesWritten();
 }
 
-UR3Intermediator::UR3Intermediator():_connected(false), _running(false),Port(30002),IpAddress("192.168.149.128"), Controller(NULL), ForceModeFlag(0), useTransformation(0),timerflag(0),banner(0),banner_moveL(UR3Intermediator::GENERATE_IDLE_MOVEL), baner_servoc(UR3Intermediator::GENERATE_IDLE)
+UR3Intermediator::UR3Intermediator():_connected(false),M(new Macierz), _running(false),Port(30002),IpAddress("192.168.149.128"), Controller(NULL), ForceModeFlag(0), useTransformation(0),timerflag(0),banner(0),banner_moveL(UR3Intermediator::GENERATE_IDLE_MOVEL), baner_servoc(UR3Intermediator::GENERATE_IDLE)
 {
-
     this->_socket = new QTcpSocket();
     this->_lastJointPos.resize(6);
     this->_lastJointPos.fill(.0);

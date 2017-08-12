@@ -18,6 +18,8 @@
 #include "ccontrol.h"
 
 
+
+
 using namespace std;
 
 class UR3Intermediator: public QObject
