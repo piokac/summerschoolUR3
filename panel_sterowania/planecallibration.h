@@ -118,8 +118,8 @@ signals:
 public slots:
     /**
      * @brief run_callibration - procedura kalibracji
-     * @param w
-     * @param u
+     * @param w - okienko klasy Waypoint wykorzystywane do kalibracji
+     * @param u - wysyłanie danych po kalibracji do klasy UR3Intermediator
      */
     void run_callibration(WayPoint *w, UR3Intermediator *u);
 

@@ -106,15 +106,7 @@ void WayPoint::setV(double value)
     value = ui->lineEdit_Wv->text().toDouble();
     V = value;
 }
-void WayPoint::selectSettings(QVector<double> &v_punkt)
-{
-    v_punkt.push_back(ui->lineEdit_Wx->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Wy->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Wz->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Wrx->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Wry->text().toDouble());
-    v_punkt.push_back(ui->lineEdit_Wrz->text().toDouble());
-}
+
 
 void WayPoint::PushButtonData(QVector<double> data)
 {
@@ -197,12 +189,14 @@ void WayPoint::setInvTransformation(QVector<QVector<double> > v)
 
 void WayPoint::on_pushButton_Ap_pressed()
 {
+    qDebug()<<"void WayPoint::on_pushButton_Ap_pressed()";
     flaga = 1;
 
 }
 
 void WayPoint::on_pushButton_cc_clicked()
 {
+    qDebug()<<"void WayPoint::on_pushButton_cc_clicked()";
     plFlag = 1;
 
 }
