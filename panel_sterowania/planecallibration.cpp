@@ -7,14 +7,6 @@ PlaneCallibration::PlaneCallibration(UR3Intermediator* _ur3, QObject *parent) : 
     ur3=_ur3;
 }
 
-void PlaneCallibration::wypisz_wektor(QVector<double> v)
-{
-    for(int i=0;i<v.size();i++)
-    {
-        qDebug()<<"  "<<i<<"  "<<v[i];
-    }
-}
-
 QVector<double> PlaneCallibration::minus(QVector<double> p1, QVector<double> p2)
 {
     QVector<double> p;
@@ -55,15 +47,6 @@ QVector<double> PlaneCallibration::cross(QVector<double> p1, QVector<double> p2)
     p.push_back(p1[2]*p2[0]-p1[0]*p2[2]);
     p.push_back(p1[0]*p2[1]-p1[1]*p2[0]);
     return p;
-}
-
-PlaneCallibration::newPose(QVector<double> x, char flag)
-{
-    if(flag=='t')
-    {
-        //wp->setPose(x);
-        //wp->PushButtonData(x);
-    }
 }
 
 QVector<double> PlaneCallibration::calculateTransformation(const QVector<double>& p)

@@ -28,13 +28,12 @@ public:
 
     bool CheckIfRunning();
     void MoveToInitialPoint();
-    void SaveToFile(double x, double y, double z, double rx, double ry, double rz, double fx, double fy, double fz);     //aktualny czas, położenie, kąty, siły
     void MoveToPoint(QVector<double> q,double JointAcceleration= 1.0, double JointSpeed = 0.1);
-    bool banner;
-    enum {GENERATE_IDLE=0,GENERATE_MOVING2INITIAL_POSE=2,GENERATE_ON=1} baner_servoc;
-    enum {GENERATE_IDLE_MOVEL=0,GENERATE_MOVING2INITIAL_POSE_MOVEL=2,GENERATE_ON_MOVEL=1} banner_moveL;
-    bool timerflag;
-    bool NextStep;
+    bool banner; //< flaga włączająca Tracking()
+    enum {GENERATE_IDLE=0,GENERATE_MOVING2INITIAL_POSE=2,GENERATE_ON=1} baner_servoc; //< enumerator włączający TrackingMoveP()
+    enum {GENERATE_IDLE_MOVEL=0,GENERATE_MOVING2INITIAL_POSE_MOVEL=2,GENERATE_ON_MOVEL=1} banner_moveL; //< enumerator włączający TRackingMoveL()
+    bool timerflag; //< Flaga włączająca / wyłączająca tryb krokowy
+    bool NextStep; //< Następny krok w trybie krokowym
     bool useTransformation;
     /**
      * @brief ConnectToRobot - próbuje połączyć się z robotem na podstawie aktualnego ip i portu podanego w konstruktorze
@@ -122,9 +121,11 @@ public:
     QVector<double> calculateTransformation(const QVector<double>& p);
     void setController(cControl *value);
 
-
+    /**
+     * @brief SetBias - Ustawienie błędu dla regulatorów
+     */
     void SetBias();
-    bool ForceModeFlag;
+    bool ForceModeFlag; //< flaga służąca do przejścia w tryb sił
 
 
 signals:
@@ -135,9 +136,9 @@ signals:
     void DisconnectAction(bool Result);
 
 private:
-    int current_timestamp;// {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    //int it;
+
     //Fields
+    int current_timestamp; //< Licznik slużący do rysowania koła
     QElapsedTimer timerrr;
     bool _running;
     QVector<double> _moveJTargetPos;//< opis pola
@@ -145,7 +146,7 @@ private:
     QVector<double> _lastJointPos;
     QVector<double> _lastPolozenie;
     QVector<double> _lastForceValue;
-    QString SaveFileName;
+    QString SaveFileName; //< Ścieżka do pliku
     QVector<double> rotationVector;
 
     Q_PROPERTY(int PortTCP READ getPort WRITE setPort USER true)
@@ -163,8 +164,17 @@ private:
 
     //Methods
     void Execute(QString command);
+    /**
+     * @brief Tracking - Tryb śledzenia dla MoveJ
+     */
     void Tracking();
+    /**
+     * @brief TrackingServoc - Tryb śledzenia dla MoveP
+     */
     void TrackingServoc();
+    /**
+     * @brief TrackingMoveL - Tryb śledzenia dla MoveL
+     */
     void TrackingMoveL();
     void CheckForceChanged();
     void CheckJointsPosChanged();
@@ -176,7 +186,10 @@ private:
     //void RealTime(char * data, unsigned int &offset, int size);
     void RealTime(unsigned int &offset);
 
-
+    /**
+     * @brief timerEvent - Timer, który cyklicznie wysyła zadanka do robota
+     * @param event
+     */
     void timerEvent(QTimerEvent *event);
 
 private slots:

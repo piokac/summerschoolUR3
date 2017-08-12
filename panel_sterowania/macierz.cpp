@@ -2,9 +2,8 @@
 
 Macierz::Macierz(QObject *parent) : QObject(parent)
 {
-    //setH({1,0,0},{0,1,0},{0,0,1},{0,0,0});
-    setUnitMatrix(invMatrix,{1,0,0},{0,1,0},{0,0,1},{0,0,0});
-    setUnitMatrix(Matrix,{1,0,0},{0,1,0},{0,0,1},{0,0,0});
+    setUnitMatrix(invMatrix);
+    setUnitMatrix(Matrix);
 }
 
 QVector<QVector<double>> Macierz::setH(QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans)
@@ -155,12 +154,32 @@ QVector<QVector<double>> Macierz::mulM(QVector<QVector<double> > v2)
         return macierz_wynikowa;
 }
 
-void Macierz::setUnitMatrix(QVector<QVector<double>> H, QVector<double> x, QVector<double> y, QVector<double> z, QVector<double> trans)
+void Macierz::setUnitMatrix(QVector<QVector<double>> H)
 {
+    QVector<double>x;
+    QVector<double>y;
+    QVector<double>z;
+    QVector<double>trans;
+
+    x.push_back(1);
     x.push_back(0);
-    y.push_back(0);
-    z.push_back(0);
-    trans.push_back(1);
+    x.push_back(0);
+    x.push_back(0);
+
+    x.push_back(0);
+    x.push_back(1);
+    x.push_back(0);
+    x.push_back(0);
+
+    x.push_back(0);
+    x.push_back(0);
+    x.push_back(1);
+    x.push_back(0);
+
+    x.push_back(0);
+    x.push_back(0);
+    x.push_back(0);
+    x.push_back(1);
 
     H.clear();
 
